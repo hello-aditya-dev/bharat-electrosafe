@@ -1,0 +1,65 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 460" width="100%" height="100%" preserveAspectRatio="xMidYMid slice" role="img" aria-label="Map preview of Bharat Electrosafe office in Sector 62, Noida">
+  <rect x="0" y="0" width="800" height="460" fill="#FFFDF3"/>
+  <g opacity="1">
+    <rect x="40" y="40" width="130" height="95" fill="#FFFEF9" stroke="#ECEBE5" stroke-width="1" rx="4"/>
+    <rect x="185" y="40" width="130" height="95" fill="#FFFEF9" stroke="#ECEBE5" stroke-width="1" rx="4"/>
+    <rect x="330" y="40" width="130" height="95" fill="#FFFEF9" stroke="#ECEBE5" stroke-width="1" rx="4"/>
+    <rect x="475" y="40" width="130" height="95" fill="#FFFEF9" stroke="#ECEBE5" stroke-width="1" rx="4"/>
+    <rect x="620" y="40" width="130" height="95" fill="#FFFEF9" stroke="#ECEBE5" stroke-width="1" rx="4"/>
+    <rect x="40" y="150" width="130" height="95" fill="#FFFEF9" stroke="#ECEBE5" stroke-width="1" rx="4"/>
+    <rect x="185" y="150" width="130" height="95" fill="#FFFEF9" stroke="#ECEBE5" stroke-width="1" rx="4"/>
+    <rect x="330" y="150" width="130" height="95" fill="#FFFEF9" stroke="#ECEBE5" stroke-width="1" rx="4"/>
+    <rect x="620" y="150" width="130" height="95" fill="#FFFEF9" stroke="#ECEBE5" stroke-width="1" rx="4"/>
+    <rect x="40" y="260" width="130" height="95" fill="#FFFEF9" stroke="#ECEBE5" stroke-width="1" rx="4"/>
+    <rect x="185" y="260" width="130" height="95" fill="#FFFEF9" stroke="#ECEBE5" stroke-width="1" rx="4"/>
+    <rect x="330" y="260" width="130" height="95" fill="#FFFEF9" stroke="#ECEBE5" stroke-width="1" rx="4"/>
+    <rect x="475" y="260" width="130" height="95" fill="#FFFEF9" stroke="#ECEBE5" stroke-width="1" rx="4"/>
+    <rect x="620" y="260" width="130" height="95" fill="#FFFEF9" stroke="#ECEBE5" stroke-width="1" rx="4"/>
+    <rect x="40" y="370" width="130" height="70" fill="#FFFEF9" stroke="#ECEBE5" stroke-width="1" rx="4"/>
+    <rect x="185" y="370" width="130" height="70" fill="#FFFEF9" stroke="#ECEBE5" stroke-width="1" rx="4"/>
+    <rect x="330" y="370" width="130" height="70" fill="#FFFEF9" stroke="#ECEBE5" stroke-width="1" rx="4"/>
+    <rect x="475" y="370" width="130" height="70" fill="#FFFEF9" stroke="#ECEBE5" stroke-width="1" rx="4"/>
+    <rect x="620" y="370" width="130" height="70" fill="#FFFEF9" stroke="#ECEBE5" stroke-width="1" rx="4"/>
+  </g>
+  <line stroke="#D8D7D1" stroke-width="14" stroke-linecap="round" fill="none" x1="0" y1="40" x2="800" y2="40"/>
+  <line stroke="#FFFEF9" stroke-width="10" stroke-linecap="round" fill="none" x1="0" y1="40" x2="800" y2="40"/>
+  <line stroke="#D8D7D1" stroke-width="14" stroke-linecap="round" fill="none" x1="0" y1="245" x2="800" y2="245"/>
+  <line stroke="#FFFEF9" stroke-width="10" stroke-linecap="round" fill="none" x1="0" y1="245" x2="800" y2="245"/>
+  <line stroke="#D8D7D1" stroke-width="14" stroke-linecap="round" fill="none" x1="0" y1="440" x2="800" y2="440"/>
+  <line stroke="#FFFEF9" stroke-width="10" stroke-linecap="round" fill="none" x1="0" y1="440" x2="800" y2="440"/>
+  <line stroke="#D8D7D1" stroke-width="14" stroke-linecap="round" fill="none" x1="40" y1="0" x2="40" y2="460"/>
+  <line stroke="#FFFEF9" stroke-width="10" stroke-linecap="round" fill="none" x1="40" y1="0" x2="40" y2="460"/>
+  <line stroke="#D8D7D1" stroke-width="14" stroke-linecap="round" fill="none" x1="400" y1="0" x2="400" y2="460"/>
+  <line stroke="#FFFEF9" stroke-width="10" stroke-linecap="round" fill="none" x1="400" y1="0" x2="400" y2="460"/>
+  <line stroke="#D8D7D1" stroke-width="14" stroke-linecap="round" fill="none" x1="760" y1="0" x2="760" y2="460"/>
+  <line stroke="#FFFEF9" stroke-width="10" stroke-linecap="round" fill="none" x1="760" y1="0" x2="760" y2="460"/>
+  <line stroke="#D8D7D1" stroke-width="9" stroke-linecap="round" fill="none" x1="175" y1="0" x2="175" y2="460"/>
+  <line stroke="#FFFEF9" stroke-width="6" stroke-linecap="round" fill="none" x1="175" y1="0" x2="175" y2="460"/>
+  <line stroke="#D8D7D1" stroke-width="9" stroke-linecap="round" fill="none" x1="320" y1="0" x2="320" y2="460"/>
+  <line stroke="#FFFEF9" stroke-width="6" stroke-linecap="round" fill="none" x1="320" y1="0" x2="320" y2="460"/>
+  <line stroke="#D8D7D1" stroke-width="9" stroke-linecap="round" fill="none" x1="610" y1="0" x2="610" y2="460"/>
+  <line stroke="#FFFEF9" stroke-width="6" stroke-linecap="round" fill="none" x1="610" y1="0" x2="610" y2="460"/>
+  <line stroke="#D8D7D1" stroke-width="9" stroke-linecap="round" fill="none" x1="0" y1="145" x2="800" y2="145"/>
+  <line stroke="#FFFEF9" stroke-width="6" stroke-linecap="round" fill="none" x1="0" y1="145" x2="800" y2="145"/>
+  <line stroke="#D8D7D1" stroke-width="9" stroke-linecap="round" fill="none" x1="0" y1="355" x2="800" y2="355"/>
+  <line stroke="#FFFEF9" stroke-width="6" stroke-linecap="round" fill="none" x1="0" y1="355" x2="800" y2="355"/>
+  <g font-family="ui-sans-serif, system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif" font-size="10" fill="#A9A9A5" font-weight="500" letter-spacing="0.5">
+    <text x="110" y="244" text-anchor="middle" opacity="0.55">SECTOR 62</text>
+    <text x="410" y="24" text-anchor="middle" opacity="0.55">I-THUM TOWER A</text>
+    <text x="410" y="354" text-anchor="middle" opacity="0.55">PLOT A-40</text>
+  </g>
+  <g transform="translate(470, 215)">
+    <ellipse cx="0" cy="20" rx="14" ry="4" fill="#242426" opacity="0.15"/>
+    <path d="M 0 -28 C -14 -28 -22 -18 -22 -6 C -22 8 -8 18 0 22 C 8 18 22 8 22 -6 C 22 -18 14 -28 0 -28 Z" fill="#FFC400" stroke="#242426" stroke-width="1.5"/>
+    <circle cx="0" cy="-8" r="6" fill="#FFFEF9"/>
+    <circle cx="0" cy="-8" r="16" fill="none" stroke="#FFD43B" stroke-width="2" opacity="0.5"/>
+  </g>
+  <rect x="20" y="372" width="300" height="72" rx="8" fill="#FFFEF9" stroke="#D8D7D1" stroke-width="1"/>
+  <rect x="20" y="372" width="4" height="72" fill="#FFC400" rx="2"/>
+  <g font-family="ui-sans-serif, system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif">
+    <text x="36" y="390" font-size="11" font-weight="700" fill="#242426" letter-spacing="0.8">BHARAT ELECTROSAFE</text>
+    <text x="36" y="406" font-size="10.5" font-weight="400" fill="#66666A">814, 8th Floor, I-thum, Tower A</text>
+    <text x="36" y="420" font-size="10.5" font-weight="400" fill="#66666A">Plot No. A-40, Sector-62</text>
+    <text x="36" y="434" font-size="10.5" font-weight="400" fill="#66666A">Noida — 201309</text>
+  </g>
+</svg>

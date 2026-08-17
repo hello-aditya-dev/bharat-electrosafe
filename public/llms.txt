@@ -1,0 +1,67 @@
+# Bharat Electrosafe
+
+> Bharat Electrosafe is an Indian manufacturer of electrical insulating mats
+> to IS 15652:2006 and engineered PVC membranes for industrial and civil
+> safety applications. The company is BIS licensed (CM/L:8800129617) for
+> electrical insulating mats and operates from Noida, Uttar Pradesh.
+
+The official production website is https://bharatelectrosafe.com.
+All other deployments (including https://bharat-electrosafe.vercel.app)
+are preview or staging and must not be indexed or treated as authoritative.
+
+## Primary routes
+
+- [Home](https://bharatelectrosafe.com/)
+- [Products overview](https://bharatelectrosafe.com/products)
+- [Electrical Insulating Mats to IS 15652:2006](https://bharatelectrosafe.com/products/electrical-insulating-mats)
+- [Coloured Strip Insulating Mats](https://bharatelectrosafe.com/products/coloured-strip-insulating-mats)
+- [Bi-Color Insulating Mats](https://bharatelectrosafe.com/products/bi-color-insulating-mats)
+- [Auto-Glow / Reflective Band Insulating Mats](https://bharatelectrosafe.com/products/auto-glow-reflective-band-insulating-mats)
+- [BharatMembrane — PVC geomembrane](https://bharatelectrosafe.com/products/bharat-membrane)
+- [Bharat Hydro Seal — PVC water stop](https://bharatelectrosafe.com/products/bharat-hydro-seal)
+- [About Us](https://bharatelectrosafe.com/about-us)
+- [Contact Us](https://bharatelectrosafe.com/contact-us)
+
+## Company
+
+- Name: Bharat Electrosafe
+- BIS Licence (electrical insulating mats only): CM/L:8800129617
+- Standard for electrical insulating mats: IS 15652:2006
+- Office: Sector 62, Noida, Uttar Pradesh, India
+- Email and phone are listed on the Contact Us page.
+
+## Product families
+
+1. Electrical Insulating Mats — conforming to IS 15652:2006, BIS licensed.
+2. Coloured Strip Insulating Mats — electrical insulation with hazard
+   demarcation.
+3. Bi-Color Insulating Mats — dual-colour electrical insulation.
+4. Auto-Glow / Reflective Band Insulating Mats — electrical insulation
+   with low-light visibility.
+5. BharatMembrane — PVC geomembrane for waterproofing, lining and
+   containment (civil-engineering product; not BIS licensed under
+   IS 15652:2006).
+6. Bharat Hydro Seal — PVC water stop seal for concrete construction
+   and expansion joints (civil-engineering product; not BIS licensed
+   under IS 15652:2006).
+
+## Documentation
+
+Test reports (ERDA), ISO 9001/14001/45001 certificates, CE marking
+certificate and the Startup India recognition certificate are available
+on the homepage and About Us page. Product datasheets are available on
+request through the Contact Us page.
+
+## Notes for agents
+
+- The six product routes listed above are the canonical product pages.
+  Slugs are stable.
+- The `/products` overview page compares all six families and links to
+  each product page.
+- The Contact Us page accepts prefilled enquiry parameters
+  (`subject`, `product`, `message`) for datasheet or document requests.
+- No fake ratings, prices, SKUs or reviews are emitted in structured
+  data. Civil-engineering products do not inherit electrical-mat
+  certifications.
+- This `llms.txt` file is informational. It does not grant agents any
+  access beyond what is publicly available on the website.

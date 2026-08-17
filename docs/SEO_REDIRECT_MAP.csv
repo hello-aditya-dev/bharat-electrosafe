@@ -1,0 +1,13 @@
+Legacy URL,Legacy HTTP status,New URL,Redirect status,Final HTTP status,Redirect hops,Notes
+https://bharatelectrosafe.com/index.php,200,https://bharatelectrosafe.com/,301,200,1,Homepage PHP route → clean root
+https://bharatelectrosafe.com/about-us.php,200,https://bharatelectrosafe.com/about-us,301,200,1,About page PHP route → clean route
+https://bharatelectrosafe.com/contact-us.php,200,https://bharatelectrosafe.com/contact-us,301,200,1,Contact page PHP route → clean route
+https://bharatelectrosafe.com/electrical-insulating-mats.php,200,https://bharatelectrosafe.com/products/electrical-insulating-mats,301,200,1,Product page PHP route → clean product route
+https://bharatelectrosafe.com/coloured-strip-insulating-mats.php,200,https://bharatelectrosafe.com/products/coloured-strip-insulating-mats,301,200,1,Product page PHP route → clean product route
+https://bharatelectrosafe.com/bi-color-insulating-mats.php,200,https://bharatelectrosafe.com/products/bi-color-insulating-mats,301,200,1,Product page PHP route → clean product route
+https://bharatelectrosafe.com/auto-glow-reflective-band-insulating-mat.php,200,https://bharatelectrosafe.com/products/auto-glow-reflective-band-insulating-mats,301,200,1,Product page PHP route → clean product route (singular 'mat' → plural 'mats')
+https://bharatelectrosafe.com/bharat-membrane.php,200,https://bharatelectrosafe.com/products/bharat-membrane,301,200,1,Product page PHP route → clean product route
+https://bharatelectrosafe.com/BharatHydro-Seal.php,200,https://bharatelectrosafe.com/products/bharat-hydro-seal,301,200,1,Product page PHP route → clean product route (case-sensitive legacy path preserved)
+http://bharatelectrosafe.com/*,301,https://bharatelectrosafe.com/*,301,200,1,HTTP → HTTPS at the apex domain (handled by Vercel HSTS / redirect)
+http://www.bharatelectrosafe.com/*,301,https://bharatelectrosafe.com/*,301,200,1,HTTP www → HTTPS apex (handled by Vercel domain config)
+https://www.bharatelectrosafe.com/*,301,https://bharatelectrosafe.com/*,301,200,1,HTTPS www → HTTPS apex (handled by Vercel domain config; www must NOT be a separate indexable host)
