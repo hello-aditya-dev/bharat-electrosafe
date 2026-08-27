@@ -4,7 +4,7 @@ import { useCallback, useEffect, useRef, useState } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { SectionShell } from '@/components/ui/SectionShell';
-import { SectionHeader } from '@/components/ui/SectionHeader';
+import { Eyebrow } from '@/components/ui/Eyebrow';
 import {
   brandShowcaseSlides,
   waterproofingBrands,
@@ -12,17 +12,18 @@ import {
 } from '@/data/brand-showcase';
 
 /**
- * BrandShowcase — homepage rotating brand banner.
+ * BrandShowcase — slim, premium rotating brand strip for the homepage.
  *
  * Two banner compositions alternate automatically every ~6 seconds with
  * a smooth, restrained opacity fade. The carousel pauses on hover/focus
- * (desktop) and respects `prefers-reduced-motion`. Both banners share a
+ * (desktop) and respects `prefers-reduced-motion`. Both slides share a
  * fixed minimum viewport height so the page layout never jumps when the
  * active slide changes.
  *
- * Reuses the existing design system (SectionShell, SectionHeader) and
- * `next/image` with `object-contain` so each supplied logo preserves its
- * native aspect ratio inside a consistent visual area.
+ * Visual approach: borderless logo zones (no card borders, no shadows,
+ * no panel backgrounds) — logos sit directly on the section background
+ * with `object-contain` to preserve each supplied logo's native aspect
+ * ratio inside a consistent visual zone.
  *
  * Brand logos link to existing internal destinations only when a real
  * route exists (Bharat PoleShield, Bharat SmartFloor, BharatMembrane).
@@ -32,7 +33,7 @@ import {
 const AUTOPLAY_MS = 6000;
 const TRANSITION_MS = 700;
 
-/** Single logo tile — preserves aspect ratio, links only when href exists. */
+/** Single borderless logo zone — preserves aspect ratio, links only when href exists. */
 function BrandLogo({ brand, className }: { brand: BrandShowcaseItem; className?: string }) {
   const inner = (
     <div className={className}>
@@ -41,8 +42,8 @@ function BrandLogo({ brand, className }: { brand: BrandShowcaseItem; className?:
           src={brand.logo}
           alt={brand.alt}
           fill
-          className="object-contain p-3"
-          sizes="(max-width: 768px) 45vw, (max-width: 1280px) 22vw, 260px"
+          className="object-contain"
+          sizes="(max-width: 768px) 45vw, (max-width: 1280px) 22vw, 240px"
         />
       </div>
     </div>
@@ -56,7 +57,7 @@ function BrandLogo({ brand, className }: { brand: BrandShowcaseItem; className?:
     <Link
       href={brand.href}
       aria-label={`${brand.name} — view product page`}
-      className="group/link rounded-lg focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-be-yellow-400 focus-visible:ring-offset-2"
+      className="group/link rounded-md focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-be-yellow-400 focus-visible:ring-offset-2"
     >
       {inner}
     </Link>
@@ -111,28 +112,26 @@ export default function BrandShowcase() {
     [clearTimer, scheduleNext],
   );
 
-  const slide = brandShowcaseSlides[active];
-
   return (
-    <SectionShell variant="standard" bg="bg-be-cream" topRule ariaLabel="Our brands">
-      <div className="mb-8">
-        <SectionHeader
-          eyebrow="OUR BRANDS"
-          title="Our Brands"
-          supportingText="Specialized brands across electrical safety, flooring and waterproofing."
-          align="center"
-        />
+    <SectionShell variant="compact" bg="bg-be-cream" topRule ariaLabel="Our brands">
+      {/* Compact header — eyebrow + supporting line only (no large title). */}
+      <div className="flex flex-col items-center text-center gap-2 mb-6">
+        <Eyebrow>OUR BRANDS</Eyebrow>
+        <p className="text-[15px] leading-relaxed text-be-grey-650 max-w-2xl">
+          Specialized brands across electrical safety, flooring and waterproofing.
+        </p>
       </div>
 
-      {/* Carousel viewport — fixed min-height keeps layout stable across slides */}
+      {/* Carousel viewport — fixed min-height keeps layout stable across slides.
+          Tightly scoped to the logo zone + small gap to dots. */}
       <div
-        className="relative min-h-[260px] sm:min-h-[240px] lg:min-h-[220px]"
+        className="relative min-h-[120px] sm:min-h-[110px] lg:min-h-[100px]"
         onMouseEnter={() => setPaused(true)}
         onMouseLeave={() => setPaused(false)}
         onFocus={() => setPaused(true)}
         onBlur={() => setPaused(false)}
       >
-        {/* Slide 1 — Insulating Mat Brands (4 logos, 2×2 on mobile, 4-up on desktop) */}
+        {/* Slide 1 — Insulating Mat Brands (4 logos, 2×2 on mobile, 4-up on desktop). */}
         <div
           aria-hidden={active !== 0}
           className={`absolute inset-0 transition-opacity ease-in-out ${
@@ -140,24 +139,20 @@ export default function BrandShowcase() {
           }`}
           style={{ transitionDuration: `${TRANSITION_MS}ms` }}
         >
-          <div className="flex flex-col items-center h-full">
-            <div className="text-sm font-semibold text-be-navy-800 uppercase tracking-wider mb-6">
-              {slide.title}
-            </div>
-            <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4 lg:gap-6 w-full max-w-5xl flex-1 items-stretch">
-              {slide.brands.map((brand) => (
-                <div
+          <div className="flex items-center justify-center h-full">
+            <div className="grid grid-cols-2 lg:grid-cols-4 gap-x-4 gap-y-4 sm:gap-x-6 lg:gap-x-8 w-full max-w-6xl items-center justify-items-stretch">
+              {brandShowcaseSlides[0].brands.map((brand) => (
+                <BrandLogo
                   key={brand.name}
-                  className="relative aspect-[4/3] rounded-lg bg-be-white border border-be-grey-250 overflow-hidden"
-                >
-                  <BrandLogo brand={brand} className="w-full h-full" />
-                </div>
+                  brand={brand}
+                  className="relative w-full h-[60px] sm:h-[72px] lg:h-[88px]"
+                />
               ))}
             </div>
           </div>
         </div>
 
-        {/* Slide 2 — PVC Floor + Waterproofing Brands (2 labeled sub-groups) */}
+        {/* Slide 2 — PVC Floor + Waterproofing Brands (2 labeled sub-groups with subtle divider). */}
         <div
           aria-hidden={active !== 1}
           className={`absolute inset-0 transition-opacity ease-in-out ${
@@ -165,32 +160,34 @@ export default function BrandShowcase() {
           }`}
           style={{ transitionDuration: `${TRANSITION_MS}ms` }}
         >
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6 lg:gap-8 h-full items-stretch">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-0 h-full items-center">
             {/* PVC Floor Brands */}
-            <div className="flex flex-col items-center">
-              <div className="text-sm font-semibold text-be-navy-800 uppercase tracking-wider mb-4">
+            <div className="flex flex-col items-center md:pr-8">
+              <div className="text-[11px] font-semibold text-be-navy-800 uppercase tracking-wider mb-3">
                 PVC Floor Brands
               </div>
-              <div className="relative w-full max-w-sm aspect-[16/10] rounded-lg bg-be-white border border-be-grey-250 overflow-hidden">
-                <BrandLogo brand={brandShowcaseSlides[1].brands[0]} className="w-full h-full" />
-              </div>
+              <BrandLogo
+                brand={brandShowcaseSlides[1].brands[0]}
+                className="relative w-full max-w-[240px] h-[72px] sm:h-[80px] lg:h-[88px]"
+              />
             </div>
 
-            {/* Waterproofing Brands */}
-            <div className="flex flex-col items-center md:border-l md:border-be-grey-250 md:pl-6 lg:pl-8">
-              <div className="text-sm font-semibold text-be-navy-800 uppercase tracking-wider mb-4">
+            {/* Waterproofing Brands — subtle vertical divider on desktop */}
+            <div className="flex flex-col items-center md:border-l md:border-be-grey-200 md:pl-8">
+              <div className="text-[11px] font-semibold text-be-navy-800 uppercase tracking-wider mb-3">
                 Waterproofing Brands
               </div>
-              <div className="relative w-full max-w-sm aspect-[16/10] rounded-lg bg-be-white border border-be-grey-250 overflow-hidden">
-                <BrandLogo brand={waterproofingBrands[0]} className="w-full h-full" />
-              </div>
+              <BrandLogo
+                brand={waterproofingBrands[0]}
+                className="relative w-full max-w-[240px] h-[72px] sm:h-[80px] lg:h-[88px]"
+              />
             </div>
           </div>
         </div>
       </div>
 
-      {/* Subtle pagination dots — keyboard accessible */}
-      <div className="mt-8 flex items-center justify-center gap-3">
+      {/* Compact pagination dots — keyboard accessible, close to logos. */}
+      <div className="mt-4 flex items-center justify-center gap-2.5">
         {brandShowcaseSlides.map((s, i) => (
           <button
             key={s.id}
@@ -209,14 +206,6 @@ export default function BrandShowcase() {
             />
           </button>
         ))}
-      </div>
-
-      {/* Slide counter for screen readers + visual reference */}
-      <div
-        className="mt-3 text-center text-metadata text-be-grey-650"
-        aria-live="polite"
-      >
-        {String(active + 1).padStart(2, '0')} / {String(brandShowcaseSlides.length).padStart(2, '0')}
       </div>
     </SectionShell>
   );
