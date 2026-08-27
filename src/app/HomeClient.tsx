@@ -5,6 +5,7 @@ import { MobileStickyCTA } from '@/components/ui/MobileStickyCTA';
 import HomeHero from '@/components/home/HomeHero';
 import StatisticsStrip from '@/components/home/StatisticsStrip';
 import ProductRange from '@/components/home/ProductRange';
+import BrandShowcase from '@/components/home/BrandShowcase';
 import CertificationsSection from '@/components/home/CertificationsSection';
 import IndustryReferences from '@/components/home/IndustryReferences';
 import CapabilityIndustries from '@/components/home/CapabilityIndustries';
@@ -44,6 +45,8 @@ export default function HomeShell() {
         <StatisticsStrip />
         {/* 3. Product range — four families */}
         <ProductRange />
+        {/* 3b. Brand showcase — rotating brand banners (after product range, before certifications) */}
+        <BrandShowcase />
         {/* 4. Certifications, testing and registrations */}
         <CertificationsSection />
         {/* 5. Capability + industries (rendered once) */}

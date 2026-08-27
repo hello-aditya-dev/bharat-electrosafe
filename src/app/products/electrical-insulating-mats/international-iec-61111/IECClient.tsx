@@ -261,10 +261,15 @@ export default function IECClient() {
                   voltage identification marking. Reliable operator protection at installations
                   up to 36,000 V AC.
                 </p>
-                <PrimaryButton href="/contact-us?type=quote&product=iec-hv-insulating-mats" className="mt-1 self-start">
-                  Get Quote
-                  <ArrowRight className="size-4 ml-1.5" />
-                </PrimaryButton>
+                <div className="flex flex-col gap-2 mt-1">
+                  <PrimaryButton href="/contact-us?type=quote&product=iec-hv-insulating-mats" className="self-start">
+                    Get Quote
+                    <ArrowRight className="size-4 ml-1.5" />
+                  </PrimaryButton>
+                  <SecondaryButton href="/products/electrical-insulating-mats/auto-glow-hv" className="self-start">
+                    Learn More
+                  </SecondaryButton>
+                </div>
               </div>
             </div>
 
