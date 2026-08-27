@@ -591,12 +591,15 @@ function ElectricalInsulatingMatsSection() {
         {/* Bharat PoleShield — brand direction card */}
         <div className="rounded-2xl border border-be-grey-250 bg-be-white overflow-hidden">
           <div className="flex flex-col sm:flex-row items-start sm:items-center gap-4 p-6 lg:p-7">
-            <span
-              className="flex items-center justify-center size-12 rounded-lg bg-be-navy-800 text-be-yellow-500 shrink-0"
-              aria-hidden="true"
-            >
-              <ShieldCheck className="size-6" />
-            </span>
+            <div className="relative size-12 shrink-0 rounded-lg overflow-hidden border border-be-grey-250 bg-be-cream">
+              <Image
+                src="/brand/bharat-poleshield-logo.jpeg"
+                alt="Bharat PoleShield logo"
+                fill
+                className="object-contain p-0.5"
+                sizes="48px"
+              />
+            </div>
             <div className="flex-1 min-w-0">
               <div className="flex flex-wrap items-center gap-2 mb-1">
                 <h3 className="text-lg font-semibold text-be-charcoal-950">Bharat PoleShield</h3>

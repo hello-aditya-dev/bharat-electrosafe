@@ -23,7 +23,14 @@ import {
   Phone,
   FileText,
   Download,
+  Factory,
+  Server,
+  Wrench,
+  FlaskConical,
+  ClipboardCheck,
+  Route,
 } from 'lucide-react';
+import type { LucideIcon } from 'lucide-react';
 import { pvcFlooringVisuals } from '@/data/product-visuals';
 
 /* ── Breadcrumb items ── */
@@ -34,32 +41,60 @@ const breadcrumbItems = [
   { label: 'PVC Flooring Solutions' },
 ];
 
-/* ── Key benefits (source-supported only) ── */
+/* ── Key benefits — client-approved "Why Bharat Electrosafe" points (7) ── */
 
 const keyBenefits = [
-  { icon: Shield, text: 'PVC flooring manufactured as per IS 3462:1986 for residential and commercial interior flooring applications' },
-  { icon: Layers, text: 'BharatSmart Floor™ product range — PVC flooring for homes, offices and commercial interiors' },
-  { icon: Building2, text: 'Designed for residential and commercial interior flooring applications' },
-  { icon: Zap, text: 'Available as a practical finished flooring option for everyday indoor spaces' },
+  { icon: Shield, text: 'Designed for demanding industrial and commercial environments' },
+  { icon: Check, text: 'Quality-focused manufacturing and supply' },
+  { icon: Ruler, text: 'Solutions aligned with IS 3462:1986' },
+  { icon: Layers, text: 'Durable and practical flooring solutions' },
+  { icon: Zap, text: 'Easy to maintain and suitable for regular use' },
+  { icon: Building2, text: 'Suitable for diverse industrial, electrical and commercial applications' },
+  { icon: Factory, text: "Part of Bharat Electrosafe's growing portfolio of industrial safety and infrastructure solutions" },
 ];
 
-/* ── Applications (source-supported) ── */
+/* ── Applications — client-approved (8) ── */
 
-const applications = [
+const applications: { icon: LucideIcon; name: string; description: string }[] = [
   {
-    icon: Shield,
-    name: 'Homes & Apartments',
-    description: 'PVC flooring for living spaces, bedrooms, home offices and other residential interiors.',
+    icon: Factory,
+    name: 'Industrial and manufacturing facilities',
+    description: 'PVC flooring for industrial and manufacturing facilities with high-use working environments.',
+  },
+  {
+    icon: Zap,
+    name: 'Electrical and utility areas',
+    description: 'Flooring for electrical and utility areas where durable, practical surfaces are required.',
   },
   {
     icon: Building2,
-    name: 'Offices & Workspaces',
-    description: 'Flooring for offices, reception areas, meeting spaces, waiting areas and shared work environments.',
+    name: 'Commercial buildings and offices',
+    description: 'PVC flooring for commercial buildings, offices and corporate interiors.',
   },
   {
-    icon: Layers,
-    name: 'Retail & Commercial Interiors',
-    description: 'PVC flooring for showrooms, shops, customer-facing spaces and other commercial interiors.',
+    icon: Server,
+    name: 'Control rooms and operational areas',
+    description: 'Flooring for control rooms and operational areas requiring ease of maintenance.',
+  },
+  {
+    icon: Wrench,
+    name: 'Workshops and maintenance facilities',
+    description: 'PVC flooring for workshops and maintenance facilities with regular use.',
+  },
+  {
+    icon: FlaskConical,
+    name: 'Laboratories and technical areas',
+    description: 'Flooring for laboratories and technical areas where hygiene and maintenance are essential.',
+  },
+  {
+    icon: Route,
+    name: 'Institutional and infrastructure projects',
+    description: 'PVC flooring for institutional and infrastructure projects.',
+  },
+  {
+    icon: ClipboardCheck,
+    name: 'Other high-traffic and specialised flooring applications',
+    description: 'PVC flooring for other high-traffic and specialised flooring applications.',
   },
 ];
 
@@ -93,14 +128,14 @@ export default function PVCFlooringClient() {
               </div>
 
               {/* Eyebrow + H1 */}
-              <Eyebrow className="mb-3">PVC Flooring</Eyebrow>
+              <Eyebrow className="mb-3">Durable Flooring for Industrial, Electrical & Commercial Applications</Eyebrow>
               <h1 className="product-hero-h1 text-product-h1 text-be-charcoal-950 mb-3 lg:mb-4">
                 PVC Flooring Solutions
               </h1>
 
-              {/* Introduction */}
+              {/* Introduction — client-approved */}
               <p className="product-hero-intro text-body-large text-be-grey-650 leading-relaxed mb-4 lg:mb-5">
-                BharatSmart Floor™ PVC flooring is designed for homes, offices and commercial interiors, providing a practical and attractive flooring surface for everyday indoor spaces.
+                Bharat Electrosafe offers PVC Flooring Solutions designed for demanding industrial, electrical and commercial environments where durability, safety, hygiene and ease of maintenance are essential. Our PVC flooring solutions are manufactured with a focus on quality, performance and long-term reliability and are designed in line with IS 3462:1986 for relevant industrial, electrical and commercial flooring applications.
               </p>
 
               {/* CTA buttons */}
@@ -175,8 +210,8 @@ export default function PVCFlooringClient() {
             <div className="lg:w-[55%] flex flex-col gap-6">
               <SectionHeader
                 eyebrow="Product Overview"
-                title="BharatSmart Floor™ Overview"
-                supportingText="BharatSmart Floor™ is Bharat Electrosafe's PVC flooring range for residential, office and commercial interiors. It is suitable for spaces such as homes, apartments, offices, reception areas, retail interiors, clinics, educational spaces and hospitality environments. The range provides a practical finished flooring surface for everyday interior use."
+                title="PVC Flooring Overview"
+                supportingText="PVC flooring provides a practical and efficient flooring solution for a wide range of facilities, offering benefits such as durability, ease of cleaning and maintenance, and suitability for high-use working environments."
               />
 
               <FeatureList
@@ -204,7 +239,7 @@ export default function PVCFlooringClient() {
               <SectionHeader
                 eyebrow="Applications"
                 title="Where It's Used"
-                supportingText="BharatSmart Floor™ PVC flooring is designed for residential, office and commercial interior applications as per IS 3462:1986."
+                supportingText="Bharat Electrosafe PVC Flooring Solutions can be considered for the following applications:"
               />
 
               <div className="flex flex-col gap-4">
@@ -240,7 +275,7 @@ export default function PVCFlooringClient() {
             <SectionHeader
               eyebrow="Standards Compliance"
               title="IS 3462:1986 Compliant"
-              supportingText="BharatSmart Floor™ PVC flooring is manufactured as per IS 3462:1986, the Indian Standard for PVC floor coverings. Detailed technical specifications, thickness options and surface pattern availability are provided on request with a formal quotation."
+              supportingText="Our PVC flooring solutions are designed in line with IS 3462:1986 for relevant industrial, electrical and commercial flooring applications. Detailed technical specifications, thickness options and surface pattern availability are provided on request with a formal quotation."
             />
 
             {/* Clean standards card — no invented data */}
@@ -263,7 +298,23 @@ export default function PVCFlooringClient() {
           </div>
         </SectionShell>
 
-        {/* ── 5. CTA ── */}
+        {/* ── 5. Closing statement — client-approved ── */}
+        <SectionShell variant="compact" bg="bg-be-warm-white" topRule ariaLabel="Our commitment">
+          <div className="flex flex-col items-center text-center gap-5 max-w-3xl mx-auto">
+            <SectionHeader
+              eyebrow="Our Commitment"
+              title="Reliable, quality-driven solutions"
+              align="center"
+            />
+            <p className="text-body-large text-be-grey-650 leading-relaxed">
+              At Bharat Electrosafe, we are committed to delivering reliable,
+              quality-driven and standards-focused solutions for industries,
+              infrastructure projects, utilities and commercial establishments.
+            </p>
+          </div>
+        </SectionShell>
+
+        {/* ── 6. CTA ── */}
         <SectionShell variant="conversion" bg="bg-be-yellow-50" yellowAccent>
           <div className="flex flex-col items-center text-center gap-6 max-w-2xl mx-auto">
             <h2 className="text-section-h2 text-be-charcoal-950">

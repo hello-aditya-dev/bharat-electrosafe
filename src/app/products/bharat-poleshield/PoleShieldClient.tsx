@@ -1,6 +1,7 @@
 'use client';
 
-import { ShieldCheck, ArrowRight, Info } from 'lucide-react';
+import Image from 'next/image';
+import { ArrowRight, Info } from 'lucide-react';
 import { Header } from '@/components/layout/Header';
 import { Footer } from '@/components/layout/Footer';
 import { BackToTop } from '@/components/ui/BackToTop';
@@ -13,6 +14,11 @@ import { PrimaryButton } from '@/components/ui/PrimaryButton';
 import { SecondaryButton } from '@/components/ui/SecondaryButton';
 import { TechnicalBadge } from '@/components/ui/TechnicalBadge';
 import { PRODUCT_ROUTES } from '@/data/product-routes';
+
+/** Client-supplied Bharat PoleShield logo asset. */
+const POLESHIELD_LOGO_SRC = '/brand/bharat-poleshield-logo.jpeg';
+const POLESHIELD_LOGO_ALT =
+  'Bharat PoleShield logo — shield emblem with utility pole, protective sleeve, and lightning bolt, with the tagline Protecting Every Pole • Protecting Every Life';
 
 /**
  * Bharat PoleShield brand placeholder page.
@@ -50,14 +56,18 @@ export default function PoleShieldClient() {
 
             <Eyebrow className="mb-1">A New Brand Direction</Eyebrow>
 
-            {/* Brand wordmark (text-based — no logo asset available in the repository) */}
-            <div className="flex items-center gap-3">
-              <span
-                className="flex items-center justify-center size-12 rounded-lg bg-be-navy-800 text-be-yellow-500 shrink-0"
-                aria-hidden="true"
-              >
-                <ShieldCheck className="size-6" />
-              </span>
+            {/* Client-supplied PoleShield logo */}
+            <div className="flex items-center gap-4">
+              <div className="relative size-20 sm:size-24 shrink-0 rounded-lg overflow-hidden border border-be-grey-250 bg-be-white">
+                <Image
+                  src={POLESHIELD_LOGO_SRC}
+                  alt={POLESHIELD_LOGO_ALT}
+                  fill
+                  className="object-contain p-1"
+                  sizes="96px"
+                  priority
+                />
+              </div>
               <h1 className="product-hero-h1 text-product-h1 text-be-charcoal-950">
                 Bharat PoleShield
               </h1>
@@ -105,18 +115,18 @@ export default function PoleShieldClient() {
               </p>
             </div>
 
-            {/* Brand wordmark panel */}
+            {/* Client-supplied logo panel */}
             <div className="lg:w-[45%]">
               <div className="rounded-2xl border border-be-grey-250 bg-be-cream overflow-hidden">
-                <div className="flex flex-col items-center text-center gap-3 p-8 lg:p-10">
-                  <span
-                    className="flex items-center justify-center size-16 rounded-xl bg-be-navy-800 text-be-yellow-500"
-                    aria-hidden="true"
-                  >
-                    <ShieldCheck className="size-8" />
-                  </span>
-                  <div className="text-2xl font-bold text-be-charcoal-950">
-                    Bharat PoleShield
+                <div className="flex flex-col items-center text-center gap-4 p-8 lg:p-10">
+                  <div className="relative w-full max-w-[240px] aspect-square rounded-xl overflow-hidden bg-be-white border border-be-grey-250">
+                    <Image
+                      src={POLESHIELD_LOGO_SRC}
+                      alt={POLESHIELD_LOGO_ALT}
+                      fill
+                      className="object-contain p-3"
+                      sizes="240px"
+                    />
                   </div>
                   <div className="text-sm font-semibold text-be-navy-800 tracking-wide uppercase">
                     Protecting Every Pole • Protecting Every Life
