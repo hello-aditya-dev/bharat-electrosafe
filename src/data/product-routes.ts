@@ -102,6 +102,24 @@ export const productRoutes: ProductRoute[] = [
     ],
   },
 
+  // ── Dual Layer Dual Colour (IEC 61111 specialized innovation page) ──
+  {
+    key: 'dual-layer-dual-colour',
+    displayName: 'Dual Layer Dual Colour',
+    canonicalPath: '/products/electrical-insulating-mats/dual-layer-dual-colour',
+    legacyPaths: [],
+    parentKey: 'electrical-insulating-mats',
+  },
+
+  // ── Auto Glow HV (IEC 61111 specialized innovation page) ──
+  {
+    key: 'auto-glow-hv',
+    displayName: 'Auto Glow HV',
+    canonicalPath: '/products/electrical-insulating-mats/auto-glow-hv',
+    legacyPaths: [],
+    parentKey: 'electrical-insulating-mats',
+  },
+
   // ── Waterproofing Solutions ──
   {
     key: 'waterproofing-solutions',
@@ -151,6 +169,15 @@ export const productRoutes: ProductRoute[] = [
       { id: 'esd-mat', label: 'ESD Mat' },
       { id: 'conveyor-belt', label: 'Conveyor Belt' },
     ],
+  },
+
+  // ── Bharat PoleShield (distinct brand direction — placeholder architecture) ──
+  {
+    key: 'bharat-poleshield',
+    displayName: 'Bharat PoleShield',
+    canonicalPath: '/products/bharat-poleshield',
+    legacyPaths: [],
+    parentKey: 'products',
   },
 ];
 
@@ -249,9 +276,12 @@ export const PRODUCT_ROUTES = {
   biColour: '/products/electrical-insulating-mats/bi-color-insulating-mats' as const,
   colouredStrip: '/products/electrical-insulating-mats/coloured-strip-insulating-mats' as const,
   international: '/products/electrical-insulating-mats/international-iec-61111' as const,
+  dualLayerDualColour: '/products/electrical-insulating-mats/dual-layer-dual-colour' as const,
+  autoGlowHv: '/products/electrical-insulating-mats/auto-glow-hv' as const,
   waterproofingSolutions: '/products/waterproofing-solutions' as const,
   geoMembrane: '/products/geo-membrane-lining' as const,
   hydroSeal: '/products/water-stop-seal' as const,
   pvcFlooring: '/products/pvc-flooring-solutions' as const,
   otherProducts: '/products/other-products' as const,
+  bharatPoleShield: '/products/bharat-poleshield' as const,
 };

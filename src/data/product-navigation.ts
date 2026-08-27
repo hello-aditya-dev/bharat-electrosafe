@@ -105,22 +105,32 @@ export const productNavGroups: ProductNavGroup[] = [
       {
         name: 'International / Global',
         standard: 'IEC 61111:2009',
-        href: '/products/international-iec-61111',
+        href: '/products/electrical-insulating-mats/international-iec-61111',
         items: [
           {
             name: 'HV Insulating Mats',
-            href: '/products/international-iec-61111#hv-insulating-mats',
+            href: '/products/electrical-insulating-mats/international-iec-61111#hv-insulating-mats',
             description: 'IEC 61111 compliant high-voltage insulating mats',
           },
           {
-            name: 'Auto Glow',
-            href: '/products/international-iec-61111#auto-glow',
-            description: 'IEC 61111 compliant insulating mats with auto-glow feature',
+            name: 'Dual Layer Dual Colour',
+            href: '/products/electrical-insulating-mats/dual-layer-dual-colour',
+            description: 'IEC 61111 dual layer dual colour insulating mats with visible wear indication',
           },
           {
-            name: 'Bi-Colour',
-            href: '/products/international-iec-61111#bi-colour',
-            description: 'IEC 61111 compliant bi-colour insulating mats',
+            name: 'Auto Glow HV',
+            href: '/products/electrical-insulating-mats/auto-glow-hv',
+            description: 'IEC 61111 auto glow insulating mats for low-light visibility',
+          },
+        ],
+      },
+      {
+        name: 'Bharat PoleShield',
+        items: [
+          {
+            name: 'Bharat PoleShield',
+            href: '/products/bharat-poleshield',
+            description: 'Pole protection brand direction — Protecting Every Pole, Protecting Every Life',
           },
         ],
       },

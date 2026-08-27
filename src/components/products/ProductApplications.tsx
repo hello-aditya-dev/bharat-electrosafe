@@ -20,6 +20,12 @@ import {
   Cloud,
   Layers,
   Building2,
+  Droplets,
+  Waves,
+  Pickaxe,
+  Trash2,
+  Sprout,
+  Shield,
 } from 'lucide-react';
 import type { LucideIcon } from 'lucide-react';
 import { SectionHeader } from '@/components/ui/SectionHeader';
@@ -50,6 +56,12 @@ const iconMap: Record<string, LucideIcon> = {
   cloud: Cloud,
   layers: Layers,
   'building-2': Building2,
+  droplets: Droplets,
+  waves: Waves,
+  pickaxe: Pickaxe,
+  'trash-2': Trash2,
+  sprout: Sprout,
+  shield: Shield,
 };
 
 /* ── Component ── */

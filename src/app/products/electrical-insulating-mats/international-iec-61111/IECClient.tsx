@@ -282,15 +282,22 @@ export default function IECClient() {
               <div className="flex flex-col gap-3 p-5 flex-1">
                 <div className="flex items-center gap-2">
                   <Sparkles className="size-5 text-be-yellow-text" aria-hidden="true" />
-                  <h3 className="text-lg font-semibold text-be-charcoal-950">Auto-Glow Mats</h3>
+                  <h3 className="text-lg font-semibold text-be-charcoal-950">Auto Glow</h3>
                 </div>
                 <p className="text-body text-be-grey-650 flex-1">
-                  Auto-Glow variant.
+                  Insulating mats with innovative glow technology, designed to
+                  enhance visibility in low-light conditions and during power
+                  interruptions. Designed in line with IEC 61111.
                 </p>
-                <PrimaryButton href="/contact-us?type=quote&product=iec-auto-glow" className="mt-1 self-start">
-                  Get Quote
-                  <ArrowRight className="size-4 ml-1.5" />
-                </PrimaryButton>
+                <div className="flex flex-col gap-2 mt-1">
+                  <PrimaryButton href="/contact-us?type=quote&product=iec-auto-glow" className="self-start">
+                    Get Quote
+                    <ArrowRight className="size-4 ml-1.5" />
+                  </PrimaryButton>
+                  <SecondaryButton href="/products/electrical-insulating-mats/auto-glow-hv" className="self-start">
+                    Learn More
+                  </SecondaryButton>
+                </div>
               </div>
             </div>
 
@@ -308,15 +315,22 @@ export default function IECClient() {
               <div className="flex flex-col gap-3 p-5 flex-1">
                 <div className="flex items-center gap-2">
                   <Palette className="size-5 text-be-yellow-text" aria-hidden="true" />
-                  <h3 className="text-lg font-semibold text-be-charcoal-950">Bi-Colour Mats</h3>
+                  <h3 className="text-lg font-semibold text-be-charcoal-950">Dual Layer Dual Colour</h3>
                 </div>
                 <p className="text-body text-be-grey-650 flex-1">
-                  Bi-Colour variant with dual-colour layers.
+                  Dual-layer dual-colour insulating mats with a contrasting lower
+                  layer designed to act as a visible wear indicator. Designed in
+                  line with IEC 61111.
                 </p>
-                <PrimaryButton href="/contact-us?type=quote&product=iec-bi-colour" className="mt-1 self-start">
-                  Get Quote
-                  <ArrowRight className="size-4 ml-1.5" />
-                </PrimaryButton>
+                <div className="flex flex-col gap-2 mt-1">
+                  <PrimaryButton href="/contact-us?type=quote&product=iec-bi-colour" className="self-start">
+                    Get Quote
+                    <ArrowRight className="size-4 ml-1.5" />
+                  </PrimaryButton>
+                  <SecondaryButton href="/products/electrical-insulating-mats/dual-layer-dual-colour" className="self-start">
+                    Learn More
+                  </SecondaryButton>
+                </div>
               </div>
             </div>
           </div>
@@ -492,17 +506,20 @@ export default function IECClient() {
                   <h3 className="text-base font-semibold text-be-charcoal-950">Auto Glow</h3>
                 </div>
                 <p className="text-body text-be-grey-650">
-                  Auto-Glow variant.
+                  Insulating mats with innovative glow technology, designed to
+                  enhance visibility in low-light conditions and during power
+                  interruptions.
                 </p>
               </div>
 
               <div className="border-t border-be-grey-250 pt-5">
                 <div className="flex items-center gap-2 mb-3">
                   <Palette className="size-4 text-be-yellow-text" aria-hidden="true" />
-                  <h3 className="text-base font-semibold text-be-charcoal-950">Bi-Colour</h3>
+                  <h3 className="text-base font-semibold text-be-charcoal-950">Dual Layer Dual Colour</h3>
                 </div>
                 <p className="text-body text-be-grey-650">
-                  Bi-Colour variant with dual-colour layers.
+                  Dual-layer dual-colour insulating mats with a contrasting lower
+                  layer designed to act as a visible wear indicator.
                 </p>
               </div>
             </div>

@@ -392,6 +392,24 @@ export function Header() {
                                 >{item.name}</Link>
                               ))}
                             </div>
+                            {/* Additional specialized brand directions (e.g. Bharat PoleShield) */}
+                            {(electricalGroup.children as ProductNavSubGroup[]).length > 2 && (
+                              (electricalGroup.children as ProductNavSubGroup[])
+                                .slice(2)
+                                .map((sub) => (
+                                  <div key={sub.name} className="pl-3 mt-1">
+                                    <div className="flex items-baseline gap-1 px-2 py-1">
+                                      <span className="text-[0.7rem] font-medium text-white/50 uppercase tracking-wider">{sub.name}</span>
+                                    </div>
+                                    {sub.items.map((item) => (
+                                      <Link key={item.href} href={item.href}
+                                        className="flex items-center px-2 py-2.5 text-sm text-white/85 hover:text-be-brand-yellow hover:bg-white/6 transition-colors min-h-[44px]"
+                                        onClick={() => setMobileOpen(false)}
+                                      >{item.name}</Link>
+                                    ))}
+                                  </div>
+                                ))
+                            )}
                           </div>
 
                           {/* Water Proofing Solutions */}

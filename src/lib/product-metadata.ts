@@ -54,8 +54,8 @@ const productTitles: Record<string, ProductTitleSet> = {
   },
   /* Geo Membrane Lining — product brand name updated to public display name */
   'bharat-membrane': {
-    pageTitle: 'Geo Membrane Lining PVC Geo-Membrane',
-    socialTitle: 'Geo Membrane Lining PVC Geo-Membrane | Bharat Electrosafe',
+    pageTitle: 'Geo Membrane Lining Solutions',
+    socialTitle: 'Geo Membrane Lining Solutions | Bharat Electrosafe',
   },
   'bharat-hydro-seal': {
     pageTitle: 'Water Stop Seal PVC and Rubber Water Stops',

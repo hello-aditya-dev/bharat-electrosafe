@@ -1049,8 +1049,8 @@ const bmGallery: ProductGalleryImage[] = [
 
 const bharatMembrane: ProductData = {
   slug: 'bharat-membrane',
-  name: 'Geo Membrane Lining',
-  shortName: 'BM',
+  name: 'Geo Membrane Lining Solutions',
+  shortName: 'Geo Membrane',
   category: 'waterproofing-civil-protection',
   images: {
     thumbnail: {
@@ -1064,17 +1064,17 @@ const bharatMembrane: ProductData = {
   },
   assuranceItems: membraneAssuranceItems,
   description:
-    'PVC geo-membranes for tunnel waterproofing, containment, lining and barrier applications in civil and environmental projects.',
+    'Geo Membrane Lining Solutions designed for applications where effective containment, protection and long-term lining performance are essential.',
   introduction:
-    'Geo Membrane Lining is a range of PVC geo-membranes for tunnel waterproofing, containment, lining and barrier applications in civil and environmental engineering projects. Referenced standard: IS 15909:2020. Product profile, thickness, welding method and suitability should be reviewed against the project specification before selection.',
+    'Bharat Electrosafe offers Geo Membrane Lining Solutions designed for applications where effective containment, protection and long-term lining performance are essential.\n\nOur geo membrane solutions are manufactured with a focus on quality, durability and reliable performance and are designed in line with IS 15909:2020 for relevant containment, lining and environmental protection applications.\n\nGeo membrane lining provides an effective solution for creating protective barriers and containment systems across industrial, infrastructure, water management and environmental projects.',
   badges: ['IS 15909:2020', 'PVC geo-membrane', 'Thermally weldable', 'Custom fabrication'],
   quickFacts: [
-    { icon: 'droplets', label: 'Function', value: 'Waterproofing and containment' },
+    { icon: 'droplets', label: 'Function', value: 'Containment and lining' },
     { icon: 'ruler', label: 'Thickness', value: '1 mm – 5 mm' },
     { icon: 'award', label: 'Standard', value: 'IS 15909:2020' },
   ],
   overviewText:
-    'Geo Membrane Lining is a PVC geo-membrane for civil and environmental engineering applications. Sheets are seamable by thermal welding, producing continuous joints without adhesives, and custom fabrication is available so roll sizes suit the project. Request the current product documentation for the exact membrane grade and project approval requirements.',
+    'Reliable Containment, Lining & Environmental Protection Solutions. Geo Membrane Lining is manufactured with a focus on quality, durability and reliable performance, designed in line with IS 15909:2020 for relevant containment, lining and environmental protection applications.',
   keyBenefits: [
     { icon: 'shield', text: 'PVC geo-membrane for barrier and containment applications' },
     { icon: 'hammer', text: 'Puncture and tear resistance' },
@@ -1129,34 +1129,44 @@ const bharatMembrane: ProductData = {
   ],
   applications: [
     {
-      icon: 'mountain',
-      name: 'Tunnel & Basement Waterproofing',
-      description: 'Continuous waterproof lining for tunnels and below-grade structures',
-    },
-    {
-      icon: 'trash-2',
-      name: 'Landfills & Hazardous Waste Containment',
-      description: 'Barrier lining for landfill cells and hazardous waste containment',
+      icon: 'droplets',
+      name: 'Water reservoirs and storage ponds',
+      description: 'Containment and lining for water reservoirs and storage ponds',
     },
     {
       icon: 'waves',
-      name: 'Reservoirs, Canals & Ponds',
-      description: 'Lining for water reservoirs, canals and ponds',
-    },
-    {
-      icon: 'pickaxe',
-      name: 'Mining & Ash Dyke Lining',
-      description: 'Containment lining for mining operations and ash dykes',
+      name: 'Canals and irrigation projects',
+      description: 'Lining for canals and irrigation projects',
     },
     {
       icon: 'factory',
-      name: 'Industrial Effluent Ponds',
-      description: 'Chemically resistant lining for effluent containment',
+      name: 'Industrial containment areas',
+      description: 'Protective lining for industrial containment areas',
     },
     {
-      icon: 'sprout',
-      name: 'Aquaculture & Agriculture Lining',
-      description: 'Lining for aquaculture ponds and agricultural water storage',
+      icon: 'trash-2',
+      name: 'Effluent and wastewater treatment facilities',
+      description: 'Lining for effluent and wastewater treatment facilities',
+    },
+    {
+      icon: 'mountain',
+      name: 'Landfills and environmental protection projects',
+      description: 'Barrier lining for landfills and environmental protection projects',
+    },
+    {
+      icon: 'pickaxe',
+      name: 'Mining and infrastructure projects',
+      description: 'Containment lining for mining and infrastructure projects',
+    },
+    {
+      icon: 'waves',
+      name: 'Ponds, lagoons and other water containment applications',
+      description: 'Lining for ponds, lagoons and other water containment applications',
+    },
+    {
+      icon: 'shield',
+      name: 'Other specialised lining and containment requirements',
+      description: 'Custom lining for other specialised containment requirements',
     },
   ],
   documents: [

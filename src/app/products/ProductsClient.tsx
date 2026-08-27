@@ -542,18 +542,31 @@ function ElectricalInsulatingMatsSection() {
                 </span>
               </div>
               <p className="text-be-grey-650 text-base mb-5 max-w-md">
-                IEC 61111:2009 compliant insulating mats for export and international projects — Class 0 through Class 4.
+                IEC 61111:2009 compliant insulating mats for export and international projects — Class 0 through Class 4, including specialized innovation variants.
               </p>
               <div className="flex flex-col gap-2 mb-6">
                 <span className="text-sm font-medium text-be-charcoal-950">Products available:</span>
                 <ul className="flex flex-col gap-1.5 text-sm text-be-grey-650">
                   <li className="flex items-center gap-2"><span className="w-1.5 h-1.5 rounded-full bg-be-brand-blue" aria-hidden="true" /> HV Insulating Mats</li>
-                  <li className="flex items-center gap-2"><span className="w-1.5 h-1.5 rounded-full bg-be-brand-blue" aria-hidden="true" /> Auto Glow</li>
+                  <li className="flex items-center gap-2">
+                    <span className="w-1.5 h-1.5 rounded-full bg-be-brand-blue" aria-hidden="true" />
+                    <Link href="/products/electrical-insulating-mats/dual-layer-dual-colour" className="font-medium text-be-navy-800 hover:text-be-brand-blue transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-be-yellow-500 rounded">
+                      Dual Layer Dual Colour
+                    </Link>
+                    <span className="text-xs text-be-navy-700 bg-be-brand-blue/10 px-2 py-0.5 rounded-full">Specialized</span>
+                  </li>
+                  <li className="flex items-center gap-2">
+                    <span className="w-1.5 h-1.5 rounded-full bg-be-brand-blue" aria-hidden="true" />
+                    <Link href="/products/electrical-insulating-mats/auto-glow-hv" className="font-medium text-be-navy-800 hover:text-be-brand-blue transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-be-yellow-500 rounded">
+                      Auto Glow HV
+                    </Link>
+                    <span className="text-xs text-be-navy-700 bg-be-brand-blue/10 px-2 py-0.5 rounded-full">Specialized</span>
+                  </li>
                   <li className="flex items-center gap-2"><span className="w-1.5 h-1.5 rounded-full bg-be-brand-blue" aria-hidden="true" /> Bi-Colour</li>
                 </ul>
               </div>
               <Link
-                href="/products/international-iec-61111"
+                href="/products/electrical-insulating-mats/international-iec-61111"
                 className="inline-flex items-center gap-2 text-sm font-semibold text-be-navy-800 hover:text-be-brand-blue transition-colors group/link focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-be-yellow-500 rounded"
               >
                 Explore IEC Range
@@ -572,6 +585,34 @@ function ElectricalInsulatingMatsSection() {
                 />
               </div>
             </div>
+          </div>
+        </div>
+
+        {/* Bharat PoleShield — brand direction card */}
+        <div className="rounded-2xl border border-be-grey-250 bg-be-white overflow-hidden">
+          <div className="flex flex-col sm:flex-row items-start sm:items-center gap-4 p-6 lg:p-7">
+            <span
+              className="flex items-center justify-center size-12 rounded-lg bg-be-navy-800 text-be-yellow-500 shrink-0"
+              aria-hidden="true"
+            >
+              <ShieldCheck className="size-6" />
+            </span>
+            <div className="flex-1 min-w-0">
+              <div className="flex flex-wrap items-center gap-2 mb-1">
+                <h3 className="text-lg font-semibold text-be-charcoal-950">Bharat PoleShield</h3>
+                <span className="text-xs font-medium text-be-charcoal-800 bg-be-yellow-50 px-2 py-0.5 rounded-full">Brand Direction</span>
+              </div>
+              <p className="text-sm text-be-grey-650">
+                Protecting Every Pole &nbsp;•&nbsp; Protecting Every Life — a distinct brand direction from Bharat Electrosafe.
+              </p>
+            </div>
+            <Link
+              href="/products/bharat-poleshield"
+              className="inline-flex items-center gap-2 text-sm font-semibold text-be-navy-800 hover:text-be-brand-blue transition-colors group/link focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-be-yellow-500 rounded shrink-0"
+            >
+              Learn More
+              <ChevronRight className="size-4 group-hover/link:translate-x-0.5 transition-transform" aria-hidden="true" />
+            </Link>
           </div>
         </div>
       </div>
