@@ -90,7 +90,7 @@ function SlideContent({ slide }: { slide: BrandShowcaseSlide }) {
             <BrandLogo
               key={brand.name}
               brand={brand}
-              className="relative w-full h-[60px] sm:h-[72px] lg:h-[88px]"
+              className="relative w-full h-[80px] sm:h-[96px] lg:h-[120px]"
             />
           ))}
         </div>
@@ -113,7 +113,7 @@ function SlideContent({ slide }: { slide: BrandShowcaseSlide }) {
             <BrandLogo
               key={brand.name}
               brand={brand}
-              className="relative w-[200px] sm:w-[220px] lg:w-[240px] h-[72px] sm:h-[80px] lg:h-[88px]"
+              className="relative w-[220px] sm:w-[260px] lg:w-[280px] h-[96px] sm:h-[108px] lg:h-[120px]"
             />
           ))}
         </div>
@@ -186,7 +186,7 @@ export default function BrandShowcase() {
 
       {/* Carousel viewport — overflow hidden, fixed min-height for layout stability. */}
       <div
-        className="relative min-h-[120px] sm:min-h-[110px] lg:min-h-[100px] overflow-hidden"
+        className="relative min-h-[160px] sm:min-h-[150px] lg:min-h-[160px] overflow-hidden"
         onMouseEnter={() => setPaused(true)}
         onMouseLeave={() => setPaused(false)}
         onFocus={() => setPaused(true)}
