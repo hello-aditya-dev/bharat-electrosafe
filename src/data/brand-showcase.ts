@@ -66,7 +66,7 @@ export const brandShowcaseSlides: BrandShowcaseSlide[] = [
         brands: [
           {
             name: 'Bharat Electrosafe',
-            logo: '/brand/bharat-electrosafe-logo-clean.png',
+            logo: '/brand/bharat-electrosafe-brand-logo.png',
             alt: 'Bharat Electrosafe logo',
           },
           {
