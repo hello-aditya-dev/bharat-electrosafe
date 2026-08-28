@@ -116,7 +116,7 @@ function SlideContent({
           key={group.label}
           className={`flex flex-col items-center ${idx > 0 ? 'md:border-l md:border-be-grey-200 md:pl-6' : 'md:pr-6'}`}
         >
-          <div className="text-[11px] font-semibold text-be-navy-800 uppercase tracking-wider mb-2">
+          <div className="text-[11px] font-semibold text-be-navy-800 uppercase tracking-wider mb-2.5">
             {group.label}
           </div>
           {group.brands.map((brand) => (
@@ -197,9 +197,9 @@ export default function BrandShowcase() {
   }, []);
 
   return (
-    <SectionShell variant="compact" bg="bg-be-cream" topRule ariaLabel="Our brands">
+    <SectionShell variant="compact" bg="bg-be-cream" topRule ariaLabel="Our brands" className="!pt-7 lg:!pt-8 !pb-6 lg:!pb-7">
       {/* Compact header — eyebrow + supporting line only (no large title). */}
-      <div className="flex flex-col items-center text-center gap-1.5 mb-4">
+      <div className="flex flex-col items-center text-center gap-1 mb-3">
         <Eyebrow>OUR BRANDS</Eyebrow>
         <p className="text-[15px] leading-relaxed text-be-grey-650 max-w-2xl">
           Specialized brands across electrical safety, flooring and waterproofing.
@@ -208,7 +208,7 @@ export default function BrandShowcase() {
 
       {/* Carousel viewport — overflow hidden, fixed min-height for layout stability. */}
       <div
-        className="relative min-h-[160px] sm:min-h-[150px] lg:min-h-[160px] overflow-hidden"
+        className="relative min-h-[120px] sm:min-h-[118px] lg:min-h-[128px] overflow-hidden"
         onMouseEnter={() => setPaused(true)}
         onMouseLeave={() => setPaused(false)}
         onFocus={() => setPaused(true)}
@@ -238,7 +238,7 @@ export default function BrandShowcase() {
 
       {/* Compact pagination dots — keyboard accessible, close to logos.
           Active state derived ONLY from `active` (single source of truth). */}
-      <div className="mt-3 flex items-center justify-center gap-2.5">
+      <div className="mt-3.5 flex items-center justify-center gap-2.5">
         {brandShowcaseSlides.map((s, i) => (
           <button
             key={s.id}
