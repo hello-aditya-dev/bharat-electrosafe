@@ -2,9 +2,9 @@
 
 import { useCallback, useEffect, useRef, useState } from 'react';
 import Image from 'next/image';
-import Link from 'next/link';
 import { SectionShell } from '@/components/ui/SectionShell';
 import { Eyebrow } from '@/components/ui/Eyebrow';
+import { BrandLogoPreview } from '@/components/ui/BrandLogoPreview';
 import {
   brandShowcaseSlides,
   type BrandShowcaseItem,
@@ -15,7 +15,7 @@ import {
  * BrandShowcase — slim, premium rotating brand strip for the homepage.
  *
  * Carousel architecture (single source of truth):
- *   - `active` is the ONLY piece of navigation state.
+ *   - `active` is the ONLY piece of carousel navigation state.
  *   - The visible logo group, the carousel transform (translateX), the
  *     active pagination dot, and the autoplay timer ALL derive from
  *     `active`. It is impossible for the visible logos and the active
@@ -25,72 +25,82 @@ import {
  *     by `-active * 100%` with a smooth `transition-transform` (~600ms,
  *     ease-in-out). No fade-to-blank, no empty intermediate state.
  *
- * Logical slides: exactly 2 (Insulating Mat Brands; PVC + Waterproofing).
- * Pagination dot count = `brandShowcaseSlides.length` = 2. Dots are real
- * navigation buttons that set `active` directly.
+ * Logo preview (independent state):
+ *   - `previewBrand` controls only whether the view-only popup is open
+ *     and which logo it shows. It is completely separate from `active`.
+ *   - Clicking ANY logo opens the preview modal. It does NOT navigate,
+ *     does NOT change the carousel slide, does NOT move the dot.
+ *   - The carousel remains exactly where it was underneath the modal.
  *
- * Visual approach: borderless logo zones (no card borders, no shadows,
- * no panel backgrounds) — logos sit directly on the section background
- * with `object-contain` to preserve each supplied logo's native aspect
- * ratio inside a consistent visual zone.
- *
- * Brand logos link to existing internal destinations only when a real
- * route exists (Bharat PoleShield, Bharat SmartFloor, BharatMembrane).
- * Other logos are informational (non-clickable) — no routes invented.
+ * Trademark / registered marks:
+ *   - The ™ (INSULATICAA, Bharat PoleShield) and ® (BES / first logo)
+ *     marks are ALREADY embedded in the supplied logo artwork, so no
+ *     duplicate overlay marks are added here. See brand-showcase.ts
+ *     for the asset paths.
  *
  * Accessibility:
  *   - pause on hover/focus (desktop); respects prefers-reduced-motion
  *   - keyboard-accessible dots with `aria-current` + descriptive labels
+ *   - every logo is a real <button> with a descriptive aria-label
+ *   - modal uses Radix Dialog (focus trap, ESC, focus restore)
  *   - timer cleanup on unmount (no leaks)
  */
 
 const AUTOPLAY_MS = 6000;
 const TRANSITION_MS = 600;
 
-/** Single borderless logo zone — preserves aspect ratio, links only when href exists. */
-function BrandLogo({ brand, className }: { brand: BrandShowcaseItem; className?: string }) {
-  const inner = (
-    <div className={className}>
-      <div className="relative w-full h-full flex items-center justify-center">
-        <Image
-          src={brand.logo}
-          alt={brand.alt}
-          fill
-          className="object-contain"
-          sizes="(max-width: 768px) 45vw, (max-width: 1280px) 22vw, 240px"
-        />
-      </div>
-    </div>
-  );
-
-  if (!brand.href) {
-    return inner;
-  }
-
+/** Single borderless logo zone — clickable, opens view-only preview. */
+function BrandLogoButton({
+  brand,
+  className,
+  onOpenPreview,
+}: {
+  brand: BrandShowcaseItem;
+  className?: string;
+  onOpenPreview: (brand: BrandShowcaseItem) => void;
+}) {
   return (
-    <Link
-      href={brand.href}
-      aria-label={`${brand.name} — view product page`}
-      className="group/link rounded-md focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-be-yellow-400 focus-visible:ring-offset-2"
+    <button
+      type="button"
+      onClick={() => onOpenPreview(brand)}
+      aria-label={`View ${brand.name} logo`}
+      className="group relative rounded-md focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-be-yellow-400 focus-visible:ring-offset-2 transition-transform hover:-translate-y-0.5"
     >
-      {inner}
-    </Link>
+      <div className={className}>
+        <div className="relative w-full h-full flex items-center justify-center">
+          <Image
+            src={brand.logo}
+            alt={brand.alt}
+            fill
+            className="object-contain"
+            sizes="(max-width: 768px) 45vw, (max-width: 1280px) 22vw, 240px"
+          />
+        </div>
+      </div>
+    </button>
   );
 }
 
 /** Render a single slide — handles 1 sub-group (slide 1) or 2 sub-groups (slide 2). */
-function SlideContent({ slide }: { slide: BrandShowcaseSlide }) {
+function SlideContent({
+  slide,
+  onOpenPreview,
+}: {
+  slide: BrandShowcaseSlide;
+  onOpenPreview: (brand: BrandShowcaseItem) => void;
+}) {
   if (slide.subGroups.length === 1) {
     // Slide 1 — 4 insulating-mat logos in a grid (2×2 mobile, 4-up desktop).
     const group = slide.subGroups[0];
     return (
       <div className="flex items-center justify-center h-full">
-        <div className="grid grid-cols-2 lg:grid-cols-4 gap-x-4 gap-y-4 sm:gap-x-6 lg:gap-x-8 w-full max-w-6xl items-center justify-items-stretch">
+        <div className="grid grid-cols-2 lg:grid-cols-4 gap-x-4 gap-y-3 sm:gap-x-6 lg:gap-x-8 w-full max-w-6xl items-center justify-items-stretch">
           {group.brands.map((brand) => (
-            <BrandLogo
+            <BrandLogoButton
               key={brand.name}
               brand={brand}
-              className="relative w-full h-[80px] sm:h-[96px] lg:h-[120px]"
+              onOpenPreview={onOpenPreview}
+              className="relative w-full h-[72px] sm:h-[88px] lg:h-[108px]"
             />
           ))}
         </div>
@@ -100,20 +110,21 @@ function SlideContent({ slide }: { slide: BrandShowcaseSlide }) {
 
   // Slide 2 — PVC Floor + Waterproofing sub-groups with a subtle divider.
   return (
-    <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-0 h-full items-center">
+    <div className="grid grid-cols-1 md:grid-cols-2 gap-3 md:gap-0 h-full items-center">
       {slide.subGroups.map((group, idx) => (
         <div
           key={group.label}
-          className={`flex flex-col items-center ${idx > 0 ? 'md:border-l md:border-be-grey-200 md:pl-8' : 'md:pr-8'}`}
+          className={`flex flex-col items-center ${idx > 0 ? 'md:border-l md:border-be-grey-200 md:pl-6' : 'md:pr-6'}`}
         >
-          <div className="text-[11px] font-semibold text-be-navy-800 uppercase tracking-wider mb-3">
+          <div className="text-[11px] font-semibold text-be-navy-800 uppercase tracking-wider mb-2">
             {group.label}
           </div>
           {group.brands.map((brand) => (
-            <BrandLogo
+            <BrandLogoButton
               key={brand.name}
               brand={brand}
-              className="relative w-[220px] sm:w-[260px] lg:w-[280px] h-[96px] sm:h-[108px] lg:h-[120px]"
+              onOpenPreview={onOpenPreview}
+              className="relative w-[200px] sm:w-[240px] lg:w-[260px] h-[88px] sm:h-[100px] lg:h-[108px]"
             />
           ))}
         </div>
@@ -127,6 +138,7 @@ export default function BrandShowcase() {
   const [active, setActive] = useState(0);
   const [reducedMotion, setReducedMotion] = useState(false);
   const [paused, setPaused] = useState(false);
+  const [previewBrand, setPreviewBrand] = useState<BrandShowcaseItem | null>(null);
   const timerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
   // Detect reduced-motion preference (defers setState via queueMicrotask
@@ -148,20 +160,22 @@ export default function BrandShowcase() {
   }, []);
 
   const scheduleNext = useCallback(() => {
-    if (reducedMotion || paused) return;
+    // Pause autoplay while the preview modal is open, or while reduced
+    // motion / hover-pause is active.
+    if (reducedMotion || paused || previewBrand !== null) return;
     clearTimer();
     timerRef.current = setTimeout(() => {
       setActive((prev) => (prev + 1) % total);
     }, AUTOPLAY_MS);
-  }, [reducedMotion, paused, clearTimer, total]);
+  }, [reducedMotion, paused, previewBrand, clearTimer, total]);
 
-  // Autoplay loop — reschedules whenever active/paused/reduced changes.
+  // Autoplay loop — reschedules whenever active/paused/reduced/preview changes.
   useEffect(() => {
     scheduleNext();
     return clearTimer;
   }, [active, scheduleNext, clearTimer]);
 
-  // Single source of truth for ALL navigation: dots, prev/next, autoplay.
+  // Single source of truth for ALL carousel navigation: dots, prev/next, autoplay.
   const goTo = useCallback(
     (index: number) => {
       const normalized = ((index % total) + total) % total;
@@ -174,10 +188,18 @@ export default function BrandShowcase() {
     [clearTimer, scheduleNext, total],
   );
 
+  // Logo preview — independent of carousel state. Does NOT touch `active`.
+  const openPreview = useCallback((brand: BrandShowcaseItem) => {
+    setPreviewBrand(brand);
+  }, []);
+  const closePreview = useCallback(() => {
+    setPreviewBrand(null);
+  }, []);
+
   return (
     <SectionShell variant="compact" bg="bg-be-cream" topRule ariaLabel="Our brands">
       {/* Compact header — eyebrow + supporting line only (no large title). */}
-      <div className="flex flex-col items-center text-center gap-2 mb-6">
+      <div className="flex flex-col items-center text-center gap-1.5 mb-4">
         <Eyebrow>OUR BRANDS</Eyebrow>
         <p className="text-[15px] leading-relaxed text-be-grey-650 max-w-2xl">
           Specialized brands across electrical safety, flooring and waterproofing.
@@ -186,7 +208,7 @@ export default function BrandShowcase() {
 
       {/* Carousel viewport — overflow hidden, fixed min-height for layout stability. */}
       <div
-        className="relative min-h-[160px] sm:min-h-[150px] lg:min-h-[160px] overflow-hidden"
+        className="relative min-h-[140px] sm:min-h-[130px] lg:min-h-[140px] overflow-hidden"
         onMouseEnter={() => setPaused(true)}
         onMouseLeave={() => setPaused(false)}
         onFocus={() => setPaused(true)}
@@ -208,7 +230,7 @@ export default function BrandShowcase() {
               className="relative w-full shrink-0 h-full"
               aria-hidden={brandShowcaseSlides[active].id !== slide.id}
             >
-              <SlideContent slide={slide} />
+              <SlideContent slide={slide} onOpenPreview={openPreview} />
             </div>
           ))}
         </div>
@@ -216,7 +238,7 @@ export default function BrandShowcase() {
 
       {/* Compact pagination dots — keyboard accessible, close to logos.
           Active state derived ONLY from `active` (single source of truth). */}
-      <div className="mt-4 flex items-center justify-center gap-2.5">
+      <div className="mt-3 flex items-center justify-center gap-2.5">
         {brandShowcaseSlides.map((s, i) => (
           <button
             key={s.id}
@@ -236,6 +258,17 @@ export default function BrandShowcase() {
           </button>
         ))}
       </div>
+
+      {/* View-only logo preview modal — independent of carousel state. */}
+      <BrandLogoPreview
+        open={previewBrand !== null}
+        onOpenChange={(open) => {
+          if (!open) closePreview();
+        }}
+        logo={previewBrand?.logo ?? ''}
+        alt={previewBrand?.alt ?? ''}
+        brandName={previewBrand?.name ?? ''}
+      />
     </SectionShell>
   );
 }
