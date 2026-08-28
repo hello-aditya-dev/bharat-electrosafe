@@ -7,18 +7,27 @@ import { SectionShell } from '@/components/ui/SectionShell';
 import { Eyebrow } from '@/components/ui/Eyebrow';
 import {
   brandShowcaseSlides,
-  waterproofingBrands,
   type BrandShowcaseItem,
+  type BrandShowcaseSlide,
 } from '@/data/brand-showcase';
 
 /**
  * BrandShowcase — slim, premium rotating brand strip for the homepage.
  *
- * Two banner compositions alternate automatically every ~6 seconds with
- * a smooth, restrained opacity fade. The carousel pauses on hover/focus
- * (desktop) and respects `prefers-reduced-motion`. Both slides share a
- * fixed minimum viewport height so the page layout never jumps when the
- * active slide changes.
+ * Carousel architecture (single source of truth):
+ *   - `active` is the ONLY piece of navigation state.
+ *   - The visible logo group, the carousel transform (translateX), the
+ *     active pagination dot, and the autoplay timer ALL derive from
+ *     `active`. It is impossible for the visible logos and the active
+ *     dot to disagree.
+ *   - Slides are laid out in a single horizontal track (`flex`), each
+ *     slide taking 100% of the viewport width. The track is translated
+ *     by `-active * 100%` with a smooth `transition-transform` (~600ms,
+ *     ease-in-out). No fade-to-blank, no empty intermediate state.
+ *
+ * Logical slides: exactly 2 (Insulating Mat Brands; PVC + Waterproofing).
+ * Pagination dot count = `brandShowcaseSlides.length` = 2. Dots are real
+ * navigation buttons that set `active` directly.
  *
  * Visual approach: borderless logo zones (no card borders, no shadows,
  * no panel backgrounds) — logos sit directly on the section background
@@ -28,10 +37,15 @@ import {
  * Brand logos link to existing internal destinations only when a real
  * route exists (Bharat PoleShield, Bharat SmartFloor, BharatMembrane).
  * Other logos are informational (non-clickable) — no routes invented.
+ *
+ * Accessibility:
+ *   - pause on hover/focus (desktop); respects prefers-reduced-motion
+ *   - keyboard-accessible dots with `aria-current` + descriptive labels
+ *   - timer cleanup on unmount (no leaks)
  */
 
 const AUTOPLAY_MS = 6000;
-const TRANSITION_MS = 700;
+const TRANSITION_MS = 600;
 
 /** Single borderless logo zone — preserves aspect ratio, links only when href exists. */
 function BrandLogo({ brand, className }: { brand: BrandShowcaseItem; className?: string }) {
@@ -64,7 +78,52 @@ function BrandLogo({ brand, className }: { brand: BrandShowcaseItem; className?:
   );
 }
 
+/** Render a single slide — handles 1 sub-group (slide 1) or 2 sub-groups (slide 2). */
+function SlideContent({ slide }: { slide: BrandShowcaseSlide }) {
+  if (slide.subGroups.length === 1) {
+    // Slide 1 — 4 insulating-mat logos in a grid (2×2 mobile, 4-up desktop).
+    const group = slide.subGroups[0];
+    return (
+      <div className="flex items-center justify-center h-full">
+        <div className="grid grid-cols-2 lg:grid-cols-4 gap-x-4 gap-y-4 sm:gap-x-6 lg:gap-x-8 w-full max-w-6xl items-center justify-items-stretch">
+          {group.brands.map((brand) => (
+            <BrandLogo
+              key={brand.name}
+              brand={brand}
+              className="relative w-full h-[60px] sm:h-[72px] lg:h-[88px]"
+            />
+          ))}
+        </div>
+      </div>
+    );
+  }
+
+  // Slide 2 — PVC Floor + Waterproofing sub-groups with a subtle divider.
+  return (
+    <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-0 h-full items-center">
+      {slide.subGroups.map((group, idx) => (
+        <div
+          key={group.label}
+          className={`flex flex-col items-center ${idx > 0 ? 'md:border-l md:border-be-grey-200 md:pl-8' : 'md:pr-8'}`}
+        >
+          <div className="text-[11px] font-semibold text-be-navy-800 uppercase tracking-wider mb-3">
+            {group.label}
+          </div>
+          {group.brands.map((brand) => (
+            <BrandLogo
+              key={brand.name}
+              brand={brand}
+              className="relative w-full max-w-[240px] h-[72px] sm:h-[80px] lg:h-[88px]"
+            />
+          ))}
+        </div>
+      ))}
+    </div>
+  );
+}
+
 export default function BrandShowcase() {
+  const total = brandShowcaseSlides.length;
   const [active, setActive] = useState(0);
   const [reducedMotion, setReducedMotion] = useState(false);
   const [paused, setPaused] = useState(false);
@@ -92,9 +151,9 @@ export default function BrandShowcase() {
     if (reducedMotion || paused) return;
     clearTimer();
     timerRef.current = setTimeout(() => {
-      setActive((prev) => (prev + 1) % brandShowcaseSlides.length);
+      setActive((prev) => (prev + 1) % total);
     }, AUTOPLAY_MS);
-  }, [reducedMotion, paused, clearTimer]);
+  }, [reducedMotion, paused, clearTimer, total]);
 
   // Autoplay loop — reschedules whenever active/paused/reduced changes.
   useEffect(() => {
@@ -102,14 +161,17 @@ export default function BrandShowcase() {
     return clearTimer;
   }, [active, scheduleNext, clearTimer]);
 
+  // Single source of truth for ALL navigation: dots, prev/next, autoplay.
   const goTo = useCallback(
     (index: number) => {
-      setActive(index);
-      // Manual navigation resets the autoplay timer.
+      const normalized = ((index % total) + total) % total;
+      setActive(normalized);
+      // Manual navigation resets the autoplay timer so the old timer
+      // cannot immediately move the carousel again.
       clearTimer();
       scheduleNext();
     },
-    [clearTimer, scheduleNext],
+    [clearTimer, scheduleNext, total],
   );
 
   return (
@@ -122,78 +184,45 @@ export default function BrandShowcase() {
         </p>
       </div>
 
-      {/* Carousel viewport — fixed min-height keeps layout stable across slides.
-          Tightly scoped to the logo zone + small gap to dots. */}
+      {/* Carousel viewport — overflow hidden, fixed min-height for layout stability. */}
       <div
-        className="relative min-h-[120px] sm:min-h-[110px] lg:min-h-[100px]"
+        className="relative min-h-[120px] sm:min-h-[110px] lg:min-h-[100px] overflow-hidden"
         onMouseEnter={() => setPaused(true)}
         onMouseLeave={() => setPaused(false)}
         onFocus={() => setPaused(true)}
         onBlur={() => setPaused(false)}
       >
-        {/* Slide 1 — Insulating Mat Brands (4 logos, 2×2 on mobile, 4-up on desktop). */}
+        {/* Horizontal track — each slide is 100% viewport width.
+            Translated by -active * 100% with a smooth transition.
+            No fade-to-blank, no empty intermediate state. */}
         <div
-          aria-hidden={active !== 0}
-          className={`absolute inset-0 transition-opacity ease-in-out ${
-            active === 0 ? 'opacity-100 z-10' : 'opacity-0 z-0 pointer-events-none'
-          }`}
-          style={{ transitionDuration: `${TRANSITION_MS}ms` }}
+          className="flex w-full h-full transition-transform ease-in-out"
+          style={{
+            transform: `translateX(-${active * 100}%)`,
+            transitionDuration: reducedMotion ? '0ms' : `${TRANSITION_MS}ms`,
+          }}
         >
-          <div className="flex items-center justify-center h-full">
-            <div className="grid grid-cols-2 lg:grid-cols-4 gap-x-4 gap-y-4 sm:gap-x-6 lg:gap-x-8 w-full max-w-6xl items-center justify-items-stretch">
-              {brandShowcaseSlides[0].brands.map((brand) => (
-                <BrandLogo
-                  key={brand.name}
-                  brand={brand}
-                  className="relative w-full h-[60px] sm:h-[72px] lg:h-[88px]"
-                />
-              ))}
+          {brandShowcaseSlides.map((slide) => (
+            <div
+              key={slide.id}
+              className="relative w-full shrink-0 h-full"
+              aria-hidden={brandShowcaseSlides[active].id !== slide.id}
+            >
+              <SlideContent slide={slide} />
             </div>
-          </div>
-        </div>
-
-        {/* Slide 2 — PVC Floor + Waterproofing Brands (2 labeled sub-groups with subtle divider). */}
-        <div
-          aria-hidden={active !== 1}
-          className={`absolute inset-0 transition-opacity ease-in-out ${
-            active === 1 ? 'opacity-100 z-10' : 'opacity-0 z-0 pointer-events-none'
-          }`}
-          style={{ transitionDuration: `${TRANSITION_MS}ms` }}
-        >
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-0 h-full items-center">
-            {/* PVC Floor Brands */}
-            <div className="flex flex-col items-center md:pr-8">
-              <div className="text-[11px] font-semibold text-be-navy-800 uppercase tracking-wider mb-3">
-                PVC Floor Brands
-              </div>
-              <BrandLogo
-                brand={brandShowcaseSlides[1].brands[0]}
-                className="relative w-full max-w-[240px] h-[72px] sm:h-[80px] lg:h-[88px]"
-              />
-            </div>
-
-            {/* Waterproofing Brands — subtle vertical divider on desktop */}
-            <div className="flex flex-col items-center md:border-l md:border-be-grey-200 md:pl-8">
-              <div className="text-[11px] font-semibold text-be-navy-800 uppercase tracking-wider mb-3">
-                Waterproofing Brands
-              </div>
-              <BrandLogo
-                brand={waterproofingBrands[0]}
-                className="relative w-full max-w-[240px] h-[72px] sm:h-[80px] lg:h-[88px]"
-              />
-            </div>
-          </div>
+          ))}
         </div>
       </div>
 
-      {/* Compact pagination dots — keyboard accessible, close to logos. */}
+      {/* Compact pagination dots — keyboard accessible, close to logos.
+          Active state derived ONLY from `active` (single source of truth). */}
       <div className="mt-4 flex items-center justify-center gap-2.5">
         {brandShowcaseSlides.map((s, i) => (
           <button
             key={s.id}
             type="button"
             onClick={() => goTo(i)}
-            aria-label={`Show ${s.title} (${i + 1} of ${brandShowcaseSlides.length})`}
+            aria-label={`Go to brand slide ${i + 1}: ${s.title}`}
             aria-current={active === i}
             className="focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-be-yellow-400 focus-visible:ring-offset-2 rounded-full p-1"
           >
