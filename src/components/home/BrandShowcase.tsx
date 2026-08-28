@@ -113,7 +113,7 @@ function SlideContent({ slide }: { slide: BrandShowcaseSlide }) {
             <BrandLogo
               key={brand.name}
               brand={brand}
-              className="relative w-full max-w-[240px] h-[72px] sm:h-[80px] lg:h-[88px]"
+              className="relative w-[200px] sm:w-[220px] lg:w-[240px] h-[72px] sm:h-[80px] lg:h-[88px]"
             />
           ))}
         </div>
