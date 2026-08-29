@@ -56,9 +56,10 @@ const AUTOPLAY_MS = 6000;
 const TRANSITION_MS = 600;
 
 /** Rounded logo presentation tile — consistent stage, aspect ratio preserved, clickable.
- *  The tile has a soft rounded background + subtle border so logos feel
- *  like deliberate display units rather than floating images. Source
- *  artwork is never modified — `object-contain` + `overflow-hidden`
+ *  The tile background matches each logo's native background color so
+ *  colored logos (blue/black/navy) blend seamlessly into the tile
+ *  instead of looking like a rectangular sticker on a white card.
+ *  Source artwork is never modified — `object-contain` + `overflow-hidden`
  *  keep each logo's native proportions inside the rounded stage.
  *
  *  Per-brand `scale` enlarges the visible artwork inside the tile so
@@ -74,6 +75,12 @@ function BrandLogoButton({
   // Per-brand scale (default 1). Enlarges the logo image inside the tile
   // via CSS transform scale so the visible artwork is more prominent.
   const scale = brand.scale ?? 1;
+  // Per-brand tile background — matches the logo's native background so
+  // colored logos blend seamlessly. Default white for light-background logos.
+  const tileBg = brand.tileBackground ?? '#ffffff';
+  // Light-background logos keep a subtle border + shadow; colored
+  // (dark/blue) backgrounds need no border (the tile IS the colored surface).
+  const isLight = !brand.tileBackground;
   return (
     <button
       type="button"
@@ -81,9 +88,13 @@ function BrandLogoButton({
       aria-label={`View ${brand.name} logo`}
       className="group relative focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-be-yellow-400 focus-visible:ring-offset-2 transition-transform hover:-translate-y-0.5"
     >
-      {/* Rounded display tile — subtle background + soft border, refined radius.
-          Logos sit inside via object-contain; source artwork unchanged. */}
-      <div className="relative w-[150px] h-[92px] sm:w-[175px] sm:h-[105px] lg:w-[195px] lg:h-[115px] rounded-2xl overflow-hidden bg-be-white border border-be-grey-200 shadow-sm">
+      {/* Rounded display tile — background matches the logo's native color.
+          Light logos: white bg + subtle border + shadow.
+          Colored logos: matching colored bg, no border (the tile IS the surface). */}
+      <div
+        className={`relative w-[150px] h-[92px] sm:w-[175px] sm:h-[105px] lg:w-[195px] lg:h-[115px] rounded-2xl overflow-hidden ${isLight ? 'bg-be-white border border-be-grey-200 shadow-sm' : ''}`}
+        style={isLight ? undefined : { backgroundColor: tileBg }}
+      >
         {/* Inner wrapper scales the logo artwork up within the tile.
             overflow-hidden on the tile clips any scaled overflow so the
             rounded shape is preserved. */}

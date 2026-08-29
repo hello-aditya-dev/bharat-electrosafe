@@ -42,6 +42,13 @@ export interface BrandShowcaseItem {
    * artwork is never modified — only the displayed size changes.
    */
   scale?: number;
+  /**
+   * Per-brand display-tile background color. For logos whose artwork has
+   * a colored background (blue/black/navy), this should match that color
+   * so the logo blends seamlessly into the tile instead of looking like
+   * a rectangular sticker on a white card. Default: white (light logos).
+   */
+  tileBackground?: string;
 }
 
 export interface BrandShowcaseSlide {
@@ -72,6 +79,7 @@ export const brandShowcaseSlides: BrandShowcaseSlide[] = [
         logo: '/brand/bharat-electrosafe-brand-logo.png',
         alt: 'Bharat Electrosafe logo',
         scale: 1.35,
+        tileBackground: '#1b1f28',
       },
       {
         name: 'INSULATICAA',
@@ -84,6 +92,7 @@ export const brandShowcaseSlides: BrandShowcaseSlide[] = [
         logo: '/brand/bharat-electro-shield-logo.webp',
         alt: 'Bharat ElectroShield logo',
         scale: 1.25,
+        tileBackground: '#002250',
       },
       {
         name: 'Bharat PoleShield',
@@ -105,6 +114,7 @@ export const brandShowcaseSlides: BrandShowcaseSlide[] = [
         alt: 'Bharat SmartFloor logo',
         href: '/products/pvc-flooring-solutions',
         scale: 1.25,
+        tileBackground: '#011f47',
       },
       {
         name: 'BharatMembrane',
@@ -112,6 +122,7 @@ export const brandShowcaseSlides: BrandShowcaseSlide[] = [
         alt: 'BharatMembrane logo',
         href: '/products/waterproofing-solutions',
         scale: 1.3,
+        tileBackground: '#000000',
       },
     ],
   },
