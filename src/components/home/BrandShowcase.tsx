@@ -59,7 +59,11 @@ const TRANSITION_MS = 600;
  *  The tile has a soft rounded background + subtle border so logos feel
  *  like deliberate display units rather than floating images. Source
  *  artwork is never modified — `object-contain` + `overflow-hidden`
- *  keep each logo's native proportions inside the rounded stage. */
+ *  keep each logo's native proportions inside the rounded stage.
+ *
+ *  Per-brand `scale` enlarges the visible artwork inside the tile so
+ *  logos with heavy internal whitespace fill more of the tile without
+ *  enlarging the tile itself. */
 function BrandLogoButton({
   brand,
   onOpenPreview,
@@ -67,6 +71,9 @@ function BrandLogoButton({
   brand: BrandShowcaseItem;
   onOpenPreview: (brand: BrandShowcaseItem) => void;
 }) {
+  // Per-brand scale (default 1). Enlarges the logo image inside the tile
+  // via CSS transform scale so the visible artwork is more prominent.
+  const scale = brand.scale ?? 1;
   return (
     <button
       type="button"
@@ -77,12 +84,18 @@ function BrandLogoButton({
       {/* Rounded display tile — subtle background + soft border, refined radius.
           Logos sit inside via object-contain; source artwork unchanged. */}
       <div className="relative w-[150px] h-[92px] sm:w-[175px] sm:h-[105px] lg:w-[195px] lg:h-[115px] rounded-2xl overflow-hidden bg-be-white border border-be-grey-200 shadow-sm">
-        <div className="relative w-full h-full flex items-center justify-center">
+        {/* Inner wrapper scales the logo artwork up within the tile.
+            overflow-hidden on the tile clips any scaled overflow so the
+            rounded shape is preserved. */}
+        <div
+          className="relative w-full h-full flex items-center justify-center"
+          style={{ transform: `scale(${scale})` }}
+        >
           <Image
             src={brand.logo}
             alt={brand.alt}
             fill
-            className="object-contain p-2.5"
+            className="object-contain p-2"
             sizes="(max-width: 768px) 150px, (max-width: 1280px) 175px, 195px"
           />
         </div>

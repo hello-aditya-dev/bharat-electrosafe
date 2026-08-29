@@ -35,6 +35,13 @@ export interface BrandShowcaseItem {
   alt: string;
   /** Optional internal destination (data-level reference; not used for navigation from the showcase). */
   href?: string;
+  /**
+   * Per-brand visual scale multiplier (default 1). Applied to the logo
+   * image inside its tile so logos with heavy internal whitespace can
+   * fill more of the tile without enlarging the tile itself. Source
+   * artwork is never modified — only the displayed size changes.
+   */
+  scale?: number;
 }
 
 export interface BrandShowcaseSlide {
@@ -64,22 +71,26 @@ export const brandShowcaseSlides: BrandShowcaseSlide[] = [
         name: 'Bharat Electrosafe',
         logo: '/brand/bharat-electrosafe-brand-logo.png',
         alt: 'Bharat Electrosafe logo',
+        scale: 1.35,
       },
       {
         name: 'INSULATICAA',
         logo: '/brand/insulaticaa-logo.webp',
         alt: 'INSULATICAA logo',
+        scale: 1.2,
       },
       {
         name: 'Bharat ElectroShield',
         logo: '/brand/bharat-electro-shield-logo.webp',
         alt: 'Bharat ElectroShield logo',
+        scale: 1.25,
       },
       {
         name: 'Bharat PoleShield',
         logo: '/brand/bharat-poleshield-logo.jpeg',
         alt: 'Bharat PoleShield logo',
         href: '/products/bharat-poleshield',
+        scale: 1.2,
       },
     ],
   },
@@ -93,12 +104,14 @@ export const brandShowcaseSlides: BrandShowcaseSlide[] = [
         logo: '/brand/bharat-smart-floor-logo.webp',
         alt: 'Bharat SmartFloor logo',
         href: '/products/pvc-flooring-solutions',
+        scale: 1.25,
       },
       {
         name: 'BharatMembrane',
         logo: '/brand/bharat-membrane-logo.webp',
         alt: 'BharatMembrane logo',
         href: '/products/waterproofing-solutions',
+        scale: 1.3,
       },
     ],
   },
