@@ -55,7 +55,11 @@ import {
 const AUTOPLAY_MS = 6000;
 const TRANSITION_MS = 600;
 
-/** Single borderless logo stage — consistent max footprint, aspect ratio preserved, clickable. */
+/** Rounded logo presentation tile — consistent stage, aspect ratio preserved, clickable.
+ *  The tile has a soft rounded background + subtle border so logos feel
+ *  like deliberate display units rather than floating images. Source
+ *  artwork is never modified — `object-contain` + `overflow-hidden`
+ *  keep each logo's native proportions inside the rounded stage. */
 function BrandLogoButton({
   brand,
   onOpenPreview,
@@ -68,19 +72,18 @@ function BrandLogoButton({
       type="button"
       onClick={() => onOpenPreview(brand)}
       aria-label={`View ${brand.name} logo`}
-      className="group relative rounded-md focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-be-yellow-400 focus-visible:ring-offset-2 transition-transform hover:-translate-y-0.5"
+      className="group relative focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-be-yellow-400 focus-visible:ring-offset-2 transition-transform hover:-translate-y-0.5"
     >
-      {/* Consistent logo stage: max-width + max-height + object-contain.
-          No card border, no shadow, no background — logos sit directly on
-          the section background. Each logo keeps its native aspect ratio. */}
-      <div className="relative w-[140px] h-[78px] sm:w-[160px] sm:h-[88px] lg:w-[180px] lg:h-[100px]">
+      {/* Rounded display tile — subtle background + soft border, refined radius.
+          Logos sit inside via object-contain; source artwork unchanged. */}
+      <div className="relative w-[150px] h-[92px] sm:w-[175px] sm:h-[105px] lg:w-[195px] lg:h-[115px] rounded-2xl overflow-hidden bg-be-white border border-be-grey-200 shadow-sm">
         <div className="relative w-full h-full flex items-center justify-center">
           <Image
             src={brand.logo}
             alt={brand.alt}
             fill
-            className="object-contain"
-            sizes="(max-width: 768px) 140px, (max-width: 1280px) 160px, 180px"
+            className="object-contain p-2.5"
+            sizes="(max-width: 768px) 150px, (max-width: 1280px) 175px, 195px"
           />
         </div>
       </div>
@@ -107,7 +110,7 @@ function SlideContent({
   return (
     <div className="flex items-center justify-center h-full w-full">
       <div
-        className={`grid ${gridCols} gap-x-5 gap-y-3 sm:gap-x-8 lg:gap-x-10 items-center justify-items-center`}
+        className={`grid ${gridCols} gap-x-6 gap-y-3 sm:gap-x-8 lg:gap-x-10 items-center justify-items-center`}
       >
         {slide.brands.map((brand) => (
           <BrandLogoButton
