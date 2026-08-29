@@ -8,11 +8,15 @@ import { BrandLogoPreview } from '@/components/ui/BrandLogoPreview';
 import {
   brandShowcaseSlides,
   type BrandShowcaseItem,
-  type BrandShowcaseSlide,
 } from '@/data/brand-showcase';
 
 /**
- * BrandShowcase — slim, premium rotating brand strip for the homepage.
+ * BrandShowcase — compact premium brand showcase for the homepage.
+ *
+ * Visual concept:
+ *   A single centered logo group per slide, with a category context label
+ *   above the logos and pagination dots directly below. No two-column
+ *   divider, no "table" look — the logos are the primary content.
  *
  * Carousel architecture (single source of truth):
  *   - `active` is the ONLY piece of carousel navigation state.
@@ -25,18 +29,20 @@ import {
  *     by `-active * 100%` with a smooth `transition-transform` (~600ms,
  *     ease-in-out). No fade-to-blank, no empty intermediate state.
  *
+ * The active slide's `label` is rendered as the category context above
+ * the logo group, and updates with the carousel (so it always describes
+ * the visible logos).
+ *
  * Logo preview (independent state):
  *   - `previewBrand` controls only whether the view-only popup is open
  *     and which logo it shows. It is completely separate from `active`.
  *   - Clicking ANY logo opens the preview modal. It does NOT navigate,
  *     does NOT change the carousel slide, does NOT move the dot.
- *   - The carousel remains exactly where it was underneath the modal.
  *
  * Trademark / registered marks:
  *   - The ™ (INSULATICAA, Bharat PoleShield) and ® (BES / first logo)
  *     marks are ALREADY embedded in the supplied logo artwork, so no
- *     duplicate overlay marks are added here. See brand-showcase.ts
- *     for the asset paths.
+ *     duplicate overlay marks are added here.
  *
  * Accessibility:
  *   - pause on hover/focus (desktop); respects prefers-reduced-motion
@@ -49,14 +55,12 @@ import {
 const AUTOPLAY_MS = 6000;
 const TRANSITION_MS = 600;
 
-/** Single borderless logo zone — clickable, opens view-only preview. */
+/** Single borderless logo stage — consistent max footprint, aspect ratio preserved, clickable. */
 function BrandLogoButton({
   brand,
-  className,
   onOpenPreview,
 }: {
   brand: BrandShowcaseItem;
-  className?: string;
   onOpenPreview: (brand: BrandShowcaseItem) => void;
 }) {
   return (
@@ -66,14 +70,17 @@ function BrandLogoButton({
       aria-label={`View ${brand.name} logo`}
       className="group relative rounded-md focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-be-yellow-400 focus-visible:ring-offset-2 transition-transform hover:-translate-y-0.5"
     >
-      <div className={className}>
+      {/* Consistent logo stage: max-width + max-height + object-contain.
+          No card border, no shadow, no background — logos sit directly on
+          the section background. Each logo keeps its native aspect ratio. */}
+      <div className="relative w-[140px] h-[78px] sm:w-[160px] sm:h-[88px] lg:w-[180px] lg:h-[100px]">
         <div className="relative w-full h-full flex items-center justify-center">
           <Image
             src={brand.logo}
             alt={brand.alt}
             fill
             className="object-contain"
-            sizes="(max-width: 768px) 45vw, (max-width: 1280px) 22vw, 240px"
+            sizes="(max-width: 768px) 140px, (max-width: 1280px) 160px, 180px"
           />
         </div>
       </div>
@@ -81,54 +88,35 @@ function BrandLogoButton({
   );
 }
 
-/** Render a single slide — handles 1 sub-group (slide 1) or 2 sub-groups (slide 2). */
+/** Render a single slide — one centered logo group (no two-column divider). */
 function SlideContent({
   slide,
   onOpenPreview,
 }: {
-  slide: BrandShowcaseSlide;
+  slide: typeof brandShowcaseSlides[number];
   onOpenPreview: (brand: BrandShowcaseItem) => void;
 }) {
-  if (slide.subGroups.length === 1) {
-    // Slide 1 — 4 insulating-mat logos in a grid (2×2 mobile, 4-up desktop).
-    const group = slide.subGroups[0];
-    return (
-      <div className="flex items-center justify-center h-full">
-        <div className="grid grid-cols-2 lg:grid-cols-4 gap-x-4 gap-y-3 sm:gap-x-6 lg:gap-x-8 w-full max-w-6xl items-center justify-items-stretch">
-          {group.brands.map((brand) => (
-            <BrandLogoButton
-              key={brand.name}
-              brand={brand}
-              onOpenPreview={onOpenPreview}
-              className="relative w-full h-[88px] sm:h-[104px] lg:h-[128px]"
-            />
-          ))}
-        </div>
-      </div>
-    );
-  }
+  const count = slide.brands.length;
+  // Slide 1 (4 logos): 2×2 on mobile, 4-up on desktop.
+  // Slide 2 (2 logos): centered pair on all breakpoints.
+  const gridCols =
+    count === 4
+      ? 'grid-cols-2 lg:grid-cols-4'
+      : 'grid-cols-2';
 
-  // Slide 2 — PVC Floor + Waterproofing sub-groups with a subtle divider.
   return (
-    <div className="grid grid-cols-1 md:grid-cols-2 gap-3 md:gap-0 h-full items-center">
-      {slide.subGroups.map((group, idx) => (
-        <div
-          key={group.label}
-          className={`flex flex-col items-center ${idx > 0 ? 'md:border-l md:border-be-grey-200 md:pl-6' : 'md:pr-6'}`}
-        >
-          <div className="text-[11px] font-semibold text-be-navy-800 uppercase tracking-wider mb-2.5">
-            {group.label}
-          </div>
-          {group.brands.map((brand) => (
-            <BrandLogoButton
-              key={brand.name}
-              brand={brand}
-              onOpenPreview={onOpenPreview}
-              className="relative w-[220px] sm:w-[260px] lg:w-[290px] h-[104px] sm:h-[120px] lg:h-[128px]"
-            />
-          ))}
-        </div>
-      ))}
+    <div className="flex items-center justify-center h-full w-full">
+      <div
+        className={`grid ${gridCols} gap-x-5 gap-y-3 sm:gap-x-8 lg:gap-x-10 items-center justify-items-center`}
+      >
+        {slide.brands.map((brand) => (
+          <BrandLogoButton
+            key={brand.name}
+            brand={brand}
+            onOpenPreview={onOpenPreview}
+          />
+        ))}
+      </div>
     </div>
   );
 }
@@ -196,19 +184,30 @@ export default function BrandShowcase() {
     setPreviewBrand(null);
   }, []);
 
+  const activeSlide = brandShowcaseSlides[active];
+
   return (
     <SectionShell variant="compact" bg="bg-be-cream" topRule ariaLabel="Our brands" className="!pt-7 lg:!pt-8 !pb-6 lg:!pb-7">
       {/* Compact header — eyebrow + supporting line only (no large title). */}
-      <div className="flex flex-col items-center text-center gap-1 mb-3">
+      <div className="flex flex-col items-center text-center gap-1 mb-4">
         <Eyebrow>OUR BRANDS</Eyebrow>
         <p className="text-[15px] leading-relaxed text-be-grey-650 max-w-2xl">
           Specialized brands across electrical safety, flooring and waterproofing.
         </p>
       </div>
 
-      {/* Carousel viewport — overflow hidden, fixed min-height for layout stability. */}
+      {/* Category context label for the active slide — describes the visible logos.
+          Updates with the carousel so it always matches the current logo group. */}
+      <div className="text-center mb-3">
+        <span className="text-[11px] font-semibold text-be-navy-800 uppercase tracking-wider">
+          {activeSlide.label}
+        </span>
+      </div>
+
+      {/* Carousel viewport — overflow hidden, fixed min-height for layout stability.
+          Both slides use the same compact stage height so the section never jumps. */}
       <div
-        className="relative min-h-[120px] sm:min-h-[118px] lg:min-h-[128px] overflow-hidden"
+        className="relative min-h-[100px] sm:min-h-[100px] lg:min-h-[108px] overflow-hidden"
         onMouseEnter={() => setPaused(true)}
         onMouseLeave={() => setPaused(false)}
         onFocus={() => setPaused(true)}
@@ -228,7 +227,7 @@ export default function BrandShowcase() {
             <div
               key={slide.id}
               className="relative w-full shrink-0 h-full"
-              aria-hidden={brandShowcaseSlides[active].id !== slide.id}
+              aria-hidden={activeSlide.id !== slide.id}
             >
               <SlideContent slide={slide} onOpenPreview={openPreview} />
             </div>

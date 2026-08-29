@@ -4,18 +4,26 @@
  * Centralized data for the homepage rotating brand showcase. Two banner
  * compositions alternate automatically:
  *
- *   1. Insulating Mat Brands — Bharat Electrosafe, INSULATICAA,
- *      Bharat ElectroShield, Bharat PoleShield.
- *   2. PVC Floor + Waterproofing Brands — Bharat SmartFloor (PVC) +
- *      BharatMembrane (Waterproofing) shown as two labeled sub-groups.
+ *   1. Electrical Safety & Specialized Brands — Bharat Electrosafe (BES®),
+ *      INSULATICAA™, Bharat ElectroShield, Bharat PoleShield™.
+ *   2. Flooring & Waterproofing Brands — Bharat SmartFloor (PVC) +
+ *      BharatMembrane (Waterproofing).
+ *
+ * Each slide is a single centered logo group (NOT a two-column divider
+ * table). The slide's `label` is shown as the category context above the
+ * logos.
  *
  * Logos use the actual client-supplied brand assets from /brand/.
- * Each logo is rendered with `object-contain` so its native aspect
- * ratio is preserved inside a consistent visual area.
+ * Each logo is rendered with `object-contain` inside a consistent visual
+ * stage so its native aspect ratio is preserved.
+ *
+ * ™/® marks (BES®, INSULATICAA™, Bharat PoleShield™) are already embedded
+ * in the supplied logo artwork — no duplicate overlay marks are added.
  *
  * A brand is linked only when a legitimate internal destination already
- * exists. Brands without a dedicated route remain non-clickable
- * (informational only) — no routes are invented.
+ * exists. The link is NOT used for navigation from the brand showcase —
+ * every logo opens a view-only preview popup instead. The `href` is kept
+ * only as a data-level reference.
  */
 
 export interface BrandShowcaseItem {
@@ -25,95 +33,72 @@ export interface BrandShowcaseItem {
   logo: string;
   /** Accessible alt text for the logo image. */
   alt: string;
-  /** Optional internal destination if a real product/brand page exists. */
+  /** Optional internal destination (data-level reference; not used for navigation from the showcase). */
   href?: string;
-}
-
-/**
- * A labeled sub-group of brands within a slide. Slide 1 has a single
- * sub-group ("Insulating Mat Brands"). Slide 2 has two sub-groups
- * ("PVC Floor Brands" and "Waterproofing Brands") shown side by side
- * with a subtle divider.
- */
-export interface BrandShowcaseSubGroup {
-  /** Small category label shown above the logos in this sub-group. */
-  label: string;
-  /** Brands in this sub-group. */
-  brands: BrandShowcaseItem[];
 }
 
 export interface BrandShowcaseSlide {
   /** Unique slide id. */
-  id: 'electrical' | 'pvc-waterproofing';
+  id: 'electrical' | 'flooring-waterproofing';
   /** Slide title (used for aria labels / dot tooltips). */
   title: string;
-  /** One or two labeled sub-groups. */
-  subGroups: BrandShowcaseSubGroup[];
+  /** Category context label shown above the logos in this slide. */
+  label: string;
+  /** Brands displayed in this slide — rendered as one centered group. */
+  brands: BrandShowcaseItem[];
 }
 
 /**
  * Single source of truth for the brand carousel. Exactly two logical
  * slides — the carousel's `active` index and pagination dot count are
- * derived directly from this array's length.
+ * derived directly from this array's length. Each slide is a single
+ * centered logo group (no two-column divider).
  */
 export const brandShowcaseSlides: BrandShowcaseSlide[] = [
   {
     id: 'electrical',
-    title: 'Insulating Mat Brands',
-    subGroups: [
+    title: 'Electrical Safety & Specialized Brands',
+    label: 'Electrical Safety & Specialized Brands',
+    brands: [
       {
-        label: 'Insulating Mat Brands',
-        brands: [
-          {
-            name: 'Bharat Electrosafe',
-            logo: '/brand/bharat-electrosafe-brand-logo.png',
-            alt: 'Bharat Electrosafe logo',
-          },
-          {
-            name: 'INSULATICAA',
-            logo: '/brand/insulaticaa-logo.webp',
-            alt: 'INSULATICAA logo',
-          },
-          {
-            name: 'Bharat ElectroShield',
-            logo: '/brand/bharat-electro-shield-logo.webp',
-            alt: 'Bharat ElectroShield logo',
-          },
-          {
-            name: 'Bharat PoleShield',
-            logo: '/brand/bharat-poleshield-logo.jpeg',
-            alt: 'Bharat PoleShield logo',
-            href: '/products/bharat-poleshield',
-          },
-        ],
+        name: 'Bharat Electrosafe',
+        logo: '/brand/bharat-electrosafe-brand-logo.png',
+        alt: 'Bharat Electrosafe logo',
+      },
+      {
+        name: 'INSULATICAA',
+        logo: '/brand/insulaticaa-logo.webp',
+        alt: 'INSULATICAA logo',
+      },
+      {
+        name: 'Bharat ElectroShield',
+        logo: '/brand/bharat-electro-shield-logo.webp',
+        alt: 'Bharat ElectroShield logo',
+      },
+      {
+        name: 'Bharat PoleShield',
+        logo: '/brand/bharat-poleshield-logo.jpeg',
+        alt: 'Bharat PoleShield logo',
+        href: '/products/bharat-poleshield',
       },
     ],
   },
   {
-    id: 'pvc-waterproofing',
-    title: 'PVC Floor + Waterproofing Brands',
-    subGroups: [
+    id: 'flooring-waterproofing',
+    title: 'Flooring & Waterproofing Brands',
+    label: 'Flooring & Waterproofing Brands',
+    brands: [
       {
-        label: 'PVC Floor Brands',
-        brands: [
-          {
-            name: 'Bharat SmartFloor',
-            logo: '/brand/bharat-smart-floor-logo.webp',
-            alt: 'Bharat SmartFloor logo',
-            href: '/products/pvc-flooring-solutions',
-          },
-        ],
+        name: 'Bharat SmartFloor',
+        logo: '/brand/bharat-smart-floor-logo.webp',
+        alt: 'Bharat SmartFloor logo',
+        href: '/products/pvc-flooring-solutions',
       },
       {
-        label: 'Waterproofing Brands',
-        brands: [
-          {
-            name: 'BharatMembrane',
-            logo: '/brand/bharat-membrane-logo.webp',
-            alt: 'BharatMembrane logo',
-            href: '/products/waterproofing-solutions',
-          },
-        ],
+        name: 'BharatMembrane',
+        logo: '/brand/bharat-membrane-logo.webp',
+        alt: 'BharatMembrane logo',
+        href: '/products/waterproofing-solutions',
       },
     ],
   },
