@@ -1,5 +1,6 @@
 'use client';
 
+import { useState } from 'react';
 import Image from 'next/image';
 import {
   Shield,
@@ -11,6 +12,7 @@ import {
   Award,
   Globe,
   ChevronRight,
+  ChevronDown,
   Phone,
   Check,
   ArrowRight,
@@ -100,6 +102,9 @@ const breadcrumbItems = [
    ──────────────────────────────────────────── */
 
 export default function IECClient() {
+
+  /* Single-open FAQ accordion state */
+  const [openFaqIndex, setOpenFaqIndex] = useState<number | null>(0);
 
   return (
     <div className="min-h-screen flex flex-col bg-be-warm-white">
@@ -771,12 +776,49 @@ export default function IECClient() {
             supportingText="Practical answers about IEC 61111:2009 insulating mats — coverage, classes, properties and certification."
           />
           <div className="mt-6 flex flex-col gap-0 max-w-3xl">
-            {iecFaqItems.map((item, i) => (
-              <div key={item.q} className={cn('py-4', i > 0 && 'border-t border-be-grey-250')}>
-                <h3 className="text-base font-semibold text-be-charcoal-950 mb-1.5">{item.q}</h3>
-                <p className="text-body text-be-grey-650 leading-relaxed">{item.a}</p>
-              </div>
-            ))}
+            {iecFaqItems.map((item, i) => {
+              const isOpen = openFaqIndex === i;
+              return (
+                <div key={item.q} className={cn('border-t border-be-grey-250', i === iecFaqItems.length - 1 && 'border-b')}>
+                  <h3>
+                    <button
+                      type="button"
+                      onClick={() => setOpenFaqIndex(isOpen ? null : i)}
+                      aria-expanded={isOpen}
+                      aria-controls={`iec-faq-panel-${i}`}
+                      id={`iec-faq-button-${i}`}
+                      className="flex w-full items-center justify-between gap-4 py-4 text-left group focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-be-yellow-500 focus-visible:ring-offset-2 rounded"
+                    >
+                      <span className="text-base font-semibold text-be-charcoal-950 group-hover:text-be-charcoal-800 transition-colors">
+                        {item.q}
+                      </span>
+                      <span
+                        className={cn(
+                          'flex size-7 shrink-0 items-center justify-center rounded-full border border-be-grey-250 bg-be-cream transition-transform duration-300',
+                          isOpen && 'rotate-180 bg-be-yellow-100 border-be-yellow-300',
+                        )}
+                        aria-hidden="true"
+                      >
+                        <ChevronDown className="size-4 text-be-charcoal-800" />
+                      </span>
+                    </button>
+                  </h3>
+                  <div
+                    id={`iec-faq-panel-${i}`}
+                    role="region"
+                    aria-labelledby={`iec-faq-button-${i}`}
+                    className={cn(
+                      'grid transition-[grid-template-rows] duration-300 ease-out',
+                      isOpen ? 'grid-rows-[1fr]' : 'grid-rows-[0fr]',
+                    )}
+                  >
+                    <div className="overflow-hidden">
+                      <p className="text-body text-be-grey-650 leading-relaxed pb-4 pr-10">{item.a}</p>
+                    </div>
+                  </div>
+                </div>
+              );
+            })}
           </div>
         </SectionShell>
 

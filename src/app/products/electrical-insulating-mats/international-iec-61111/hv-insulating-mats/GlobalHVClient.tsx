@@ -1,5 +1,6 @@
 'use client';
 
+import { useState } from 'react';
 import {
   Shield,
   Zap,
@@ -22,6 +23,9 @@ import {
   Globe,
   Layers,
   Thermometer,
+  Gauge,
+  Info,
+  CircleCheck,
 } from 'lucide-react';
 import type { LucideIcon } from 'lucide-react';
 import { Header } from '@/components/layout/Header';
@@ -37,6 +41,7 @@ import { SecondaryButton } from '@/components/ui/SecondaryButton';
 import { TechnicalBadge } from '@/components/ui/TechnicalBadge';
 import { ImageFrame } from '@/components/ui/ImageFrame';
 import { FeatureList } from '@/components/ui/FeatureList';
+import { cn } from '@/lib/utils';
 import { company } from '@/data/company';
 import { iecVisuals } from '@/data/product-visuals';
 import {
@@ -77,6 +82,28 @@ const iecApplicationsWithIcons: { icon: LucideIcon; label: string }[] = iecAppli
 );
 
 /* ────────────────────────────────────────────
+   Class selector — numeric thresholds derived
+   from the same iecClasses data used by the
+   specification table. No invented values.
+   ──────────────────────────────────────────── */
+
+const iecClassThresholds = iecClasses.map((c) => ({
+  classLabel: c.classLabel,
+  maxWorkingVoltageNum: parseFloat(c.maxWorkingVoltage),
+}));
+
+const MAX_IEC_VOLTAGE = Math.max(...iecClassThresholds.map((c) => c.maxWorkingVoltageNum));
+
+function recommendClass(voltageKV: number) {
+  return iecClassThresholds.find((c) => voltageKV <= c.maxWorkingVoltageNum) ?? null;
+}
+
+const CLASS_PRESETS = iecClassThresholds.map((c) => ({
+  classLabel: c.classLabel,
+  voltage: c.maxWorkingVoltageNum,
+}));
+
+/* ────────────────────────────────────────────
    Breadcrumb items
    ──────────────────────────────────────────── */
 
@@ -89,6 +116,18 @@ const breadcrumbItems = [
 ];
 
 export default function GlobalHVClient() {
+
+  /* ── Class selector state ── */
+  const [voltageInput, setVoltageInput] = useState('');
+  const parsedVoltage = parseFloat(voltageInput);
+  const hasValidVoltage = Number.isFinite(parsedVoltage) && parsedVoltage > 0;
+  const recommended = hasValidVoltage ? recommendClass(parsedVoltage) : null;
+  const exceedsRange = hasValidVoltage && parsedVoltage > MAX_IEC_VOLTAGE;
+  const recommendedDetails = recommended
+    ? iecClasses.find((c) => c.classLabel === recommended.classLabel) ?? null
+    : null;
+
+  const selectPreset = (v: number) => setVoltageInput(String(v));
 
   return (
     <div className="min-h-screen flex flex-col bg-be-warm-white">
@@ -178,6 +217,160 @@ export default function GlobalHVClient() {
         </section>
 
         {/* ══════════════════════════════════════
+            2b. CLASS SELECTOR — interactive
+            ══════════════════════════════════════ */}
+        <SectionShell variant="standard" bg="bg-be-white" topRule id="class-selector" ariaLabel="IEC class selector">
+          <SectionHeader
+            eyebrow="Interactive Tool"
+            title="Which IEC Class Do You Need?"
+            supportingText={`Enter your installation's maximum working voltage in kV AC. The selector matches it against the IEC 61111:2009 class thresholds (up to ${MAX_IEC_VOLTAGE.toFixed(1)} kV).`}
+          />
+
+          <div className="mt-8 max-w-3xl mx-auto">
+            {/* Preset voltage chips */}
+            <div className="flex flex-wrap justify-center gap-2 mb-5">
+              {CLASS_PRESETS.map((preset) => {
+                const active = hasValidVoltage && Math.abs(parsedVoltage - preset.voltage) < 0.001;
+                return (
+                  <button
+                    key={preset.classLabel}
+                    type="button"
+                    onClick={() => selectPreset(preset.voltage)}
+                    aria-pressed={active}
+                    className={cn(
+                      'inline-flex items-center gap-1.5 px-3.5 py-2 rounded-full text-sm font-medium border transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-be-yellow-500 focus-visible:ring-offset-2 min-h-[44px]',
+                      active
+                        ? 'bg-be-yellow-500 border-be-yellow-500 text-be-charcoal-950 shadow-sm'
+                        : 'bg-be-white border-be-grey-300 text-be-charcoal-800 hover:border-be-yellow-400 hover:bg-be-yellow-50',
+                    )}
+                  >
+                    <Zap className="size-3.5" aria-hidden="true" />
+                    Up to {preset.voltage.toFixed(1)} kV
+                  </button>
+                );
+              })}
+            </div>
+
+            {/* Custom voltage input */}
+            <div className="flex flex-col sm:flex-row items-stretch sm:items-center justify-center gap-3 mb-6">
+              <label htmlFor="voltage-input" className="sr-only">
+                Maximum working voltage in kV AC
+              </label>
+              <div className="relative sm:w-64">
+                <Gauge className="absolute left-3.5 top-1/2 -translate-y-1/2 size-4 text-be-grey-650" aria-hidden="true" />
+                <input
+                  id="voltage-input"
+                  type="number"
+                  inputMode="decimal"
+                  min="0.1"
+                  step="0.1"
+                  placeholder="Custom voltage"
+                  value={voltageInput}
+                  onChange={(e) => setVoltageInput(e.target.value)}
+                  className="w-full pl-10 pr-14 py-2.5 min-h-[44px] rounded-lg border border-be-grey-300 bg-be-white text-body text-be-charcoal-950 placeholder:text-be-grey-650 focus:outline-none focus:ring-2 focus:ring-be-yellow-500 focus:border-be-yellow-500 transition-colors"
+                />
+                <span className="absolute right-3.5 top-1/2 -translate-y-1/2 text-metadata text-be-grey-650 pointer-events-none">
+                  kV AC
+                </span>
+              </div>
+              {voltageInput !== '' && (
+                <button
+                  type="button"
+                  onClick={() => setVoltageInput('')}
+                  className="text-sm font-medium text-be-grey-650 hover:text-be-charcoal-950 underline underline-offset-2 px-2 min-h-[44px] transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-be-yellow-500 rounded"
+                >
+                  Reset
+                </button>
+              )}
+            </div>
+
+            {/* Result panel */}
+            <div
+              role="status"
+              aria-live="polite"
+              className={cn(
+                'rounded-xl border p-5 sm:p-6 transition-colors duration-300',
+                recommended
+                  ? 'border-be-yellow-400 bg-be-yellow-50'
+                  : exceedsRange
+                    ? 'border-be-grey-300 bg-be-cream'
+                    : 'border-be-grey-250 bg-be-cream',
+              )}
+            >
+              {recommended && recommendedDetails ? (
+                <div className="flex flex-col gap-4">
+                  <div className="flex items-center gap-2.5">
+                    <span className="flex size-9 shrink-0 items-center justify-center rounded-full bg-be-yellow-500 text-be-charcoal-950" aria-hidden="true">
+                      <CircleCheck className="size-5" />
+                    </span>
+                    <div>
+                      <p className="text-metadata text-be-grey-650">Recommended class for {parsedVoltage.toFixed(1)} kV AC</p>
+                      <p className="text-xl font-bold text-be-charcoal-950 leading-tight">
+                        {recommended.classLabel}
+                        <span className="ml-2 text-sm font-semibold text-be-grey-650">
+                          (max working voltage {recommendedDetails.maxWorkingVoltage})
+                        </span>
+                      </p>
+                    </div>
+                  </div>
+                  <dl className="grid grid-cols-2 sm:grid-cols-4 gap-3">
+                    {[
+                      { label: 'Product code', value: recommendedDetails.productCode },
+                      { label: 'Thickness', value: recommendedDetails.thickness },
+                      { label: 'AC proof voltage', value: recommendedDetails.acProofVoltage },
+                      { label: 'Dielectric strength', value: recommendedDetails.dielectricStrength },
+                    ].map((item) => (
+                      <div key={item.label} className="rounded-lg bg-be-white border border-be-grey-250 px-3 py-2.5">
+                        <dt className="text-metadata text-be-grey-650">{item.label}</dt>
+                        <dd className="text-sm font-semibold text-be-charcoal-950 mt-0.5">{item.value}</dd>
+                      </div>
+                    ))}
+                  </dl>
+                  <div className="flex flex-wrap items-center gap-3">
+                    <PrimaryButton
+                      href={`/contact-us?type=quote&product=iec-hv-insulating-mats&class=${encodeURIComponent(recommended.classLabel)}`}
+                      className="self-start"
+                    >
+                      Request a Quote for {recommended.classLabel}
+                    </PrimaryButton>
+                    <p className="text-metadata text-be-grey-650 max-w-xs">
+                      Final class selection should be confirmed against your installation requirements —
+                      our team can advise.
+                    </p>
+                  </div>
+                </div>
+              ) : exceedsRange ? (
+                <div className="flex flex-col gap-3">
+                  <div className="flex items-center gap-2.5">
+                    <span className="flex size-9 shrink-0 items-center justify-center rounded-full bg-be-charcoal-950 text-be-white" aria-hidden="true">
+                      <Info className="size-5" />
+                    </span>
+                    <div>
+                      <p className="text-lg font-bold text-be-charcoal-950 leading-tight">Above the IEC 61111:2009 range</p>
+                      <p className="text-body text-be-grey-650">
+                        {parsedVoltage.toFixed(1)} kV exceeds Class 4 (max working voltage 36.0 kV). Contact us for
+                        technical guidance on alternative protection approaches.
+                      </p>
+                    </div>
+                  </div>
+                  <SecondaryButton href="/contact-us?type=technical-guidance&product=iec-hv-insulating-mats" className="self-start">
+                    Ask for Technical Guidance
+                  </SecondaryButton>
+                </div>
+              ) : (
+                <div className="flex items-center gap-2.5 text-be-grey-650">
+                  <Gauge className="size-5 shrink-0" aria-hidden="true" />
+                  <p className="text-body">
+                    Select a preset above or type your maximum working voltage to see the recommended IEC class,
+                    thickness and test voltages.
+                  </p>
+                </div>
+              )}
+            </div>
+          </div>
+        </SectionShell>
+
+        {/* ══════════════════════════════════════
             3. CLASS / VOLTAGE TABLE
             ══════════════════════════════════════ */}
         <SectionShell variant="technical" bg="bg-be-cream" id="class-table" ariaLabel="IEC 61111 HV class table">
@@ -201,22 +394,42 @@ export default function GlobalHVClient() {
                 </tr>
               </thead>
               <tbody>
-                {iecClasses.map((row) => (
-                  <tr key={row.classLabel} className="border-b border-be-grey-250 hover:bg-be-yellow-50/50 transition-colors">
-                    <td className="py-3 pr-4 font-semibold text-be-charcoal-950">{row.productCode}</td>
-                    <td className="py-3 pr-4 font-semibold text-be-charcoal-950">{row.classLabel}</td>
-                    <td className="py-3 pr-4 text-be-charcoal-800">{row.thickness}</td>
-                    <td className="py-3 pr-4 text-be-charcoal-800">{row.maxWorkingVoltage}</td>
-                    <td className="py-3 pr-4 text-be-charcoal-800">{row.acProofVoltage}</td>
-                    <td className="py-3 pr-4 text-be-charcoal-800">{row.dielectricStrength}</td>
-                    <td className="py-3 text-be-charcoal-800">
-                      <span className="inline-flex items-center gap-1.5">
-                        <Weight className="size-3.5 text-be-grey-650" aria-hidden="true" />
-                        {row.approxWeight}
-                      </span>
-                    </td>
-                  </tr>
-                ))}
+                {iecClasses.map((row) => {
+                  const isSelected = recommended?.classLabel === row.classLabel;
+                  return (
+                    <tr
+                      key={row.classLabel}
+                      className={cn(
+                        'border-b border-be-grey-250 transition-colors duration-300',
+                        isSelected
+                          ? 'bg-be-yellow-100/70 shadow-[inset_3px_0_0_0_theme(colors.be-yellow-500)]'
+                          : 'hover:bg-be-yellow-50/50',
+                      )}
+                      aria-current={isSelected ? 'true' : undefined}
+                    >
+                      <td className="py-3 pr-4 font-semibold text-be-charcoal-950">{row.productCode}</td>
+                      <td className="py-3 pr-4 font-semibold text-be-charcoal-950 whitespace-nowrap">
+                        {row.classLabel}
+                        {isSelected && (
+                          <span className="ml-2 inline-flex items-center gap-1 rounded-full bg-be-yellow-500 px-2 py-0.5 text-[10px] font-bold uppercase tracking-wide text-be-charcoal-950 align-middle">
+                            <CircleCheck className="size-3" aria-hidden="true" />
+                            Recommended
+                          </span>
+                        )}
+                      </td>
+                      <td className="py-3 pr-4 text-be-charcoal-800">{row.thickness}</td>
+                      <td className="py-3 pr-4 text-be-charcoal-800">{row.maxWorkingVoltage}</td>
+                      <td className="py-3 pr-4 text-be-charcoal-800">{row.acProofVoltage}</td>
+                      <td className="py-3 pr-4 text-be-charcoal-800">{row.dielectricStrength}</td>
+                      <td className="py-3 text-be-charcoal-800">
+                        <span className="inline-flex items-center gap-1.5">
+                          <Weight className="size-3.5 text-be-grey-650" aria-hidden="true" />
+                          {row.approxWeight}
+                        </span>
+                      </td>
+                    </tr>
+                  );
+                })}
               </tbody>
             </table>
           </div>
