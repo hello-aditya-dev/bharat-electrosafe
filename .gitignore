@@ -59,3 +59,6 @@ server.log
 # Sandbox artifacts — never commit these
 .zscripts/
 upload/
+
+# next dev output (separate distDir so dev and prod builds never collide)
+/.next-dev

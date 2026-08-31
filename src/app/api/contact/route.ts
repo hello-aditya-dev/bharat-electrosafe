@@ -4,7 +4,11 @@ import { company } from '@/data/company';
 import { isAllowedOrigin, parseOrigin } from '@/lib/origin';
 import { checkRateLimit } from '@/lib/rate-limit';
 import { verifyTurnstile } from '@/lib/turnstile';
-import { contactSchema, type ContactInput } from '@/lib/contact-schema';
+import {
+  contactSchema,
+  productLabelFromValue,
+  type ContactInput,
+} from '@/lib/contact-schema';
 
 /**
  * Contact form API route.
@@ -65,7 +69,7 @@ function buildPlainTextEmail(
     `Email: ${input.email}`,
     `Phone: ${input.phone}`,
     `Enquiry type: ${input.enquiryType}`,
-    input.product ? `Product: ${input.product}` : null,
+    input.product ? `Product: ${productLabelFromValue(input.product)}` : null,
     input.voltage ? `Voltage / class: ${input.voltage}` : null,
     input.dimensions ? `Dimensions: ${input.dimensions}` : null,
     input.quantity ? `Quantity: ${input.quantity}` : null,
@@ -92,7 +96,9 @@ function buildHtmlEmail(
     ['Phone', escapeHtml(input.phone)],
     ['Enquiry type', escapeHtml(input.enquiryType)],
     ...(input.product
-      ? ([['Product', escapeHtml(input.product)]] as Array<[string, string]>)
+      ? ([
+          ['Product', escapeHtml(productLabelFromValue(input.product))],
+        ] as Array<[string, string]>)
       : []),
     ...(input.voltage
       ? ([['Voltage / class', escapeHtml(input.voltage)]] as Array<[string, string]>)

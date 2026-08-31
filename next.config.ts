@@ -95,6 +95,12 @@ const nextConfig: NextConfig = {
   reactStrictMode: true,
   poweredByHeader: false,
   allowedDevOrigins: ['http://127.0.0.1', 'http://localhost'],
+  /* Separate build output for dev vs production so `next dev` and
+     `next build`/`next start` can run side by side without corrupting
+     each other's chunk manifests (root cause of the intermittent
+     ChunkLoadError / failed-hydration symptoms seen in local QA).
+     On Vercel, builds run with NODE_ENV=production → '.next' (standard). */
+  distDir: isProduction ? '.next' : '.next-dev',
   images: {
     remotePatterns: [
       {

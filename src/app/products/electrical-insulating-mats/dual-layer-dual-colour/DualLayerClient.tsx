@@ -27,6 +27,7 @@ import { SecondaryButton } from '@/components/ui/SecondaryButton';
 import { TechnicalBadge } from '@/components/ui/TechnicalBadge';
 import { ImageFrame } from '@/components/ui/ImageFrame';
 import { FeatureList } from '@/components/ui/FeatureList';
+import ColourwaySchematic from '@/components/products/ColourwaySchematic';
 import { biColourVisuals } from '@/data/product-visuals';
 import { PRODUCT_ROUTES } from '@/data/product-routes';
 
@@ -138,6 +139,13 @@ export default function DualLayerClient() {
                 The contrasting lower layer is designed to act as a visible wear
                 indicator, supporting:
               </p>
+
+              <ColourwaySchematic
+                size="full"
+                topLabel="Black"
+                bottomLabel="Yellow"
+                note="Documented colourway: Black surface with a contrasting Yellow wear-indicator layer, in line with the IEC 61111 dual-colour construction. Schematic illustration — request photographs for the actual finish."
+              />
 
               <FeatureList
                 items={[

@@ -11,14 +11,16 @@ import { cn } from '@/lib/utils';
 import {
   Select,
   SelectContent,
+  SelectGroup,
   SelectItem,
+  SelectLabel,
   SelectTrigger,
   SelectValue,
 } from '@/components/ui/select';
 import {
   contactSchema,
   enquiryTypeLabels,
-  productOptions,
+  groupedProductOptions,
   readContactPrefillFromUrl,
   type ContactInput,
   type EnquiryType,
@@ -64,7 +66,7 @@ export default function EnquiryQuoteLayout() {
   const prefilled =
     typeof window !== 'undefined'
       ? readContactPrefillFromUrl()
-      : { enquiryType: undefined, product: undefined, message: '' };
+      : { enquiryType: undefined, product: undefined, message: '', voltage: '' };
 
   const {
     register,
@@ -83,7 +85,7 @@ export default function EnquiryQuoteLayout() {
       enquiryType: prefilled.enquiryType,
       product: prefilled.product ?? '',
       message: prefilled.message,
-      voltage: '',
+      voltage: prefilled.voltage,
       dimensions: '',
       quantity: '',
       deliveryLocation: '',
@@ -382,11 +384,18 @@ export default function EnquiryQuoteLayout() {
               >
                 <SelectValue placeholder="Select a product" />
               </SelectTrigger>
-              <SelectContent>
-                {productOptions.map((product) => (
-                  <SelectItem key={product.value} value={product.value}>
-                    {product.label}
-                  </SelectItem>
+              <SelectContent className="max-h-80">
+                {groupedProductOptions().map(({ group, options }) => (
+                  <SelectGroup key={group}>
+                    <SelectLabel className="text-xs font-semibold uppercase tracking-wide text-be-grey-650">
+                      {group}
+                    </SelectLabel>
+                    {options.map((product) => (
+                      <SelectItem key={product.value} value={product.value}>
+                        {product.label}
+                      </SelectItem>
+                    ))}
+                  </SelectGroup>
                 ))}
               </SelectContent>
             </Select>
