@@ -1,3 +1,4 @@
+import type { Metadata } from 'next';
 import Link from 'next/link';
 import { Header } from '@/components/layout/Header';
 import { Footer } from '@/components/layout/Footer';
@@ -5,6 +6,13 @@ import { BackToTop } from '@/components/ui/BackToTop';
 import { PrimaryButton } from '@/components/ui/PrimaryButton';
 import { SecondaryButton } from '@/components/ui/SecondaryButton';
 import { productNavigationItems } from '@/data/products';
+
+/** The 404 page must not inherit the homepage title/default description. */
+export const metadata: Metadata = {
+  title: 'Page Not Found',
+  description:
+    'The page you are looking for does not exist or has been moved. Browse Bharat Electrosafe products or contact our team.',
+};
 
 export default function NotFound() {
   return (

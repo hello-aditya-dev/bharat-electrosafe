@@ -122,10 +122,21 @@ export default function RootLayout({
         className={`${manrope.variable} antialiased bg-be-warm-white text-be-charcoal-950`}
         style={{ fontFamily: "var(--font-manrope), sans-serif" }}
       >
+        {/* Skip link — first focusable element on every page. Keyboard users
+            can jump straight past the header/main navigation to the page
+            content (WCAG 2.1 — Bypass Blocks). Visually hidden until focused. */}
+        <a
+          href="#main-content"
+          className="sr-only focus:not-sr-only focus:fixed focus:top-3 focus:left-3 focus:z-[100] focus:inline-flex focus:items-center focus:rounded-lg focus:bg-be-yellow-500 focus:px-4 focus:py-2.5 focus:text-sm focus:font-semibold focus:text-be-charcoal-950 focus:shadow-lg focus:outline-none focus:ring-2 focus:ring-be-charcoal-950"
+        >
+          Skip to main content
+        </a>
         <noscript>
           <style dangerouslySetInnerHTML={{ __html: '.reveal-up,.stagger-reveal{opacity:1!important;transform:none!important}.stagger-reveal>*{opacity:1!important;transform:none!important}' }} />
         </noscript>
-        {children}
+        <div id="main-content" tabIndex={-1} className="outline-none">
+          {children}
+        </div>
         {/* Global progressive-enhancement observer. It must live at the root
             because reveal classes are used outside the homepage as well. */}
         <RevealObserver />

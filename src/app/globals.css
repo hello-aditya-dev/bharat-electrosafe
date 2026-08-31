@@ -232,6 +232,16 @@
   }
   html {
     scroll-behavior: smooth;
+    /* Sticky-header offset for anchored navigation (#specifications,
+       #hv-insulating-mats, …). Keeps target section headings visible
+       below the fixed header height on every viewport. */
+    scroll-padding-top: 5.5rem;
+  }
+  /* Brand-consistent text selection (yellow brand / charcoal text).
+     Pure enhancement — no layout impact. */
+  ::selection {
+    background-color: var(--be-yellow-100, #FFF4BE);
+    color: var(--be-charcoal-950, #242426);
   }
 }
 
