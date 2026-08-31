@@ -50,7 +50,9 @@ import { PrintSpecSheetButton } from '@/components/ui/PrintSpecSheetButton';
 import {
   normalizeClassLabel,
   readClassParam,
+  readQueryParam,
   syncClassParam,
+  syncQueryParams,
 } from '@/lib/class-selector-url';
 import {
   iecClasses,
@@ -197,21 +199,29 @@ export default function GlobalHVClient() {
 
   /* Deep-link init: a URL carrying ?class=Class 3 (e.g. a shared link)
      initialises the selector to that class's maximum working voltage.
-     Mount-effect (not a useState initializer) to avoid any SSR/client
-     markup mismatch. */
+     ?area= and ?unit= initialise the weight estimator the same way
+     (unit defaults to m², so only ft² needs the param). Mount-effect
+     (not useState initializers) to avoid any SSR/client markup mismatch. */
   const deepLinkAppliedRef = useRef(false);
   useEffect(() => {
     if (deepLinkAppliedRef.current) return;
     deepLinkAppliedRef.current = true;
     const klass = readClassParam();
-    if (!klass) return;
-    const match = iecClassThresholds.find(
-      (c) => normalizeClassLabel(c.classLabel) === normalizeClassLabel(klass),
-    );
-    /* Deliberate post-mount initialisation from an external mutable source
-       (the URL) — the deep-linked class cannot be known at SSR render time. */
-    // eslint-disable-next-line react-hooks/set-state-in-effect
-    if (match) setVoltageInput(String(match.maxWorkingVoltageNum));
+    if (klass) {
+      const match = iecClassThresholds.find(
+        (c) => normalizeClassLabel(c.classLabel) === normalizeClassLabel(klass),
+      );
+      /* Deliberate post-mount initialisation from an external mutable source
+         (the URL) — the deep-linked class cannot be known at SSR render time. */
+      // eslint-disable-next-line react-hooks/set-state-in-effect
+      if (match) setVoltageInput(String(match.maxWorkingVoltageNum));
+    }
+    const linkedArea = readQueryParam('area');
+    const linkedUnit = readQueryParam('unit');
+    if (linkedArea && Number.isFinite(parseFloat(linkedArea)) && parseFloat(linkedArea) > 0) {
+      setEstimatorArea(linkedArea);
+      if (linkedUnit === 'ft2' || linkedUnit === 'm2') setEstimatorUnit(linkedUnit);
+    }
   }, []);
 
   /* Mirror the current recommendation into the URL (?class=Class 3) so the
@@ -222,6 +232,23 @@ export default function GlobalHVClient() {
     if ((readClassParam() ?? null) === target) return;
     syncClassParam(target);
   }, [recommended, voltageInput]);
+
+  /* Mirror the estimator state into the URL (?area=120&unit=ft2) so a
+     planned estimate is shareable/bookmarkable alongside the class param.
+     Only valid areas are written (clearing the input removes both params);
+     unit=m² is the default and omitted to keep shared URLs tidy. */
+  useEffect(() => {
+    const nextArea = hasValidArea ? estimatorArea : null;
+    const nextUnit = hasValidArea && estimatorUnit !== 'm2' ? estimatorUnit : null;
+    const current = new URLSearchParams(window.location.search);
+    if (
+      (current.get('area') ?? null) === nextArea &&
+      (current.get('unit') ?? null) === nextUnit
+    ) {
+      return;
+    }
+    syncQueryParams({ area: nextArea, unit: nextUnit });
+  }, [estimatorArea, estimatorUnit, hasValidArea]);
 
   return (
     <div className="min-h-screen flex flex-col bg-be-warm-white">
@@ -582,7 +609,7 @@ export default function GlobalHVClient() {
           <SectionHeader
             eyebrow="Planning Tool"
             title="Estimate Total Mat Weight"
-            supportingText={`Area × approximate weight per m², using the brochure values for the selected IEC class (3.2 – 6.4 kg/m²). The class follows your selection above unless you pick one explicitly — useful for logistics and freight planning.`}
+            supportingText={`Area × approximate weight per m², using the brochure values for the selected IEC class (3.2 – 6.4 kg/m²). The class follows your selection above unless you pick one explicitly — useful for logistics and freight planning. Your plan is reflected in the page URL, so you can share or bookmark the exact estimate.`}
           />
 
           <div className="mt-8 max-w-3xl mx-auto">
@@ -639,13 +666,19 @@ export default function GlobalHVClient() {
                   placeholder="Mat area"
                   value={estimatorArea}
                   onChange={(e) => setEstimatorArea(e.target.value)}
-                  className="w-full pl-10 pr-16 py-2.5 min-h-[44px] rounded-lg border border-be-grey-300 bg-be-white text-body text-be-charcoal-950 placeholder:text-be-grey-650 focus:outline-none focus:ring-2 focus:ring-be-yellow-500 focus:border-be-yellow-500 transition-colors"
+                  className="w-full pl-10 pr-16 py-2.5 min-h-[44px] rounded-lg border border-be-grey-300 bg-be-white text-body text-be-charcoal-950 tabular-nums placeholder:text-be-grey-650 focus:outline-none focus:ring-2 focus:ring-be-yellow-500 focus:border-be-yellow-500 transition-colors"
                 />
                 <span className="absolute right-3.5 top-1/2 -translate-y-1/2 text-metadata text-be-grey-650 pointer-events-none">
                   {estimatorUnit === 'm2' ? 'm²' : 'ft²'}
                 </span>
               </div>
-              <div className="flex items-center justify-center gap-1.5" role="group" aria-label="Area unit">
+              {/* Joined segmented control — reads as one unit switcher
+                  instead of two loose chips */}
+              <div
+                className="inline-flex items-center self-center rounded-full border border-be-grey-300 bg-be-cream p-1"
+                role="group"
+                aria-label="Area unit"
+              >
                 {([
                   ['m2', 'm²'],
                   ['ft2', 'ft²'],
@@ -656,10 +689,10 @@ export default function GlobalHVClient() {
                     onClick={() => setEstimatorUnit(value)}
                     aria-pressed={estimatorUnit === value}
                     className={cn(
-                      'px-3.5 py-2 rounded-full text-sm font-medium border transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-be-yellow-500 focus-visible:ring-offset-2 min-h-[44px]',
+                      'px-4 py-1.5 rounded-full text-sm font-semibold transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-be-yellow-500 focus-visible:ring-offset-2 min-h-[36px] tabular-nums',
                       estimatorUnit === value
-                        ? 'bg-be-charcoal-950 border-be-charcoal-950 text-be-white'
-                        : 'bg-be-white border-be-grey-300 text-be-charcoal-800 hover:border-be-charcoal-800',
+                        ? 'bg-be-charcoal-950 text-be-white shadow-sm'
+                        : 'bg-transparent text-be-charcoal-800 hover:text-be-charcoal-950 hover:bg-be-white',
                     )}
                   >
                     {label}
@@ -691,7 +724,7 @@ export default function GlobalHVClient() {
                       <p className="text-metadata text-be-grey-650">
                         Estimated total weight — {estimatorDetails.classLabel} ({estimatorDetails.productCode})
                       </p>
-                      <p className="text-2xl font-bold text-be-charcoal-950 leading-tight">{totalDisplay}</p>
+                      <p className="text-2xl font-bold text-be-charcoal-950 leading-tight tabular-nums tracking-tight">{totalDisplay}</p>
                     </div>
                   </div>
                   <dl className="grid grid-cols-2 sm:grid-cols-3 gap-3">
@@ -744,6 +777,7 @@ export default function GlobalHVClient() {
                       Request a Quote for {estimatorDetails.classLabel}
                     </PrimaryButton>
                     <CopyEstimateButton
+                      includeLink
                       lines={[
                         `Bharat Electrosafe — HV Insulating Mats (IEC 61111:2009)`,
                         `Class: ${estimatorDetails.classLabel} (${estimatorDetails.productCode})`,

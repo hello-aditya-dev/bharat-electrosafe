@@ -65,7 +65,7 @@ export function FAQ({
         </div>
       )}
 
-      <div ref={staggerRef} className="stagger-reveal">
+      <div ref={staggerRef} className="stagger-reveal print:hidden">
         <Accordion
           type="single"
           collapsible
@@ -98,6 +98,21 @@ export function FAQ({
             </AccordionItem>
           ))}
         </Accordion>
+      </div>
+
+      {/* Print-only flat Q&A list — Radix unmounts closed answers, so the
+          interactive accordion cannot print its hidden content. The paper
+          output therefore gets a static full list from the same `items`
+          data (screen layout is untouched). */}
+      <div className="hidden print:block">
+        <dl className="flex flex-col gap-3">
+          {items.map((item, index) => (
+            <div key={index} className="break-inside-avoid">
+              <dt className="text-sm font-semibold text-be-charcoal-950">{item.question}</dt>
+              <dd className="text-sm text-be-charcoal-800 mt-1 leading-relaxed">{item.answer}</dd>
+            </div>
+          ))}
+        </dl>
       </div>
     </div>
   );

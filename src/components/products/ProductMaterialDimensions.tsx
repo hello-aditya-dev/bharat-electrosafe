@@ -40,8 +40,10 @@ export function ProductMaterialDimensions({ product }: ProductMaterialDimensions
           title="Material Properties & Dimensions"
         />
 
-        {/* Desktop: two-column layout */}
-        <div className="hidden lg:flex lg:flex-row gap-12 mt-6">
+        {/* Desktop: two-column layout — also used for the printed spec
+            sheet (paper width < lg, so print:block overrides `hidden`;
+            the lg:w-1/2 columns then stack full-width on paper) */}
+        <div className="hidden lg:flex lg:flex-row gap-12 mt-6 print:block">
           {/* Material properties */}
           <div className="lg:w-1/2 flex flex-col gap-4">
             <h3 className="text-card-title text-be-charcoal-950 border-b border-be-grey-250 pb-2">
@@ -93,8 +95,9 @@ export function ProductMaterialDimensions({ product }: ProductMaterialDimensions
           </div>
         </div>
 
-        {/* Mobile: accordion sections */}
-        <div className="lg:hidden mt-4">
+        {/* Mobile: accordion sections (screen only — Radix unmounts closed
+            panels, so the printed sheet uses the flat desktop layout above) */}
+        <div className="lg:hidden mt-4 print:hidden">
           <Accordion type="single" collapsible defaultValue="material">
             <AccordionItem value="material">
               <AccordionTrigger className="text-card-title text-be-charcoal-950 min-h-[44px]">

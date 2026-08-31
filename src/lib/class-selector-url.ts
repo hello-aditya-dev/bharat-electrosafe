@@ -44,3 +44,35 @@ export function syncClassParam(klass: string | null): void {
 export function normalizeClassLabel(label: string): string {
   return label.toLowerCase().trim().replace(/\s+/g, ' ');
 }
+
+/** Reads any single query param (browser only). */
+export function readQueryParam(key: string): string | null {
+  if (typeof window === 'undefined') return null;
+  try {
+    return new URLSearchParams(window.location.search).get(key);
+  } catch {
+    return null;
+  }
+}
+
+/**
+ * Mirrors arbitrary state into the page URL without navigation.
+ * Keys mapped to null are removed; other params are preserved.
+ * replaceState only — no history pollution.
+ */
+export function syncQueryParams(updates: Record<string, string | null>): void {
+  if (typeof window === 'undefined') return;
+  try {
+    const url = new URL(window.location.href);
+    for (const [key, value] of Object.entries(updates)) {
+      if (value === null) {
+        url.searchParams.delete(key);
+      } else {
+        url.searchParams.set(key, value);
+      }
+    }
+    window.history.replaceState(null, '', url);
+  } catch {
+    /* ignore */
+  }
+}

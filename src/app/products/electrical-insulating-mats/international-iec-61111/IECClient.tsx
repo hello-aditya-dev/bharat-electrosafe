@@ -815,7 +815,7 @@ export default function IECClient() {
                     role="region"
                     aria-labelledby={`iec-faq-button-${i}`}
                     className={cn(
-                      'grid transition-[grid-template-rows] duration-300 ease-out',
+                      'grid transition-[grid-template-rows] duration-300 ease-out print:grid-rows-[1fr]',
                       isOpen ? 'grid-rows-[1fr]' : 'grid-rows-[0fr]',
                     )}
                   >

@@ -8,6 +8,9 @@ import { copyTextToClipboard } from '@/lib/clipboard';
 interface CopyEstimateButtonProps {
   /** Plain-text summary lines to place on the clipboard. */
   lines: string[];
+  /** Append "Estimate link: <current URL>" at click time (reflects the
+   *  latest replaceState URL, so it is never stale). */
+  includeLink?: boolean;
   /** Accessible name / tooltip text. */
   label?: string;
   /** Optional class name for layout adjustments. */
@@ -23,6 +26,7 @@ interface CopyEstimateButtonProps {
  */
 export function CopyEstimateButton({
   lines,
+  includeLink = false,
   label = 'Copy estimate',
   className,
 }: CopyEstimateButtonProps) {
@@ -36,7 +40,11 @@ export function CopyEstimateButton({
   }, []);
 
   const handleCopy = async () => {
-    const ok = await copyTextToClipboard(lines.filter(Boolean).join('\n'));
+    const out = [...lines.filter(Boolean)];
+    if (includeLink && typeof window !== 'undefined') {
+      out.push(`Estimate link: ${window.location.href}`);
+    }
+    const ok = await copyTextToClipboard(out.join('\n'));
     if (ok) {
       setCopied(true);
       if (resetTimerRef.current) clearTimeout(resetTimerRef.current);

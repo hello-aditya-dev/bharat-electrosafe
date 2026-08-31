@@ -144,8 +144,9 @@ export function DocumentCard({
           <p className="text-metadata text-be-grey-650">{meta.sizeLabel}</p>
         )}
 
-        {/* Action buttons */}
-        <div className="flex flex-wrap gap-2 mt-2">
+        {/* Action buttons (screen only — dead controls don't belong on
+            printed spec sheets; the document name/size still prints) */}
+        <div className="print-hide flex flex-wrap gap-2 mt-2">
           {showViewDownload && href ? (
             <>
               <a
