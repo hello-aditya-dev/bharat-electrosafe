@@ -9,7 +9,7 @@ import IECClient from './IECClient';
 
 const PAGE_TITLE = 'International Insulating Mats IEC 61111:2009';
 const PAGE_DESCRIPTION =
-  'IEC 61111:2009 compliant insulating mats for international markets — Class 0 to Class 4, including auto-glow and bi-colour variants.';
+  'IEC 61111:2009 compliant insulating mats for international markets — Class 0 to Class 4, including bi-colour variants.';
 const CANONICAL_PATH = '/products/international-iec-61111';
 const canonicalUrl = buildUrl(CANONICAL_PATH);
 

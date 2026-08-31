@@ -158,18 +158,7 @@ export default function IECClient() {
                     HV
                   </span>
                 </div>
-                <div className="relative">
-                  <ImageFrame
-                    src={iecVisuals.gallery[0].src}
-                    alt={iecVisuals.gallery[0].alt}
-                    aspectRatio="landscape"
-                    fit={iecVisuals.gallery[0].fit}
-                    priority
-                  />
-                  <span className="absolute bottom-1.5 left-1.5 bg-be-charcoal-950/80 text-be-white text-[10px] font-semibold px-1.5 py-0.5 rounded">
-                    Auto Glow
-                  </span>
-                </div>
+
                 <div className="relative">
                   <ImageFrame
                     src={iecVisuals.gallery[1].src}
@@ -211,7 +200,7 @@ export default function IECClient() {
               {[
                 { icon: Award, label: 'Standard', value: 'IEC 61111:2009' },
                 { icon: Zap, label: 'Classes', value: '0, 1, 2, 3, 4' },
-                { icon: Ruler, label: 'Max Working Voltage', value: '36,000 V AC' },
+                { icon: Ruler, label: 'Working Voltage', value: '36,000 V AC' },
                 { icon: Layers, label: 'Thickness', value: '2.0–4.0 mm' },
                 { icon: Shield, label: 'Testing', value: 'Test certificate with every supply' },
                 { icon: Globe, label: 'Markets', value: 'International / Global' },
@@ -235,11 +224,11 @@ export default function IECClient() {
           <SectionHeader
             eyebrow="Product Variants"
             title="Available IEC 61111:2009 Variants"
-            supportingText="Three IEC 61111:2009 insulating mat variants, with class and configuration selected according to application requirements."
+            supportingText="Two IEC 61111:2009 insulating mat variants, with class and configuration selected according to application requirements."
             align="center"
           />
 
-          <div className="mt-8 grid grid-cols-1 md:grid-cols-3 gap-6">
+          <div className="mt-8 grid grid-cols-1 md:grid-cols-2 gap-6 max-w-3xl mx-auto">
             {/* HV Card */}
             <div id="hv-insulating-mats" className="scroll-mt-24 group flex flex-col rounded-xl border border-be-grey-250 bg-be-white overflow-hidden hover:shadow-lg transition-shadow">
               <div className="relative aspect-[4/3] overflow-hidden bg-be-cream">
@@ -263,39 +252,6 @@ export default function IECClient() {
                 </p>
                 <div className="flex flex-col gap-2 mt-1">
                   <PrimaryButton href="/contact-us?type=quote&product=iec-hv-insulating-mats" className="self-start">
-                    Get Quote
-                    <ArrowRight className="size-4 ml-1.5" />
-                  </PrimaryButton>
-                  <SecondaryButton href="/products/electrical-insulating-mats/auto-glow-hv" className="self-start">
-                    Learn More
-                  </SecondaryButton>
-                </div>
-              </div>
-            </div>
-
-            {/* Auto Glow Card */}
-            <div id="auto-glow" className="scroll-mt-24 group flex flex-col rounded-xl border border-be-grey-250 bg-be-white overflow-hidden hover:shadow-lg transition-shadow">
-              <div className="relative aspect-[4/3] overflow-hidden bg-be-cream">
-                <Image
-                  src={iecVisuals.gallery[0].src}
-                  alt={iecVisuals.gallery[0].alt}
-                  fill
-                  className={`${iecVisuals.gallery[0].fit === 'contain' ? 'object-contain p-4' : 'object-cover'} group-hover:scale-105 transition-transform duration-300`}
-                  sizes="(max-width: 768px) 100vw, 33vw"
-                />
-              </div>
-              <div className="flex flex-col gap-3 p-5 flex-1">
-                <div className="flex items-center gap-2">
-                  <Sparkles className="size-5 text-be-yellow-text" aria-hidden="true" />
-                  <h3 className="text-lg font-semibold text-be-charcoal-950">Auto Glow</h3>
-                </div>
-                <p className="text-body text-be-grey-650 flex-1">
-                  Insulating mats with innovative glow technology, designed to
-                  enhance visibility in low-light conditions and during power
-                  interruptions. Designed in line with IEC 61111.
-                </p>
-                <div className="flex flex-col gap-2 mt-1">
-                  <PrimaryButton href="/contact-us?type=quote&product=iec-auto-glow" className="self-start">
                     Get Quote
                     <ArrowRight className="size-4 ml-1.5" />
                   </PrimaryButton>
@@ -358,8 +314,7 @@ export default function IECClient() {
                   <th className="text-left py-3 pr-4 font-semibold text-be-charcoal-950 whitespace-nowrap">Product Code</th>
                   <th className="text-left py-3 pr-4 font-semibold text-be-charcoal-950 whitespace-nowrap">Class</th>
                   <th className="text-left py-3 pr-4 font-semibold text-be-charcoal-950 whitespace-nowrap">Thickness</th>
-                  <th className="text-left py-3 pr-4 font-semibold text-be-charcoal-950 whitespace-nowrap">Max Thickness Allowed</th>
-                  <th className="text-left py-3 pr-4 font-semibold text-be-charcoal-950 whitespace-nowrap">Max Working Voltage</th>
+                  <th className="text-left py-3 pr-4 font-semibold text-be-charcoal-950 whitespace-nowrap">Working Voltage</th>
                   <th className="text-left py-3 pr-4 font-semibold text-be-charcoal-950 whitespace-nowrap">AC Proof Voltage</th>
                   <th className="text-left py-3 pr-4 font-semibold text-be-charcoal-950 whitespace-nowrap">Dielectric Strength</th>
                   <th className="text-left py-3 font-semibold text-be-charcoal-950 whitespace-nowrap">Approx. Weight</th>
@@ -371,7 +326,6 @@ export default function IECClient() {
                     <td className="py-3 pr-4 font-semibold text-be-charcoal-950">{row.productCode}</td>
                     <td className="py-3 pr-4 font-semibold text-be-charcoal-950">{row.classLabel}</td>
                     <td className="py-3 pr-4 text-be-charcoal-800">{row.thickness}</td>
-                    <td className="py-3 pr-4 text-be-charcoal-800">{row.maxThicknessAllowed}</td>
                     <td className="py-3 pr-4 text-be-charcoal-800">{row.maxWorkingVoltage}</td>
                     <td className="py-3 pr-4 text-be-charcoal-800">{row.acProofVoltage}</td>
                     <td className="py-3 pr-4 text-be-charcoal-800">{row.dielectricStrength}</td>
@@ -437,7 +391,6 @@ export default function IECClient() {
                   </div>
                   <div className="flex justify-between text-sm">
                     <span className="text-be-grey-650">Max thickness allowed</span>
-                    <span className="font-medium text-be-charcoal-950">{variant.maxThicknessAllowed}</span>
                   </div>
                   <div className="flex justify-between text-sm">
                     <span className="text-be-grey-650">Max working voltage</span>
@@ -711,7 +664,6 @@ export default function IECClient() {
               <p className="text-body text-be-charcoal-800">{iecDimensions.standardColour}</p>
               <div className="flex items-start gap-2 mt-4">
                 <Ruler className="size-4 shrink-0 mt-0.5 text-be-yellow-text" aria-hidden="true" />
-                <p className="text-body text-be-charcoal-800">Manufacturing tolerance: {iecDimensions.manufacturingTolerance}</p>
               </div>
             </div>
           </div>

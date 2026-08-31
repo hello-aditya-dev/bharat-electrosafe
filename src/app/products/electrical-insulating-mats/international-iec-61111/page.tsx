@@ -10,7 +10,7 @@ import IECClient from './IECClient';
 
 const PAGE_TITLE = 'International Insulating Mats IEC 61111:2009';
 const PAGE_DESCRIPTION =
-  'IEC 61111:2009 compliant insulating mats for international markets — Classes 0 through 4, maximum working voltage up to 36,000 V AC, including auto-glow and bi-colour variants.';
+  'IEC 61111:2009 compliant insulating mats for international markets — Classes 0 through 4, maximum working voltage up to 36,000 V AC, including bi-colour variants.';
 const CANONICAL_PATH = PRODUCT_ROUTES.international;
 const canonicalUrl = buildUrl(CANONICAL_PATH);
 

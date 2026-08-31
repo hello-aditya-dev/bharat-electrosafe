@@ -87,7 +87,7 @@ export function ProductApplications({ product }: ProductApplicationsProps) {
               alt={application.alt}
               aspectRatio="landscape"
               fit={application.fit}
-              flush={product.slug === 'auto-glow-reflective-band-insulating-mats'}
+              
             />
           </div>
 

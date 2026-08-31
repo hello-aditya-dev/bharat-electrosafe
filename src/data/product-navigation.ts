@@ -86,11 +86,6 @@ export const productNavGroups: ProductNavGroup[] = [
             description: 'Standard high-voltage insulating mats for operator protection',
           },
           {
-            name: 'Auto Glow',
-            href: '/products/auto-glow-reflective-band-insulating-mats',
-            description: 'Insulating mats with reflective/glow visibility band for low-light conditions',
-          },
-          {
             name: 'Bi-Colour',
             href: '/products/bi-color-insulating-mats',
             description: 'Dual-colour insulating mats with visible layer differentiation',
@@ -116,11 +111,6 @@ export const productNavGroups: ProductNavGroup[] = [
             name: 'Dual Layer Dual Colour',
             href: '/products/electrical-insulating-mats/dual-layer-dual-colour',
             description: 'IEC 61111 dual layer dual colour insulating mats with visible wear indication',
-          },
-          {
-            name: 'Auto Glow HV',
-            href: '/products/electrical-insulating-mats/auto-glow-hv',
-            description: 'IEC 61111 auto glow insulating mats for low-light visibility',
           },
         ],
       },

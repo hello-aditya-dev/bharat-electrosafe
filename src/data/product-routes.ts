@@ -53,17 +53,6 @@ export const productRoutes: ProductRoute[] = [
     parentKey: 'electrical-insulating-mats',
   },
 
-  // ── Auto Glow ──
-  {
-    key: 'auto-glow-reflective-band-insulating-mats',
-    displayName: 'Auto Glow',
-    canonicalPath: '/products/electrical-insulating-mats/auto-glow-reflective-band-insulating-mats',
-    legacyPaths: [
-      '/products/auto-glow-reflective-band-insulating-mats',
-    ],
-    parentKey: 'electrical-insulating-mats',
-  },
-
   // ── Bi-Colour ──
   {
     key: 'bi-color-insulating-mats',
@@ -97,7 +86,6 @@ export const productRoutes: ProductRoute[] = [
     parentKey: 'electrical-insulating-mats',
     anchors: [
       { id: 'hv-insulating-mats', label: 'HV Insulating Mats' },
-      { id: 'auto-glow', label: 'Auto Glow' },
       { id: 'bi-colour', label: 'Bi-Colour' },
     ],
   },
@@ -107,15 +95,6 @@ export const productRoutes: ProductRoute[] = [
     key: 'dual-layer-dual-colour',
     displayName: 'Dual Layer Dual Colour',
     canonicalPath: '/products/electrical-insulating-mats/dual-layer-dual-colour',
-    legacyPaths: [],
-    parentKey: 'electrical-insulating-mats',
-  },
-
-  // ── Auto Glow HV (IEC 61111 specialized innovation page) ──
-  {
-    key: 'auto-glow-hv',
-    displayName: 'Auto Glow HV',
-    canonicalPath: '/products/electrical-insulating-mats/auto-glow-hv',
     legacyPaths: [],
     parentKey: 'electrical-insulating-mats',
   },
@@ -272,12 +251,10 @@ export const PRODUCT_ROUTES = {
   products: '/products' as const,
   electricalInsulatingMats: '/products/electrical-insulating-mats' as const,
   hv: '/products/electrical-insulating-mats/high-voltage-electrical-insulation-mats' as const,
-  autoGlow: '/products/electrical-insulating-mats/auto-glow-reflective-band-insulating-mats' as const,
   biColour: '/products/electrical-insulating-mats/bi-color-insulating-mats' as const,
   colouredStrip: '/products/electrical-insulating-mats/coloured-strip-insulating-mats' as const,
   international: '/products/electrical-insulating-mats/international-iec-61111' as const,
   dualLayerDualColour: '/products/electrical-insulating-mats/dual-layer-dual-colour' as const,
-  autoGlowHv: '/products/electrical-insulating-mats/auto-glow-hv' as const,
   waterproofingSolutions: '/products/waterproofing-solutions' as const,
   geoMembrane: '/products/geo-membrane-lining' as const,
   hydroSeal: '/products/water-stop-seal' as const,

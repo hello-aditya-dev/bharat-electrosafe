@@ -14,7 +14,6 @@ export interface IECClass {
   productCode: string;
   classLabel: string;
   thickness: string;
-  maxThicknessAllowed: string;
   maxWorkingVoltage: string;
   acProofVoltage: string;
   dielectricStrength: string;
@@ -26,7 +25,6 @@ export const iecClasses: IECClass[] = [
     productCode: 'BES 001',
     classLabel: 'Class 0',
     thickness: '2.0 mm',
-    maxThicknessAllowed: '6.0 mm',
     maxWorkingVoltage: '1.0 kV',
     acProofVoltage: '5.0 kV',
     dielectricStrength: '10.0 kV',
@@ -36,7 +34,6 @@ export const iecClasses: IECClass[] = [
     productCode: 'BES 002',
     classLabel: 'Class 1',
     thickness: '2.0 mm',
-    maxThicknessAllowed: '6.0 mm',
     maxWorkingVoltage: '7.5 kV',
     acProofVoltage: '10.0 kV',
     dielectricStrength: '20.0 kV',
@@ -46,7 +43,6 @@ export const iecClasses: IECClass[] = [
     productCode: 'BES 003',
     classLabel: 'Class 2',
     thickness: '3.0 mm',
-    maxThicknessAllowed: '8.0 mm',
     maxWorkingVoltage: '17.0 kV',
     acProofVoltage: '20.0 kV',
     dielectricStrength: '30.0 kV',
@@ -55,8 +51,7 @@ export const iecClasses: IECClass[] = [
   {
     productCode: 'BES 004',
     classLabel: 'Class 3',
-    thickness: '3.0 mm',
-    maxThicknessAllowed: '11.0 mm',
+    thickness: '4.0 mm',
     maxWorkingVoltage: '26.5 kV',
     acProofVoltage: '30.0 kV',
     dielectricStrength: '40.0 kV',
@@ -65,8 +60,7 @@ export const iecClasses: IECClass[] = [
   {
     productCode: 'BES 005',
     classLabel: 'Class 4',
-    thickness: '4.0 mm',
-    maxThicknessAllowed: '14.0 mm',
+    thickness: '5.2 mm',
     maxWorkingVoltage: '36.0 kV',
     acProofVoltage: '40.0 kV',
     dielectricStrength: '50.0 kV',
@@ -83,7 +77,6 @@ export interface IECSpecialVariant {
   description: string;
   classRange: string;
   thickness: string;
-  maxThicknessAllowed: string;
   maxWorkingVoltage: string;
   proofVoltage: string;
   dielectricStrength: string;
@@ -96,7 +89,6 @@ export const iecSpecialVariants: IECSpecialVariant[] = [
     description: 'Fine ribbed top surface with textured bottom surface',
     classRange: 'Class 0–2',
     thickness: '3.0 mm',
-    maxThicknessAllowed: '8.0 mm',
     maxWorkingVoltage: '17.0 kV',
     proofVoltage: '20.0 kV',
     dielectricStrength: '30.0 kV',
@@ -107,7 +99,6 @@ export const iecSpecialVariants: IECSpecialVariant[] = [
     description: 'Fine ribbed top surface with textured bottom surface',
     classRange: 'Class 3–4',
     thickness: '5.0 mm',
-    maxThicknessAllowed: '14.0 mm',
     maxWorkingVoltage: '36.0 kV',
     proofVoltage: '40.0 kV',
     dielectricStrength: '50.0 kV',
@@ -118,7 +109,6 @@ export const iecSpecialVariants: IECSpecialVariant[] = [
     description: 'Custom specification',
     classRange: '—',
     thickness: 'Up to 2.0 mm',
-    maxThicknessAllowed: 'Up to 14.0 mm',
     maxWorkingVoltage: 'Up to 36.0 kV',
     proofVoltage: 'Up to 40.0 kV',
     dielectricStrength: 'Up to 40.0 kV',
@@ -148,7 +138,7 @@ export const iecApplications: string[] = [
    ──────────────────────────────────────────── */
 
 export const iecMaterialCharacteristics = {
-  material: 'Elastomeric compound without insertion, typically comprising natural rubber and other synthetic polymers.',
+  material: 'Elastomer-free; combination of natural rubber and synthetic polymers with anti-slip surface.',
   mechanicalPunctureResistance: '70 N minimum',
   slipResistance: '50 N minimum',
   ageing:
@@ -167,10 +157,11 @@ export const iecMaterialCharacteristics = {
 
 export const iecDimensions = {
   standardSizes: ['1.0 m × 10.0 m', '1.2 m × 10.0 m'],
-  custom: 'Width × length according to customer requirement',
-  standardColour: 'Black, without metallic derivatives',
-  customizationNote: 'Cut lengths, custom shapes and colours are available on request.',
-  manufacturingTolerance: '±10% on thickness; ±2% on length and width.',
+  custom: 'Width × length as per customer requirement',
+  standardColour: 'Blue OR Black',
+  biColour: 'Blue and Orange / Black and Yellow',
+  finish: 'Fabric Finish',
+  customizationNote: 'Custom colours available on request.',
 } as const;
 
 /* ────────────────────────────────────────────
@@ -221,7 +212,7 @@ export const iecFaqItems: { q: string; a: string }[] = [
   },
   {
     q: 'How does thickness relate to class?',
-    a: 'Recommended thickness increases with class: Class 0 and 1 require 2.0 mm, Class 2 and 3 require 3.0 mm, and Class 4 requires 4.0 mm. Maximum allowed thickness also varies by class. Confirm against the manufacturer\u2019s type-test documentation for the specific product.',
+    a: 'Recommended thickness increases with class: Class 0 and 1 require 2.0 mm, Class 2 requires 3.0 mm, Class 3 requires 4.0 mm, and Class 4 requires 5.2 mm. Maximum allowed thickness also varies by class. Confirm against the manufacturer\u2019s type-test documentation for the specific product.',
   },
   {
     q: 'What properties matter besides electrical insulation?',
@@ -271,6 +262,7 @@ export const iecBrochureClaims = {
   marking: 'Product name marking provided on the mat.',
   antiSlip: 'Anti-slip surface with 50 N minimum slip resistance.',
   positioning: 'International / Global IEC 61111:2009 insulating mats for international and global applications.',
+  warranty: 'High-end quality at competitive pricing, backed by a 1-year warranty with every supply.',
   resistance: [
     'Flame',
     'Mild acid & alkali',

@@ -144,34 +144,7 @@ export const productFaqsBySlug: Record<string, SiteFAQ[]> = {
     },
   ],
 
-  /* ── Auto-Glow / Reflective Band Insulating Mats ── */
-  'auto-glow-reflective-band-insulating-mats': [
-    {
-      question: 'What standards do Auto-Glow Insulating Mats comply with?',
-      answer:
-        'Our electrical insulating mats are manufactured to IS 15652:2006 under BIS Licence CM/L:8800129617. Available supporting documents include ERDA and NTH test reports. Request the current document set for the exact product and thickness required.',
-    },
-    {
-      question: 'What is the difference between the auto-glow and reflective variants?',
-      answer:
-        'The auto-glow variant carries a band that is visible in low ambient light after exposure to normal lighting. The reflective variant returns light from incident sources such as torches or emergency lamps. Specific glow duration, brightness and performance figures are confirmed against the current product documentation, which is available on request. The band is a visibility aid and does not provide emergency lighting.',
-    },
-    {
-      question: 'What dimensions are available?',
-      answer:
-        'Standard and custom dimensions are available. Contact our team with your specific requirements for a tailored solution.',
-    },
-    {
-      question: 'How do I request a quotation?',
-      answer:
-        'Use our contact form, call our sales team, or send a WhatsApp message with your requirements including product, dimensions, quantity and delivery location.',
-    },
-    {
-      question: 'What is the lead time?',
-      answer:
-        'Lead time varies based on product and quantity. Standard products ship faster; custom dimensions require additional production time. Timelines are confirmed with each quotation.',
-    },
-  ],
+
 
   /* ── Geo Membrane Lining (civil — NO IS 15652 / no BIS mat licence) ── */
   'bharat-membrane': [

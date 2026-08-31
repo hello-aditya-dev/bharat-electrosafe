@@ -38,12 +38,8 @@ const productGroups: ProductGroupCardData[] = [
     href: '/products/electrical-insulating-mats',
     name: 'Electrical Insulating Mats',
     description:
-      'IS 15652 and IEC 61111 insulating mat solutions for electrical safety around switchgear and substations.',
-    visual: {
-      src: '/media/home/product-range/electrical-insulating-mats-autoglow26.png',
-      alt: 'AutoGlow reflective band electrical insulating mat with safety visibility strip',
-      fit: 'cover' as const,
-    },
+      'HV insulating mats and Bi-Colour mats for operator protection near live electrical equipment.',
+    visual: hvVisuals.homePreview,
     standardsLine: 'Domestic · IS 15652:2006  ·  International · IEC 61111',
     objectPosition: 'center center',
   },

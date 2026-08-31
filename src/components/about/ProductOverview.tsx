@@ -38,14 +38,6 @@ const products: ProductItem[] = [
     accentColor: 'bg-be-grey-400',
   },
   {
-    name: 'Auto-Glow / Reflective Band Mats',
-    description: 'Low-light and emergency guidance insulation',
-    href: '/products/auto-glow-reflective-band-insulating-mats',
-    badge: 'Auto-Glow',
-    slotId: 'HOME-PRODUCT-AGRIM-01',
-    accentColor: 'bg-be-yellow-500',
-  },
-  {
     name: 'Geo Membrane Lining',
     description: 'Engineered waterproofing membrane for infrastructure',
     href: '/products/geo-membrane-lining',

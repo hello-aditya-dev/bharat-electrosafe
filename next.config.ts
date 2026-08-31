@@ -174,12 +174,20 @@ const nextConfig: NextConfig = {
       permanent: true,
     };
 
+    const autoGlowRedirects = [
+      { source: '/products/electrical-insulating-mats/auto-glow-hv', destination: '/products/electrical-insulating-mats', permanent: true },
+      { source: '/products/electrical-insulating-mats/auto-glow-reflective-band-insulating-mats', destination: '/products/electrical-insulating-mats', permanent: true },
+      { source: '/products/auto-glow-reflective-band-insulating-mats', destination: '/products/electrical-insulating-mats', permanent: true },
+    ];
+
     return [
       ...phpRedirects.map((r) => ({
         source: r.source,
         destination: r.destination,
         permanent: true,
       })),
+      ...autoGlowRedirects,
+
       domesticRedirect,
       ...legacyProductRedirects.map((r) => ({
         source: r.source,
