@@ -2123,3 +2123,88 @@
     transition: none;
   }
 }
+
+/* ══════════════════════════════════════════════════════════════
+   PRINT — factory-floor / procurement spec sheets
+   ══════════════════════════════════════════════════════════════
+   Triggered by the "Print Spec Sheet" buttons on the class-selector
+   pages (PrintSpecSheetButton → window.print()). Produces a clean
+   paper document: page title, specification tables, the current
+   selector recommendation and company contact details.
+
+   Site chrome (header/footer/nav), imagery, and every interactive
+   control marked `.print-hide` are removed on paper. */
+@media print {
+  @page {
+    margin: 1.4cm;
+  }
+
+  html {
+    font-size: 11.5px;
+  }
+
+  body {
+    background: #ffffff !important;
+    /* Keep the yellow brand accents readable on paper. */
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+
+  /* Site chrome never belongs on a spec sheet. The site Header root
+     uses display:contents, so the element selector + !important is
+     what reliably removes it. */
+  header,
+  footer,
+  nav,
+  .print-hide {
+    display: none !important;
+  }
+
+  /* Reveal-on-scroll animations must not print blank sections. */
+  .reveal-up {
+    opacity: 1 !important;
+    transform: none !important;
+    transition: none !important;
+  }
+
+  /* Tables designed for mobile horizontal scroll must flow into
+     the printable width instead of being clipped at ~820px. */
+  .overflow-x-auto,
+  .overflow-x-scroll,
+  .custom-scrollbar {
+    overflow: visible !important;
+  }
+
+  table {
+    min-width: 0 !important;
+    width: 100% !important;
+  }
+
+  /* Negative horizontal margins used for mobile table bleed would
+     clip content at the page edge — neutralise them on paper. */
+  .print-reset-x {
+    margin-left: 0 !important;
+    margin-right: 0 !important;
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+  }
+
+  /* Decorative shadows have no meaning on paper. */
+  * {
+    box-shadow: none !important;
+  }
+
+  /* Links keep their text; underlines stay quiet. */
+  a {
+    text-decoration: none !important;
+  }
+
+  /* Avoid awkward page breaks inside cards, table rows and panels. */
+  tr,
+  td,
+  th,
+  [class*='rounded-xl'],
+  [class*='rounded-lg'] {
+    break-inside: avoid;
+  }
+}

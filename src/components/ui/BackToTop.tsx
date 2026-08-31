@@ -38,7 +38,7 @@ export function BackToTop() {
   return (
     <button
       onClick={scrollToTop}
-      className="fixed bottom-6 right-6 z-40 size-12 rounded-full bg-be-yellow-500 text-be-charcoal-950 shadow-lg flex items-center justify-center transition-all duration-200 hover:bg-be-yellow-600 hover:scale-110 animate-back-to-top-in focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-be-yellow-400 focus-visible:ring-offset-2"
+      className="print-hide fixed bottom-6 right-6 z-40 size-12 rounded-full bg-be-yellow-500 text-be-charcoal-950 shadow-lg flex items-center justify-center transition-all duration-200 hover:bg-be-yellow-600 hover:scale-110 animate-back-to-top-in focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-be-yellow-400 focus-visible:ring-offset-2"
       aria-label="Scroll back to top"
       type="button"
     >

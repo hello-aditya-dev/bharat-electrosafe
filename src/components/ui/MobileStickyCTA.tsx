@@ -54,7 +54,7 @@ export function MobileStickyCTA() {
 
   return (
     <div
-      className="lg:hidden fixed inset-x-0 bottom-0 z-40 animate-[be-mobile-cta-in_0.25s_ease-out]"
+      className="print-hide lg:hidden fixed inset-x-0 bottom-0 z-40 animate-[be-mobile-cta-in_0.25s_ease-out]"
       role="region"
       aria-label="Quick contact actions"
       style={{

@@ -7,6 +7,7 @@ import { SectionHeader } from '@/components/ui/SectionHeader';
 import { PrimaryButton } from '@/components/ui/PrimaryButton';
 import { SecondaryButton } from '@/components/ui/SecondaryButton';
 import { CopyTableButton } from '@/components/ui/CopyTableButton';
+import { PrintSpecSheetButton } from '@/components/ui/PrintSpecSheetButton';
 import { cn } from '@/lib/utils';
 import {
   normalizeClassLabel,
@@ -163,18 +164,19 @@ function ClassSelectorInner({
         supportingText={`Enter your installation's working voltage in kV AC. The selector matches it against the domestic class thresholds (Class A to Class ${classRows[classRows.length - 1]?.classLetter ?? 'C'}, up to ${maxVoltage.toFixed(1)} kV). The selected class is reflected in the page URL so you can share or bookmark it.`}
       />
 
-      {/* Spreadsheet-ready copy of the IS 15652 class table */}
-      <div className="mt-4 flex justify-end">
+      {/* Spreadsheet-ready copy + print of the IS 15652 class table */}
+      <div className="print-hide mt-4 flex flex-wrap justify-end gap-2">
         <CopyTableButton
           headers={specifications.headers}
           rows={specifications.rows}
           label="Copy class table"
         />
+        <PrintSpecSheetButton />
       </div>
 
       <div className="mt-8 max-w-3xl mx-auto">
-        {/* Preset voltage chips — one per domestic class */}
-        <div className="flex flex-wrap justify-center gap-2 mb-5">
+        {/* Preset voltage chips (screen only) */}
+        <div className="print-hide flex flex-wrap justify-center gap-2 mb-5">
           {classRows.map((c) => {
             const active =
               hasValidVoltage && Math.abs(parsedVoltage - c.workingVoltageNum) < 0.001;
@@ -198,8 +200,8 @@ function ClassSelectorInner({
           })}
         </div>
 
-        {/* Custom voltage input */}
-        <div className="flex flex-col sm:flex-row items-stretch sm:items-center justify-center gap-3 mb-6">
+        {/* Custom voltage input (screen only) */}
+        <div className="print-hide flex flex-col sm:flex-row items-stretch sm:items-center justify-center gap-3 mb-6">
           <label htmlFor="domestic-voltage-input" className="sr-only">
             Working voltage in kV AC
           </label>
@@ -288,7 +290,7 @@ function ClassSelectorInner({
                   </div>
                 ))}
               </dl>
-              <div className="flex flex-wrap items-center gap-3">
+              <div className="print-hide flex flex-wrap items-center gap-3">
                 <PrimaryButton
                   href={`/contact-us?type=quote&product=eim&class=${encodeURIComponent(recommended.classLabel)}`}
                   className="self-start"

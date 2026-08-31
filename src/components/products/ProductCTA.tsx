@@ -14,7 +14,7 @@ interface ProductCTAProps {
 
 export function ProductCTA({ product, headingPrefix = 'Request a quote for' }: ProductCTAProps) {
   return (
-    <SectionShell variant="conversion" bg="bg-be-yellow-50" yellowAccent>
+    <SectionShell variant="conversion" bg="bg-be-yellow-50" yellowAccent className="print-hide">
       <div className="flex flex-col items-center text-center gap-6 max-w-2xl mx-auto">
         <h2 className="text-section-h2 text-be-charcoal-950">
           {headingPrefix} {product.name}

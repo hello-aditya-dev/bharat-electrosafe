@@ -45,6 +45,7 @@ import { cn } from '@/lib/utils';
 import { company } from '@/data/company';
 import { iecVisuals } from '@/data/product-visuals';
 import { CopyTableButton } from '@/components/ui/CopyTableButton';
+import { PrintSpecSheetButton } from '@/components/ui/PrintSpecSheetButton';
 import {
   normalizeClassLabel,
   readClassParam,
@@ -135,6 +136,41 @@ export default function GlobalHVClient() {
 
   const selectPreset = (v: number) => setVoltageInput(String(v));
 
+  /* ── Weight estimator state ──
+     Class defaults to "auto" (null) which follows the class selector
+     recommendation above; picking a chip pins the class explicitly.
+     All weight-per-m² values are parsed from the brochure approxWeight
+     strings in iec-61111.ts — no invented data. */
+  const [estimatorClass, setEstimatorClass] = useState<string | null>(null);
+  const [estimatorArea, setEstimatorArea] = useState('');
+  const [estimatorUnit, setEstimatorUnit] = useState<'m2' | 'ft2'>('m2');
+
+  const effectiveEstimatorClass =
+    estimatorClass ?? recommendedDetails?.classLabel ?? null;
+  const estimatorDetails = effectiveEstimatorClass
+    ? iecClasses.find((c) => c.classLabel === effectiveEstimatorClass) ?? null
+    : null;
+  const estimatorKgPerM2 = estimatorDetails
+    ? parseFloat(estimatorDetails.approxWeight)
+    : NaN;
+  const hasValidKgPerM2 = Number.isFinite(estimatorKgPerM2) && estimatorKgPerM2 > 0;
+  const parsedArea = parseFloat(estimatorArea);
+  const hasValidArea = Number.isFinite(parsedArea) && parsedArea > 0;
+  /* ft² → m² conversion uses the fixed international foot definition
+     (1 ft = 0.3048 m exactly → 1 m² = 10.7639 ft²) — a unit constant,
+     not product data. */
+  const FT2_PER_M2 = 10.7639;
+  const areaM2 = estimatorUnit === 'ft2' ? parsedArea / FT2_PER_M2 : parsedArea;
+  const totalKg = hasValidArea && hasValidKgPerM2 ? areaM2 * estimatorKgPerM2 : null;
+  const totalDisplay = totalKg === null
+    ? null
+    : totalKg >= 1000
+      ? `${(totalKg / 1000).toLocaleString('en-IN', { maximumFractionDigits: 2 })} t`
+      : `${totalKg.toLocaleString('en-IN', { maximumFractionDigits: 1 })} kg`;
+  const areaDisplayM2 = hasValidArea
+    ? areaM2.toLocaleString('en-IN', { maximumFractionDigits: 2 })
+    : null;
+
   /* Deep-link init: a URL carrying ?class=Class 3 (e.g. a shared link)
      initialises the selector to that class's maximum working voltage.
      Mount-effect (not a useState initializer) to avoid any SSR/client
@@ -172,7 +208,7 @@ export default function GlobalHVClient() {
             1. HERO
             ══════════════════════════════════════ */}
         <SectionShell variant="productHero" bg="be-page-top-tint" className="product-hero-compact">
-          <Breadcrumb items={breadcrumbItems} className="mb-3 lg:mb-4" />
+          <Breadcrumb items={breadcrumbItems} className="print-hide mb-3 lg:mb-4" />
 
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-8 items-start">
             {/* Text side */}
@@ -195,7 +231,7 @@ export default function GlobalHVClient() {
                 2.0 mm to 5.2 mm.
               </p>
 
-              <div className="flex flex-wrap gap-3">
+              <div className="print-hide flex flex-wrap gap-3">
                 <PrimaryButton href="/contact-us?type=quote&product=iec-hv-insulating-mats" size="lg">
                   Request a Quote
                 </PrimaryButton>
@@ -205,8 +241,8 @@ export default function GlobalHVClient() {
               </div>
             </div>
 
-            {/* Media side — real IEC product imagery */}
-            <div className="min-w-0 lg:col-span-6 xl:col-span-7 flex flex-col gap-3">
+            {/* Media side — real IEC product imagery (screen only) */}
+            <div className="print-hide min-w-0 lg:col-span-6 xl:col-span-7 flex flex-col gap-3">
               <ImageFrame
                 src="/media/products/international-iec/client-approved/iec-marking-range.webp"
                 alt="Bharat Electrosafe HV insulating mat with moulded marking reading IEC 61111/2009, Class 2, max use voltage 17000 V, proof voltage 20000 V, withstand voltage 30000 V"
@@ -261,8 +297,9 @@ export default function GlobalHVClient() {
           />
 
           <div className="mt-8 max-w-3xl mx-auto">
-            {/* Preset voltage chips */}
-            <div className="flex flex-wrap justify-center gap-2 mb-5">
+            {/* Preset voltage chips (screen only — the recommendation
+                result below is what appears on the printed sheet) */}
+            <div className="print-hide flex flex-wrap justify-center gap-2 mb-5">
               {CLASS_PRESETS.map((preset) => {
                 const active = hasValidVoltage && Math.abs(parsedVoltage - preset.voltage) < 0.001;
                 return (
@@ -285,8 +322,8 @@ export default function GlobalHVClient() {
               })}
             </div>
 
-            {/* Custom voltage input */}
-            <div className="flex flex-col sm:flex-row items-stretch sm:items-center justify-center gap-3 mb-6">
+            {/* Custom voltage input (screen only) */}
+            <div className="print-hide flex flex-col sm:flex-row items-stretch sm:items-center justify-center gap-3 mb-6">
               <label htmlFor="voltage-input" className="sr-only">
                 Maximum working voltage in kV AC
               </label>
@@ -362,7 +399,7 @@ export default function GlobalHVClient() {
                       </div>
                     ))}
                   </dl>
-                  <div className="flex flex-wrap items-center gap-3">
+                  <div className="print-hide flex flex-wrap items-center gap-3">
                     <PrimaryButton
                       href={`/contact-us?type=quote&product=iec-hv-insulating-mats&class=${encodeURIComponent(recommended.classLabel)}`}
                       className="self-start"
@@ -416,8 +453,8 @@ export default function GlobalHVClient() {
             supportingText="All five classes with thickness, maximum working voltage, AC proof voltage, dielectric strength, and approximate weight per IEC 61111:2009 and the official Bharat Electrosafe brochure."
           />
 
-          {/* Spreadsheet-ready copy of the IEC class table */}
-          <div className="mt-4 flex justify-end">
+          {/* Spreadsheet-ready copy + print of the IEC class table */}
+          <div className="print-hide mt-4 flex flex-wrap justify-end gap-2">
             <CopyTableButton
               headers={[
                 'Product Code',
@@ -439,9 +476,10 @@ export default function GlobalHVClient() {
               ])}
               label="Copy class table"
             />
+            <PrintSpecSheetButton />
           </div>
 
-          <div className="mt-6 overflow-x-auto -mx-4 px-4 sm:mx-0 sm:px-0">
+          <div className="print-reset-x mt-6 overflow-x-auto -mx-4 px-4 sm:mx-0 sm:px-0">
             <table className="w-full min-w-[820px] border-collapse text-body">
               <thead>
                 <tr className="border-b-2 border-be-yellow-500">
@@ -464,7 +502,7 @@ export default function GlobalHVClient() {
                         'border-b border-be-grey-250 transition-colors duration-300',
                         isSelected
                           ? 'bg-be-yellow-100/70 shadow-[inset_3px_0_0_0_theme(colors.be-yellow-500)]'
-                          : 'hover:bg-be-yellow-50/50',
+                          : 'even:bg-be-white/70 hover:bg-be-yellow-50/50',
                       )}
                       aria-current={isSelected ? 'true' : undefined}
                     >
@@ -504,6 +542,180 @@ export default function GlobalHVClient() {
               These are IEC classifications — do not confuse with IS 15652:2006 domestic
               classifications, which are covered separately on the domestic HV page.
             </p>
+          </div>
+
+          {/* Print-only contact footer for the printed spec sheet */}
+          <div className="hidden print:block mt-6 pt-4 border-t border-be-grey-300 text-metadata text-be-charcoal-800">
+            <p className="font-semibold">Bharat Electrosafe — {company.email} — {company.phonePrimary}</p>
+            <p className="mt-1">Printed from the official Bharat Electrosafe website. Values per IEC 61111:2009 and the official Bharat Electrosafe brochure.</p>
+          </div>
+        </SectionShell>
+
+        {/* ══════════════════════════════════════
+            3b. WEIGHT ESTIMATOR — interactive
+            ══════════════════════════════════════ */}
+        <SectionShell variant="standard" bg="bg-be-white" topRule id="weight-estimator" ariaLabel="Mat weight estimator">
+          <SectionHeader
+            eyebrow="Planning Tool"
+            title="Estimate Total Mat Weight"
+            supportingText={`Area × approximate weight per m², using the brochure values for the selected IEC class (3.2 – 6.4 kg/m²). The class follows your selection above unless you pick one explicitly — useful for logistics and freight planning.`}
+          />
+
+          <div className="mt-8 max-w-3xl mx-auto">
+            {/* Class chips — Auto follows the selector above */}
+            <div className="print-hide flex flex-wrap justify-center gap-2 mb-5">
+              <button
+                type="button"
+                onClick={() => setEstimatorClass(null)}
+                aria-pressed={estimatorClass === null}
+                className={cn(
+                  'inline-flex items-center gap-1.5 px-3.5 py-2 rounded-full text-sm font-medium border transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-be-yellow-500 focus-visible:ring-offset-2 min-h-[44px]',
+                  estimatorClass === null
+                    ? 'bg-be-charcoal-950 border-be-charcoal-950 text-be-white shadow-sm'
+                    : 'bg-be-white border-be-grey-300 text-be-charcoal-800 hover:border-be-charcoal-800',
+                )}
+              >
+                <CircleCheck className="size-3.5" aria-hidden="true" />
+                {recommendedDetails ? `Auto — ${recommendedDetails.classLabel} (from selection)` : 'Auto — from class selection'}
+              </button>
+              {iecClasses.map((c) => {
+                const active = estimatorClass === c.classLabel;
+                return (
+                  <button
+                    key={c.classLabel}
+                    type="button"
+                    onClick={() => setEstimatorClass(c.classLabel)}
+                    aria-pressed={active}
+                    className={cn(
+                      'inline-flex items-center gap-1.5 px-3.5 py-2 rounded-full text-sm font-medium border transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-be-yellow-500 focus-visible:ring-offset-2 min-h-[44px]',
+                      active
+                        ? 'bg-be-yellow-500 border-be-yellow-500 text-be-charcoal-950 shadow-sm'
+                        : 'bg-be-white border-be-grey-300 text-be-charcoal-800 hover:border-be-yellow-400 hover:bg-be-yellow-50',
+                    )}
+                  >
+                    {c.classLabel}
+                  </button>
+                );
+              })}
+            </div>
+
+            {/* Area input + unit toggle */}
+            <div className="print-hide flex flex-col sm:flex-row items-stretch sm:items-center justify-center gap-3 mb-6">
+              <label htmlFor="area-input" className="sr-only">
+                Mat area
+              </label>
+              <div className="relative sm:w-64">
+                <Ruler className="absolute left-3.5 top-1/2 -translate-y-1/2 size-4 text-be-grey-650" aria-hidden="true" />
+                <input
+                  id="area-input"
+                  type="number"
+                  inputMode="decimal"
+                  min="0.1"
+                  step="0.1"
+                  placeholder="Mat area"
+                  value={estimatorArea}
+                  onChange={(e) => setEstimatorArea(e.target.value)}
+                  className="w-full pl-10 pr-16 py-2.5 min-h-[44px] rounded-lg border border-be-grey-300 bg-be-white text-body text-be-charcoal-950 placeholder:text-be-grey-650 focus:outline-none focus:ring-2 focus:ring-be-yellow-500 focus:border-be-yellow-500 transition-colors"
+                />
+                <span className="absolute right-3.5 top-1/2 -translate-y-1/2 text-metadata text-be-grey-650 pointer-events-none">
+                  {estimatorUnit === 'm2' ? 'm²' : 'ft²'}
+                </span>
+              </div>
+              <div className="flex items-center justify-center gap-1.5" role="group" aria-label="Area unit">
+                {([
+                  ['m2', 'm²'],
+                  ['ft2', 'ft²'],
+                ] as const).map(([value, label]) => (
+                  <button
+                    key={value}
+                    type="button"
+                    onClick={() => setEstimatorUnit(value)}
+                    aria-pressed={estimatorUnit === value}
+                    className={cn(
+                      'px-3.5 py-2 rounded-full text-sm font-medium border transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-be-yellow-500 focus-visible:ring-offset-2 min-h-[44px]',
+                      estimatorUnit === value
+                        ? 'bg-be-charcoal-950 border-be-charcoal-950 text-be-white'
+                        : 'bg-be-white border-be-grey-300 text-be-charcoal-800 hover:border-be-charcoal-800',
+                    )}
+                  >
+                    {label}
+                  </button>
+                ))}
+              </div>
+            </div>
+
+            {/* Result panel — keyed on the outcome so the entrance
+                animation replays whenever the estimate changes. */}
+            <div
+              role="status"
+              aria-live="polite"
+              key={`${effectiveEstimatorClass ?? 'none'}-${totalDisplay ?? 'empty'}`}
+              className={cn(
+                'rounded-xl border p-5 sm:p-6 transition-colors duration-300 animate-in fade-in-0 slide-in-from-bottom-1 duration-500',
+                totalDisplay
+                  ? 'border-be-yellow-400 bg-be-yellow-50'
+                  : 'border-be-grey-250 bg-be-cream',
+              )}
+            >
+              {totalDisplay && estimatorDetails ? (
+                <div className="flex flex-col gap-4">
+                  <div className="flex items-center gap-2.5">
+                    <span className="flex size-9 shrink-0 items-center justify-center rounded-full bg-be-yellow-500 text-be-charcoal-950" aria-hidden="true">
+                      <Weight className="size-5" />
+                    </span>
+                    <div>
+                      <p className="text-metadata text-be-grey-650">
+                        Estimated total weight — {estimatorDetails.classLabel} ({estimatorDetails.productCode})
+                      </p>
+                      <p className="text-2xl font-bold text-be-charcoal-950 leading-tight">{totalDisplay}</p>
+                    </div>
+                  </div>
+                  <dl className="grid grid-cols-2 sm:grid-cols-3 gap-3">
+                    {[
+                      { label: 'Mat area', value: `${areaDisplayM2} m²` },
+                      { label: 'Weight basis', value: `${estimatorDetails.approxWeight} (approx.)` },
+                      { label: 'Thickness', value: estimatorDetails.thickness },
+                    ].map((item) => (
+                      <div key={item.label} className="rounded-lg bg-be-white border border-be-grey-250 px-3 py-2.5">
+                        <dt className="text-metadata text-be-grey-650">{item.label}</dt>
+                        <dd className="text-sm font-semibold text-be-charcoal-950 mt-0.5">{item.value}</dd>
+                      </div>
+                    ))}
+                  </dl>
+                  <div className="print-hide flex flex-wrap items-center gap-3">
+                    <PrimaryButton
+                      href={`/contact-us?type=quote&product=iec-hv-insulating-mats&class=${encodeURIComponent(estimatorDetails.classLabel)}`}
+                      className="self-start"
+                    >
+                      Request a Quote for {estimatorDetails.classLabel}
+                    </PrimaryButton>
+                    <p className="text-metadata text-be-grey-650 max-w-xs">
+                      {estimatorUnit === 'ft2'
+                        ? `Entered ${parsedArea.toLocaleString('en-IN')} ft² — converted at 1 m² = ${FT2_PER_M2} ft².`
+                        : 'Planning estimate — actual shipping weight depends on roll/sheet format and packaging.'}
+                    </p>
+                  </div>
+                </div>
+              ) : (
+                <div className="flex items-center gap-2.5 text-be-grey-650">
+                  <Info className="size-5 shrink-0" aria-hidden="true" />
+                  <p className="text-body">
+                    {!estimatorDetails
+                      ? 'Select a class above (or pick a voltage in the class selector) and enter the mat area to estimate the total weight.'
+                      : 'Enter the mat area to estimate the total weight for the selected class.'}
+                  </p>
+                </div>
+              )}
+            </div>
+
+            <div className="mt-4 flex items-start gap-2 text-metadata text-be-grey-650">
+              <Shield className="size-4 shrink-0 mt-0.5 text-be-yellow-text" aria-hidden="true" />
+              <p>
+                Weight basis: approximate brochure values per IEC 61111:2009 class
+                ({iecClasses.map((c) => c.approxWeight.replace(' kg/m²', '')).join(', ')} kg/m²
+                for Classes 0–4). Estimate only — not a substitute for certified shipping weight.
+              </p>
+            </div>
           </div>
         </SectionShell>
 
@@ -713,7 +925,7 @@ export default function GlobalHVClient() {
         {/* ══════════════════════════════════════
             9. GLOBAL RANGE CTA
             ══════════════════════════════════════ */}
-        <SectionShell variant="conversion" bg="bg-be-yellow-50" yellowAccent>
+        <SectionShell variant="conversion" bg="bg-be-yellow-50" yellowAccent className="print-hide">
           <div className="flex flex-col items-center text-center gap-6 max-w-2xl mx-auto">
             <h2 className="text-section-h2 text-be-charcoal-950">
               Request a quote for IEC 61111:2009 HV insulating mats

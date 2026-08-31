@@ -70,8 +70,8 @@ export function ProductHero({ product, visuals, breadcrumbItems: overrideBreadcr
     <>
       {/* ── Main product hero: LEFT gallery (~55%) + RIGHT info (~45%) ── */}
       <SectionShell variant="productHero" bg="be-page-top-tint" className="product-hero-compact">
-        {/* Breadcrumb — first on every breakpoint */}
-        <Breadcrumb items={breadcrumbItems} className="mb-3 lg:mb-4" />
+        {/* Breadcrumb — first on every breakpoint (screen only) */}
+        <Breadcrumb items={breadcrumbItems} className="print-hide mb-3 lg:mb-4" />
 
         {/*
           Desktop: 12-column CSS grid.
@@ -80,8 +80,9 @@ export function ProductHero({ product, visuals, breadcrumbItems: overrideBreadcr
           Mobile/tablet (<1024px): single column, image first, then product info
         */}
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-8 items-start">
-          {/* ── LEFT: Media / Gallery side ── */}
-          <div className="min-w-0 lg:col-span-7 order-first">
+          {/* ── LEFT: Media / Gallery side (screen only — printed spec
+              sheets carry the tables and data, not photography) ── */}
+          <div className="print-hide min-w-0 lg:col-span-7 order-first">
             <ProductImageCarousel
               hero={visuals.hero}
               gallery={visuals.gallery}
@@ -128,8 +129,8 @@ export function ProductHero({ product, visuals, breadcrumbItems: overrideBreadcr
               })}
             </div>
 
-            {/* CTA buttons */}
-            <div className="flex flex-wrap gap-3">
+            {/* CTA buttons (screen only) */}
+            <div className="print-hide flex flex-wrap gap-3">
               <PrimaryButton href="/contact-us" size="lg">
                 Request a Quote
               </PrimaryButton>
