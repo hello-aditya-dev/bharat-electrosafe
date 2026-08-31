@@ -140,7 +140,7 @@ export default function PVCFlooringClient() {
 
               {/* CTA buttons */}
               <div className="flex flex-wrap gap-3">
-                <PrimaryButton href="/contact-us?type=quote" size="lg">
+                <PrimaryButton href="/contact-us?type=quote&product=pvc-flooring-solutions" size="lg">
                   Request a Quote
                 </PrimaryButton>
                 <SecondaryButton href="/contact-us?type=technical-guidance&product=pvc-flooring-solutions">
@@ -325,7 +325,7 @@ export default function PVCFlooringClient() {
               project. Our sales team responds within 24 hours.
             </p>
             <div className="flex flex-wrap items-center justify-center gap-3">
-              <PrimaryButton href="/contact-us?type=quote" size="lg">
+              <PrimaryButton href="/contact-us?type=quote&product=pvc-flooring-solutions" size="lg">
                 Request a Quote
               </PrimaryButton>
               <SecondaryButton href="/contact-us?type=technical-guidance&product=pvc-flooring-solutions">

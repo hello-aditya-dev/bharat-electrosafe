@@ -39,6 +39,9 @@ interface ProductDetailTemplateProps {
   ctaHeadingPrefix?: string;
   /** Optional extra content injected between sections. */
   extraContent?: React.ReactNode;
+  /** Optional content injected directly after the Technical Specifications
+      section (e.g. the domestic HV interactive class selector). */
+  extraContentAfterSpecifications?: React.ReactNode;
   /** Override the breadcrumb trail (default: Home → Products → product.name). */
   breadcrumbItems?: { label: string; href?: string }[];
   /** Override the product display name (H1, carousel alt) without changing product.name data. */
@@ -50,6 +53,7 @@ export function ProductDetailTemplate({
   visuals,
   ctaHeadingPrefix,
   extraContent,
+  extraContentAfterSpecifications,
   breadcrumbItems,
   displayName,
 }: ProductDetailTemplateProps) {
@@ -68,6 +72,11 @@ export function ProductDetailTemplate({
 
         {/* 6. Technical specifications */}
         <ProductSpecifications product={product} stickyFirstColumn />
+
+        {/* 6b. Optional product-specific interactive tool placed right after
+            the specification table so users can act on the data they just
+            read (e.g. domestic HV class selector). */}
+        {extraContentAfterSpecifications}
 
         {/* 7. Material, dimensions, standards/compliance */}
         <ProductMaterialDimensions product={product} />

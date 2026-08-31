@@ -24,6 +24,7 @@
 
 import { z } from 'zod';
 import { iecClasses } from '@/data/iec-61111';
+import { getProductBySlug } from '@/data/products';
 
 /* ────────────────────────────────────────────
    Enquiry type constants + labels
@@ -283,13 +284,15 @@ export function productFromQuery(
 }
 
 /* ────────────────────────────────────────────
-   ?class= param — IEC 61111:2009 class prefill
+   ?class= param — class prefill
 
    The Global HV page class selector links to the contact form
-   with `?class=Class N`. The class is resolved against the real
-   iec-61111 data (no invented values): the quote block's
-   Operating Voltage field is prefilled and, when the caller did
-   not supply an explicit message, a quotation message is
+   with `?class=Class N` (IEC 61111:2009 Classes 0–4). The domestic
+   HV page class selector uses the same mechanism with
+   `?class=Class A/B/C` (IS 15652:2006). In both cases the class is
+   resolved against the real product data (no invented values): the
+   quote block's Operating Voltage field is prefilled and, when the
+   caller did not supply an explicit message, a quotation message is
    composed from the brochure data.
    ──────────────────────────────────────────── */
 
@@ -315,6 +318,60 @@ export function iecClassPrefillFromQuery(klass: string | null): {
   };
 }
 
+/* Domestic IS 15652:2006 class prefill — resolved from the
+   electrical-insulating-mats product's own specification table
+   (BES1001–BES1003, Class A/B/C). Parsed defensively: a row only
+   becomes a prefill source when all six cells parse cleanly. */
+interface DomesticClassPrefill {
+  classLabel: string;
+  productCode: string;
+  thickness: string;
+  workingVoltage: string;
+}
+
+const DOMESTIC_CLASS_PATTERN = /^[ABC]$/;
+
+function domesticClassFromQueryParam(
+  klass: string | null,
+): DomesticClassPrefill | undefined {
+  if (!klass) return undefined;
+  const normalized = klass.toLowerCase().trim().replace(/\s+/g, ' ');
+  const classCell = normalized.replace(/^class\s+/, '');
+  if (!DOMESTIC_CLASS_PATTERN.test(classCell.toUpperCase())) return undefined;
+
+  const product = getProductBySlug('electrical-insulating-mats');
+  const rows = product?.specifications?.rows ?? [];
+  for (const row of rows) {
+    const [productCode, classValue, thickness, workingVoltage] = row;
+    if (
+      typeof classValue === 'string' &&
+      classValue.trim().toUpperCase() === classCell.toUpperCase()
+    ) {
+      const workingVoltageMatch = /([\d.]+)\s*kV/i.exec(workingVoltage ?? '');
+      if (!workingVoltageMatch) return undefined;
+      return {
+        classLabel: `Class ${classValue.trim().toUpperCase()}`,
+        productCode: (productCode ?? '').trim(),
+        thickness: (thickness ?? '').trim(),
+        workingVoltage: workingVoltageMatch[0].trim(),
+      };
+    }
+  }
+  return undefined;
+}
+
+export function domesticClassPrefillFromQuery(klass: string | null): {
+  voltage: string;
+  message: string;
+} {
+  const match = domesticClassFromQueryParam(klass);
+  if (!match) return { voltage: '', message: '' };
+  return {
+    voltage: `${match.workingVoltage} max working voltage — ${match.classLabel} (IS 15652:2006, ${match.productCode})`,
+    message: `Please quote for IS 15652:2006 ${match.classLabel} electrical insulating mats (product code ${match.productCode}, thickness ${match.thickness}, working voltage ${match.workingVoltage}).`,
+  };
+}
+
 /**
  * Reads contact-form prefill values from the current URL query string.
  * Safe to call in the browser; returns safe defaults if called elsewhere.
@@ -331,7 +388,17 @@ export function readContactPrefillFromUrl(): {
   try {
     const params = new URLSearchParams(window.location.search);
     const explicitMessage = params.get('message') ?? '';
-    const classPrefill = iecClassPrefillFromQuery(params.get('class'));
+    /* ?class= resolves against IEC 61111:2009 classes first (Class 0–4),
+       then domestic IS 15652:2006 classes (Class A/B/C). The two families
+       never overlap on labels, and each resolver reads ONLY its own
+       product's data — the domestic selector can never prefill an IEC
+       value and vice versa. */
+    const rawClass = params.get('class');
+    const iecPrefill = iecClassPrefillFromQuery(rawClass);
+    const classPrefill =
+      iecPrefill.message || iecPrefill.voltage
+        ? iecPrefill
+        : domesticClassPrefillFromQuery(rawClass);
     return {
       enquiryType: enquiryTypeFromQuery(params.get('type')),
       product: productFromQuery(params.get('product')),

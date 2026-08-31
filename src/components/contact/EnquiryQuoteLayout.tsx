@@ -21,6 +21,7 @@ import {
   contactSchema,
   enquiryTypeLabels,
   groupedProductOptions,
+  productLabelFromValue,
   readContactPrefillFromUrl,
   type ContactInput,
   type EnquiryType,
@@ -59,6 +60,10 @@ export default function EnquiryQuoteLayout() {
     email: string;
   } | null>(null);
   const formOpenAtRef = useRef<string>(String(Date.now()));
+  /* True briefly after the Operating Voltage field is auto-prefilled from a
+     ?class= link (IEC class selector / domestic class selector), giving the
+     user a visual cue about where the value came from. */
+  const [voltageHighlighted, setVoltageHighlighted] = useState(false);
 
   /* Read query params on first client render so the form starts with the
      prefilled values. This avoids effect-timing issues with the controlled
@@ -68,10 +73,25 @@ export default function EnquiryQuoteLayout() {
       ? readContactPrefillFromUrl()
       : { enquiryType: undefined, product: undefined, message: '', voltage: '' };
 
+  /* Mirror state for the two Radix Select fields.
+
+     WHY: react-hook-form prunes values of fields that have no registered
+     native input — enquiryType / product are Radix Selects with no native
+     input, so a setValue() performed after a client-side navigation was
+     silently wiped before submit ("Please select an enquiry type"), even
+     though the quote block rendered correctly. These mirrors own the UI
+     (Select value + quote block visibility), while hidden registered
+     inputs below keep the values alive in RHF for validation/submission. */
+  const [enquiryTypeState, setEnquiryTypeState] = useState<EnquiryType | undefined>(
+    prefilled.enquiryType,
+  );
+  const [productState, setProductState] = useState<ProductValue | ''>(
+    prefilled.product ?? '',
+  );
+
   const {
     register,
     handleSubmit,
-    watch,
     setValue,
     reset,
     formState: { errors },
@@ -93,17 +113,64 @@ export default function EnquiryQuoteLayout() {
     },
   });
 
-  const enquiryType = watch('enquiryType');
-  const isQuoteRequest = enquiryType === 'quote';
+  const isQuoteRequest = enquiryTypeState === 'quote';
 
-  /* If the prefilled message was loaded, keep it in sync in case the user
-     navigates again. The enquiry type + product are already set via
-     defaultValues above. */
+  /* URL-prefill sync — fixes the client-side navigation timing hole.
+
+     During a <Link> navigation to /contact-us, this component's first
+     render(s) can execute BEFORE the router commits the new URL to
+     history, so the render-time `prefilled` above (and useForm's
+     defaultValues, which are applied only on the first render) can read
+     a stale or empty query string. That left enquiryType / product /
+     voltage silently un-prefilled for every product CTA reached via
+     client-side navigation.
+
+     This effect re-reads the URL after every render but only acts when
+     the prefill-relevant params (type | product | class | message)
+     actually CHANGED since the last sync. Renders before the URL commit
+     see an unchanged key; the render after the commit sees a new key and
+     applies the prefill. Params absent from the URL never overwrite
+     anything, and a bare /contact-us never wipes user-entered data.
+     It also covers same-route param changes (contact → contact with a
+     different ?product=), where React does not remount the page. */
+  const lastPrefillKeyRef = useRef<string>('');
   useEffect(() => {
-    if (prefilled.message) {
-      setValue('message', prefilled.message, { shouldValidate: true });
+    const params = new URLSearchParams(window.location.search);
+    const key = [
+      params.get('type') ?? '',
+      params.get('product') ?? '',
+      params.get('class') ?? '',
+      params.get('message') ?? '',
+    ].join('|');
+    if (key === lastPrefillKeyRef.current) return;
+    lastPrefillKeyRef.current = key;
+    if (key === '|||') return; // no prefill params — keep the current form
+
+    const urlPrefill = readContactPrefillFromUrl();
+    if (urlPrefill.enquiryType) {
+      setEnquiryTypeState(urlPrefill.enquiryType);
+      setValue('enquiryType', urlPrefill.enquiryType, { shouldValidate: true });
     }
-  }, [prefilled.message, setValue]);
+    if (urlPrefill.product) {
+      setProductState(urlPrefill.product);
+      setValue('product', urlPrefill.product);
+    }
+    if (urlPrefill.voltage) {
+      setValue('voltage', urlPrefill.voltage);
+      setVoltageHighlighted(true);
+    }
+    if (urlPrefill.message) {
+      setValue('message', urlPrefill.message, { shouldValidate: true });
+    }
+  });
+
+  /* Clear the prefill highlight after a short pause so it reads as a
+     transient cue, not a permanent state. */
+  useEffect(() => {
+    if (!voltageHighlighted) return;
+    const t = setTimeout(() => setVoltageHighlighted(false), 2600);
+    return () => clearTimeout(t);
+  }, [voltageHighlighted]);
 
   const onSubmit = async (data: ContactInput) => {
     setIsSubmitting(true);
@@ -178,6 +245,8 @@ export default function EnquiryQuoteLayout() {
           <div className="flex flex-wrap gap-3 justify-center pt-2">
             <PrimaryButton onClick={() => {
               setSubmitted(false);
+              setEnquiryTypeState(undefined);
+              setProductState('');
               reset();
             }}>
               Submit Another Enquiry
@@ -231,6 +300,15 @@ export default function EnquiryQuoteLayout() {
         <div className="sr-only" aria-hidden="true">
           <input type="text" {...register('website')} tabIndex={-1} autoComplete="off" />
         </div>
+
+        {/* Hidden registered inputs for the two Radix Select fields.
+            Radix renders no native input for its Selects, and RHF prunes
+            setValue data for unregistered fields — these keep enquiryType
+            and product registered so prefilled/chosen values survive until
+            submission. The visible Selects write through setValue (see
+            onValueChange and the URL-prefill sync effect). */}
+        <input type="hidden" {...register('enquiryType')} value={enquiryTypeState ?? ''} />
+        <input type="hidden" {...register('product')} value={productState} />
 
         {/* Row 1: Name | Company */}
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
@@ -335,8 +413,20 @@ export default function EnquiryQuoteLayout() {
               Enquiry Type <span className="text-be-yellow-text" aria-hidden="true">*</span><span className="sr-only"> (required)</span>
             </label>
             <Select
-              value={enquiryType}
-              onValueChange={(val) => setValue('enquiryType', val as EnquiryType, { shouldValidate: true })}
+              value={enquiryTypeState}
+              onValueChange={(val) => {
+                /* Radix Select keeps a hidden native <select> whose options
+                   only exist once the dropdown has opened. Setting a value
+                   that the empty option list cannot match makes the browser
+                   reset the native select to "" and fire change — which
+                   Radix forwards here as an empty onValueChange. Ignoring
+                   the empty value prevents that reset loop from wiping a
+                   prefilled selection (the visible label is rendered by
+                   SelectValue children, not by the native select). */
+                if (!val) return;
+                setEnquiryTypeState(val as EnquiryType);
+                setValue('enquiryType', val as EnquiryType, { shouldValidate: true });
+              }}
               disabled={isSubmitting}
             >
               <SelectTrigger
@@ -350,7 +440,14 @@ export default function EnquiryQuoteLayout() {
                   isSubmitting && fieldDisabledClass
                 )}
               >
-                <SelectValue placeholder="Select enquiry type" />
+                {/* Label text rendered directly (instead of relying on Radix's
+                    item registry, which is empty until the dropdown opens) so
+                    a prefilled value always displays its label. */}
+                <SelectValue placeholder="Select enquiry type">
+                  {enquiryTypeState
+                    ? enquiryTypeLabels.find((t) => t.value === enquiryTypeState)?.label
+                    : undefined}
+                </SelectValue>
               </SelectTrigger>
               <SelectContent>
                 {enquiryTypeLabels.map((type) => (
@@ -370,8 +467,13 @@ export default function EnquiryQuoteLayout() {
               Product Interest
             </label>
             <Select
-              value={watch('product')}
-              onValueChange={(val) => setValue('product', val)}
+              value={productState || undefined}
+              onValueChange={(val) => {
+                /* Same empty-value guard as the enquiry type select above. */
+                if (!val) return;
+                setProductState(val as ProductValue);
+                setValue('product', val);
+              }}
               disabled={isSubmitting}
             >
               <SelectTrigger
@@ -382,7 +484,10 @@ export default function EnquiryQuoteLayout() {
                   isSubmitting && fieldDisabledClass
                 )}
               >
-                <SelectValue placeholder="Select a product" />
+                {/* Same registry-independent label rendering as enquiryType. */}
+                <SelectValue placeholder="Select a product">
+                  {productState ? productLabelFromValue(productState) : undefined}
+                </SelectValue>
               </SelectTrigger>
               <SelectContent className="max-h-80">
                 {groupedProductOptions().map(({ group, options }) => (
@@ -436,15 +541,31 @@ export default function EnquiryQuoteLayout() {
             </p>
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               <div className="flex flex-col gap-1.5">
-                <label htmlFor="voltage" className="text-sm font-medium text-be-charcoal-800">
-                  Operating Voltage
-                </label>
+                <div className="flex items-center justify-between gap-2">
+                  <label htmlFor="voltage" className="text-sm font-medium text-be-charcoal-800">
+                    Operating Voltage
+                  </label>
+                  {voltageHighlighted && (
+                    <span
+                      id="voltage-prefilled-note"
+                      className="text-metadata text-be-yellow-text animate-in fade-in-0 duration-500"
+                    >
+                      Auto-filled from class selection
+                    </span>
+                  )}
+                </div>
                 <input
                   id="voltage"
                   type="text"
                   {...register('voltage')}
                   disabled={isSubmitting}
-                  className={cn(fieldBaseClass, isSubmitting && fieldDisabledClass)}
+                  aria-describedby={voltageHighlighted ? 'voltage-prefilled-note' : undefined}
+                  className={cn(
+                    fieldBaseClass,
+                    isSubmitting && fieldDisabledClass,
+                    voltageHighlighted &&
+                      'border-be-yellow-500 ring-2 ring-be-yellow-500/40 transition-shadow duration-500'
+                  )}
                   placeholder="e.g. 11 kV"
                 />
               </div>
