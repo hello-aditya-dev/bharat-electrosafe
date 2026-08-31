@@ -71,8 +71,8 @@ export interface BrandShowcaseSlide {
 export const brandShowcaseSlides: BrandShowcaseSlide[] = [
   {
     id: 'electrical',
-    title: 'Electrical Safety & Specialized Brands',
-    label: 'Electrical Safety & Specialized Brands',
+    title: 'Insulating Mat Brands',
+    label: 'Insulating Mat Brands',
     brands: [
       {
         name: 'Bharat Electrosafe',
@@ -105,8 +105,8 @@ export const brandShowcaseSlides: BrandShowcaseSlide[] = [
   },
   {
     id: 'flooring-waterproofing',
-    title: 'Flooring & Waterproofing Brands',
-    label: 'Flooring & Waterproofing Brands',
+    title: 'PVC Flooring & Waterproofing Brands',
+    label: 'PVC Flooring & Waterproofing Brands',
     brands: [
       {
         name: 'Bharat SmartFloor',

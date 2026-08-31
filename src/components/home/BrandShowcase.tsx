@@ -215,74 +215,84 @@ export default function BrandShowcase() {
 
   return (
     <SectionShell variant="compact" bg="bg-be-cream" topRule ariaLabel="Our brands" className="!pt-7 lg:!pt-8 !pb-6 lg:!pb-7">
-      {/* Compact header — eyebrow + supporting line only (no large title). */}
-      <div className="flex flex-col items-center text-center gap-1 mb-4">
-        <Eyebrow>OUR BRANDS</Eyebrow>
-        <p className="text-[15px] leading-relaxed text-be-grey-650 max-w-2xl">
-          Specialized brands across electrical safety, flooring and waterproofing.
-        </p>
-      </div>
+      {/* Two-column layout: STATIC left (OUR BRANDS intro) + DYNAMIC right
+          (category heading + logo carousel + dots). The left side never
+          moves during carousel transitions; only the right side changes. */}
+      <div className="grid grid-cols-1 lg:grid-cols-[minmax(260px,320px)_1fr] gap-6 lg:gap-10 items-center">
 
-      {/* Category context label for the active slide — describes the visible logos.
-          Updates with the carousel so it always matches the current logo group. */}
-      <div className="text-center mb-3">
-        <span className="text-[11px] font-semibold text-be-navy-800 uppercase tracking-wider">
-          {activeSlide.label}
-        </span>
-      </div>
-
-      {/* Carousel viewport — overflow hidden, fixed min-height for layout stability.
-          Both slides use the same compact stage height so the section never jumps. */}
-      <div
-        className="relative min-h-[100px] sm:min-h-[100px] lg:min-h-[108px] overflow-hidden"
-        onMouseEnter={() => setPaused(true)}
-        onMouseLeave={() => setPaused(false)}
-        onFocus={() => setPaused(true)}
-        onBlur={() => setPaused(false)}
-      >
-        {/* Horizontal track — each slide is 100% viewport width.
-            Translated by -active * 100% with a smooth transition.
-            No fade-to-blank, no empty intermediate state. */}
-        <div
-          className="flex w-full h-full transition-transform ease-in-out"
-          style={{
-            transform: `translateX(-${active * 100}%)`,
-            transitionDuration: reducedMotion ? '0ms' : `${TRANSITION_MS}ms`,
-          }}
-        >
-          {brandShowcaseSlides.map((slide) => (
-            <div
-              key={slide.id}
-              className="relative w-full shrink-0 h-full"
-              aria-hidden={activeSlide.id !== slide.id}
-            >
-              <SlideContent slide={slide} onOpenPreview={openPreview} />
-            </div>
-          ))}
+        {/* ── LEFT: static brand introduction ── */}
+        <div className="flex flex-col gap-2 lg:text-left text-center">
+          <Eyebrow>OUR BRANDS</Eyebrow>
+          <p className="text-[15px] leading-relaxed text-be-grey-650 max-w-md lg:max-w-none">
+            Specialized brands across electrical safety, flooring and waterproofing.
+          </p>
         </div>
-      </div>
 
-      {/* Compact pagination dots — keyboard accessible, close to logos.
-          Active state derived ONLY from `active` (single source of truth). */}
-      <div className="mt-3.5 flex items-center justify-center gap-2.5">
-        {brandShowcaseSlides.map((s, i) => (
-          <button
-            key={s.id}
-            type="button"
-            onClick={() => goTo(i)}
-            aria-label={`Go to brand slide ${i + 1}: ${s.title}`}
-            aria-current={active === i}
-            className="focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-be-yellow-400 focus-visible:ring-offset-2 rounded-full p-1"
+        {/* ── RIGHT: dynamic module (heading + logo strip + dots) ── */}
+        <div className="flex flex-col">
+          {/* Dynamic category heading — changes with the carousel so it
+              always describes the visible logo group. */}
+          <div className="mb-2.5 lg:text-left text-center">
+            <span className="text-[11px] font-semibold text-be-navy-800 uppercase tracking-wider">
+              {activeSlide.label}
+            </span>
+          </div>
+
+          {/* Carousel viewport — overflow hidden, fixed min-height for layout stability.
+              Both slides use the same compact stage height so the section never jumps.
+              Only the RIGHT module transitions; the LEFT static content is outside this viewport. */}
+          <div
+            className="relative min-h-[100px] sm:min-h-[100px] lg:min-h-[108px] overflow-hidden"
+            onMouseEnter={() => setPaused(true)}
+            onMouseLeave={() => setPaused(false)}
+            onFocus={() => setPaused(true)}
+            onBlur={() => setPaused(false)}
           >
-            <span
-              className={`block h-2 w-2 rounded-full transition-all duration-300 ${
-                active === i
-                  ? 'bg-be-charcoal-800 scale-125'
-                  : 'bg-be-charcoal-800/20 hover:bg-be-charcoal-800/40'
-              }`}
-            />
-          </button>
-        ))}
+            {/* Horizontal track — each slide is 100% viewport width.
+                Translated by -active * 100% with a smooth transition.
+                No fade-to-blank, no empty intermediate state. */}
+            <div
+              className="flex w-full h-full transition-transform ease-in-out"
+              style={{
+                transform: `translateX(-${active * 100}%)`,
+                transitionDuration: reducedMotion ? '0ms' : `${TRANSITION_MS}ms`,
+              }}
+            >
+              {brandShowcaseSlides.map((slide) => (
+                <div
+                  key={slide.id}
+                  className="relative w-full shrink-0 h-full"
+                  aria-hidden={activeSlide.id !== slide.id}
+                >
+                  <SlideContent slide={slide} onOpenPreview={openPreview} />
+                </div>
+              ))}
+            </div>
+          </div>
+
+          {/* Compact pagination dots — keyboard accessible, close to logos.
+              Active state derived ONLY from `active` (single source of truth). */}
+          <div className="mt-3.5 flex items-center justify-center lg:justify-start gap-2.5">
+            {brandShowcaseSlides.map((s, i) => (
+              <button
+                key={s.id}
+                type="button"
+                onClick={() => goTo(i)}
+                aria-label={`Go to brand slide ${i + 1}: ${s.title}`}
+                aria-current={active === i}
+                className="focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-be-yellow-400 focus-visible:ring-offset-2 rounded-full p-1"
+              >
+                <span
+                  className={`block h-2 w-2 rounded-full transition-all duration-300 ${
+                    active === i
+                      ? 'bg-be-charcoal-800 scale-125'
+                      : 'bg-be-charcoal-800/20 hover:bg-be-charcoal-800/40'
+                  }`}
+                />
+              </button>
+            ))}
+          </div>
+        </div>
       </div>
 
       {/* View-only logo preview modal — independent of carousel state. */}
