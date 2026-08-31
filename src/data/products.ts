@@ -549,6 +549,7 @@ const electricalInsulatingMats: ProductData = {
   relatedProducts: [
     'coloured-strip-insulating-mats',
     'bi-color-insulating-mats',
+    'auto-glow-reflective-band-insulating-mats',
   ],
   classType: 'all',
   hasDatasheet: false,
@@ -688,6 +689,7 @@ const colouredStripInsulatingMats: ProductData = {
   relatedProducts: [
     'electrical-insulating-mats',
     'bi-color-insulating-mats',
+    'auto-glow-reflective-band-insulating-mats',
   ],
   classType: 'all',
   hasDatasheet: false,
@@ -827,6 +829,165 @@ const biColorInsulatingMats: ProductData = {
   relatedProducts: [
     'electrical-insulating-mats',
     'coloured-strip-insulating-mats',
+    'auto-glow-reflective-band-insulating-mats',
+  ],
+  classType: 'all',
+  hasDatasheet: false,
+};
+
+/* ────────────────────────────────────────────
+   Product 4: Auto-Glow / Reflective Band Mats
+   ──────────────────────────────────────────── */
+
+const AGRIM = '/media/products/auto-glow-reflective-band-insulating-mats';
+
+/* Slides 1 and 2 are the same mat photographed in daylight and then in low
+   light. That pair is the honest evidence for the glow claim, so the client's
+   rendered "glowing switchroom" scene is not used at all — no glow here is
+   produced in software. */
+const agrimGallery: ProductGalleryImage[] = [
+  {
+    src: `${AGRIM}/product-04.webp`,
+    alt: 'Auto-glow insulating mat in daylight, with green and orange sections either side of a pale glow band',
+    caption: 'Daylight appearance',
+    type: 'product',
+    fit: 'contain',
+  },
+  {
+    src: `${AGRIM}/gallery/02-reflective-bands-low-light.webp`,
+    alt: 'The same auto-glow insulating mat photographed in low light, the band glowing green',
+    caption: 'The same mat in low light',
+    type: 'alternate',
+    fit: 'contain',
+  },
+  {
+    src: `${AGRIM}/gallery/03-band-surface-detail.webp`,
+    alt: 'Close view of the glow band running beside the dot-pattern anti-skid surface of an auto-glow mat',
+    caption: 'Band against the anti-skid surface',
+    type: 'surface',
+    fit: 'cover',
+  },
+  {
+    src: `${AGRIM}/gallery/04-is-15652-class-c-marking.webp`,
+    alt: 'Marking printed on an auto-glow insulating mat reading IS 15652-2006, Class C, voltage up to 33 kV',
+    caption: 'IS 15652:2006 Class C marking',
+    type: 'marking',
+    fit: 'contain',
+  },
+  {
+    src: `${AGRIM}/gallery/05-auto-glow-product-label.webp`,
+    alt: 'Blue auto-glow insulating mat with white and yellow bands and a label reading Bharat Electrosafe electrical insulating mat 3 mm auto glow',
+    caption: 'Labelled 3 mm auto-glow mat',
+    type: 'marking',
+    fit: 'contain',
+  },
+  {
+    src: `${AGRIM}/gallery/06-supplied-in-rolls.webp`,
+    alt: 'Auto-glow insulating mat supplied as rolls',
+    caption: 'Supplied in rolls',
+    type: 'product',
+    fit: 'cover',
+  },
+];
+
+const autoGlowReflectiveBandMats: ProductData = {
+  slug: 'auto-glow-reflective-band-insulating-mats',
+  name: 'Auto-Glow / Reflective Band Insulating Mats',
+  shortName: 'AGRIM',
+  category: 'electrical-insulation',
+  images: {
+    thumbnail: {
+      src: `${AGRIM}/card.webp`,
+      alt: 'Auto-glow insulating mat with green and orange sections either side of a glow band',
+      fit: 'cover',
+    },
+    gallery: agrimGallery,
+    overview: agrimGallery[2],
+  },
+  assuranceItems: matAssuranceItems,
+  description:
+    'Electrical insulating mats with auto-glow or reflective bands for improved route and boundary visibility in low-light operating areas.',
+  introduction:
+    'Electrical insulating mats with auto-glow or reflective bands for improved route and boundary visibility in low-light operating areas. Manufactured for IS 15652:2006 requirements under BIS Licence CM/L:8800129617, available in Class A, B and C configurations.',
+  badges: ['IS 15652:2006', 'CM/L:8800129617', 'Auto-glow', 'Reflective band'],
+  quickFacts: [
+    { icon: 'sun', label: 'Auto-Glow', value: 'Glow-in-the-dark band' },
+    { icon: 'scan-eye', label: 'Reflective', value: 'High-visibility band' },
+    { icon: 'zap', label: 'Working Voltage', value: '3.3 kV – 33 kV' },
+  ],
+  overviewText:
+    'These variants combine the insulating-mat platform with either an auto-glow band or a reflective band. The added band supports visual route marking and boundary identification where ambient lighting may be limited. The band is a visibility aid and does not provide emergency lighting; specific glow duration and brightness figures are confirmed against the current product documentation, which is available on request.',
+  keyBenefits: [
+    {
+      icon: 'sun',
+      text: 'Auto-glow band for low-light visibility',
+    },
+    {
+      icon: 'scan-eye',
+      text: 'Reflective band for visibility under incident light',
+    },
+    {
+      icon: 'shield',
+      text: 'Class A, B and C options on the standard insulating-mat platform',
+    },
+    {
+      icon: 'grip',
+      text: 'Anti-skid surface options retained alongside the visibility band',
+    },
+    {
+      icon: 'droplets',
+      text: 'Standard and project-specific configurations available',
+    },
+  ],
+  specifications: matSpecifications,
+  materialProperties: matMaterialProperties,
+  dimensions: matDimensions,
+  colors: [
+    'Black with auto-glow band',
+    'Black with reflective band',
+    'Blue with reflective band',
+  ],
+  surfacePatterns: ['Coin', 'Dot', 'Hexa'],
+  installation: [
+    'Position the glow or reflective band along the intended escape or access route',
+    'Cut to length from the 1.0 m wide roll, keeping the band continuous across joins',
+    'Clean and dry the floor before laying',
+    'For the auto-glow variant, allow the band ambient light exposure before relying on it in darkness',
+    'For the reflective variant, align the band with the expected torch or emergency-light angle',
+    'Site fixing can be undertaken by Bharat Electrosafe along with the material, subject to minimum criteria',
+  ],
+  applications: [
+    {
+      icon: 'door-open',
+      name: 'Switchgear rooms',
+      description: 'Visibility marking around switchgear where ambient light is limited',
+    },
+    {
+      icon: 'moon',
+      name: 'Substations',
+      description: 'Route and boundary marking in substations on reduced lighting',
+    },
+    {
+      icon: 'mountain',
+      name: 'Underground facilities',
+      description: 'Pathway marking in vaults, tunnels and cable galleries',
+    },
+    {
+      icon: 'train-front',
+      name: 'Railway electrical facilities',
+      description: 'Visibility marking on electrified platforms and in railway substations',
+    },
+    {
+      icon: 'route',
+      name: 'Industrial electrical installations',
+      description: 'Route marking through plants with live electrical equipment',
+    },
+  ],
+  documents: matDocuments,
+  relatedProducts: [
+    'electrical-insulating-mats',
+    'coloured-strip-insulating-mats',
+    'bi-color-insulating-mats',
   ],
   classType: 'all',
   hasDatasheet: false,
@@ -1047,6 +1208,7 @@ const bharatMembrane: ProductData = {
   relatedProducts: [
     'electrical-insulating-mats',
     'coloured-strip-insulating-mats',
+    'auto-glow-reflective-band-insulating-mats',
   ],
   classType: 'membrane',
   hasDatasheet: false,
@@ -1247,6 +1409,7 @@ export const products: ProductData[] = [
   electricalInsulatingMats,
   colouredStripInsulatingMats,
   biColorInsulatingMats,
+  autoGlowReflectiveBandMats,
   bharatMembrane,
   bharatHydroSeal,
 ];
@@ -1383,6 +1546,14 @@ export const productComparisonData: ProductComparisonRow[] = [
     primaryPurpose: 'Insulation with visible dual-layer construction',
     distinguishingFeature: 'Contrasting colour layers',
     typicalApplication: 'Areas requiring visible surface differentiation',
+    applicableStandard: 'IS 15652:2006',
+  },
+  {
+    name: 'Auto-Glow / Reflective Band Mats',
+    slug: 'auto-glow-reflective-band-insulating-mats',
+    primaryPurpose: 'Insulation with low-light guidance',
+    distinguishingFeature: 'Glow or reflective visibility feature',
+    typicalApplication: 'Emergency routes and low-light electrical areas',
     applicableStandard: 'IS 15652:2006',
   },
   {

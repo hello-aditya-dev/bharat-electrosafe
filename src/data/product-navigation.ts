@@ -86,6 +86,11 @@ export const productNavGroups: ProductNavGroup[] = [
             description: 'Standard high-voltage insulating mats for operator protection',
           },
           {
+            name: 'Auto Glow',
+            href: '/products/auto-glow-reflective-band-insulating-mats',
+            description: 'Insulating mats with reflective/glow visibility band for low-light conditions',
+          },
+          {
             name: 'Bi-Colour',
             href: '/products/bi-color-insulating-mats',
             description: 'Dual-colour insulating mats with visible layer differentiation',

@@ -11,6 +11,7 @@ import { Eyebrow } from '@/components/ui/Eyebrow';
 import { SecondaryButton } from '@/components/ui/SecondaryButton';
 import {
   hvVisuals,
+  autoGlowVisuals,
   biColourVisuals,
   coloredStripVisuals,
   type ProductVisualRole,
@@ -35,6 +36,13 @@ const domesticProducts: RangeProduct[] = [
     description:
       'Standard high-voltage insulating mats for operator protection near live switchgear and substations.',
     visual: hvVisuals.card,
+  },
+  {
+    name: 'Auto Glow',
+    href: '/products/auto-glow-reflective-band-insulating-mats',
+    description:
+      'Insulating mats with a reflective/glow visibility band for low-light and emergency conditions.',
+    visual: autoGlowVisuals.card,
   },
   {
     name: 'Bi-Colour',

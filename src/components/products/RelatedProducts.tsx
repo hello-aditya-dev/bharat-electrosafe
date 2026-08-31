@@ -15,6 +15,7 @@ const accentColors: Record<string, string> = {
   'electrical-insulating-mats': 'border-be-yellow-400',
   'coloured-strip-insulating-mats': 'border-be-yellow-100',
   'bi-color-insulating-mats': 'border-be-grey-400',
+  'auto-glow-reflective-band-insulating-mats': 'border-be-yellow-500',
   'bharat-membrane': 'border-be-charcoal-800',
 };
 

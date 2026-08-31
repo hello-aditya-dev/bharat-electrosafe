@@ -141,6 +141,65 @@ export const hvVisuals: ProductVisuals = {
   },
 };
 
+/* ────────────────────────────────────────────
+   Auto Glow / Reflective Band
+   Carousel: 10 → 11 → 12 → existing gallery
+   ──────────────────────────────────────────── */
+
+export const autoGlowVisuals: ProductVisuals = {
+  card: {
+    src: `${PROD}/auto-glow-reflective-band-insulating-mats/client-approved/autoglow-1.webp`,
+    alt: 'Auto Glow insulating mat — product view 1',
+    fit: 'cover',
+  },
+  hero: {
+    src: `${PROD}/auto-glow-reflective-band-insulating-mats/client-approved/autoglow-1.webp`,
+    alt: 'Auto Glow reflective band insulating mat — product view',
+    fit: 'contain',
+  },
+  gallery: [
+    {
+      src: `${PROD}/auto-glow-reflective-band-insulating-mats/client-approved/autoglow-2.webp`,
+      alt: 'Auto Glow insulating mat — product view 2',
+      fit: 'contain',
+    },
+    {
+      src: `${PROD}/auto-glow-reflective-band-insulating-mats/client-approved/autoglow-3.webp`,
+      alt: 'Auto Glow insulating mat — product view 3',
+      fit: 'contain',
+    },
+    {
+      src: `${PROD}/auto-glow-reflective-band-insulating-mats/client-approved/autoglow-4.webp`,
+      alt: 'Auto Glow insulating mat — product view 4',
+      fit: 'cover',
+    },
+    {
+      src: `${PROD}/auto-glow-reflective-band-insulating-mats/client-approved/autoglow-17.webp`,
+      alt: 'Auto Glow insulating mat — product view 17',
+      fit: 'contain',
+    },
+  ],
+  application: {
+    src: `${PROD}/auto-glow-reflective-band-insulating-mats/client-approved/autoglow-3.webp`,
+    alt: 'Auto Glow mat in application',
+    fit: 'cover',
+  },
+  video: {
+    src: `${PROD}/auto-glow-reflective-band-insulating-mats/client-approved/autoglow-video-11.mp4`,
+    alt: 'Auto Glow reflective band insulating mat — product demonstration video',
+    fit: 'contain',
+  },
+  menuPreview: {
+    src: `${PROD}/auto-glow-reflective-band-insulating-mats/client-approved/autoglow-1.webp`,
+    alt: 'Auto Glow mat preview',
+    fit: 'cover',
+  },
+  homePreview: {
+    src: `${PROD}/auto-glow-reflective-band-insulating-mats/client-approved/autoglow-1.webp`,
+    alt: 'Auto Glow reflective band preview',
+    fit: 'cover',
+  },
+};
 
 /* ────────────────────────────────────────────
    Bi-Colour
@@ -244,7 +303,7 @@ export const coloredStripVisuals: ProductVisuals = {
 
 /* ────────────────────────────────────────────
    IEC 61111:2009 International
-   Reuses: 01 (HV), 07 (Bi-Colour)
+   Reuses: 01 (HV), 10 (Auto Glow), 07 (Bi-Colour)
    ──────────────────────────────────────────── */
 
 export const iecVisuals: ProductVisuals = {
@@ -259,6 +318,11 @@ export const iecVisuals: ProductVisuals = {
     fit: 'cover',
   },
   gallery: [
+    {
+      src: `${PROD}/auto-glow-reflective-band-insulating-mats/client-approved/auto-glow-card-dark.webp`,
+      alt: 'IEC Auto Glow variant — reflective boundary band',
+      fit: 'cover',
+    },
     {
       src: `${PROD}/bi-color-insulating-mats/client-approved/bi-colour-card-cross-section.webp`,
       alt: 'IEC Bi-Colour variant — dual-layer insulating mat',
@@ -518,6 +582,7 @@ export const otherProductsVisuals: ProductVisuals = {
 
 export const productVisuals = {
   'electrical-insulating-mats': hvVisuals,
+  'auto-glow-reflective-band-insulating-mats': autoGlowVisuals,
   'bi-color-insulating-mats': biColourVisuals,
   'coloured-strip-insulating-mats': coloredStripVisuals,
   'international-iec-61111': iecVisuals,

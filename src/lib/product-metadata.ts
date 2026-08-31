@@ -48,6 +48,10 @@ const productTitles: Record<string, ProductTitleSet> = {
     pageTitle: 'Bi-Color Electrical Insulating Mats',
     socialTitle: 'Bi-Color Electrical Insulating Mats | Bharat Electrosafe',
   },
+  'auto-glow-reflective-band-insulating-mats': {
+    pageTitle: 'Auto-Glow and Reflective Band Insulating Mats',
+    socialTitle: 'Auto-Glow and Reflective Band Insulating Mats | Bharat Electrosafe',
+  },
   /* Geo Membrane Lining — product brand name updated to public display name */
   'bharat-membrane': {
     pageTitle: 'Geo Membrane Lining Solutions',
@@ -80,6 +84,8 @@ const productOgImages: Partial<Record<string, string>> = {
   /* The bi-colour set is square; the widest of them crops most gracefully. */
   'bi-color-insulating-mats':
     '/media/products/bi-color-insulating-mats/gallery/04-layer-cross-section.webp',
+  'auto-glow-reflective-band-insulating-mats':
+    '/media/products/auto-glow-reflective-band-insulating-mats/gallery/01-reflective-bands-daylight.webp',
   'bharat-membrane':
     '/media/products/bharat-membrane/gallery/01-tunnel-membrane-lining.webp',
 };
