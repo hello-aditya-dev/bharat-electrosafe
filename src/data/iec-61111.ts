@@ -159,7 +159,7 @@ export const iecDimensions = {
   standardSizes: ['1.0 m × 10.0 m', '1.2 m × 10.0 m'],
   custom: 'Width × length as per customer requirement',
   standardColour: 'Blue OR Black',
-  biColour: 'Blue and Orange / Black and Yellow',
+  biColour: 'Black / Yellow',
   finish: 'Fabric Finish',
   customizationNote: 'Custom colours available on request.',
 } as const;

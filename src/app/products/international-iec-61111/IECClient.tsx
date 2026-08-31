@@ -114,7 +114,7 @@ const iecFaqItems: { q: string; a: string }[] = [
   },
   {
     q: 'What other mat properties matter besides class?',
-    a: 'Beyond voltage class, consider mechanical durability, surface finish (anti-skid patterns), resistance to flame/oil/moisture where relevant, marking legibility, and whether a wear-indicator (bi-colour) or visibility (auto-glow) feature is needed for the application.',
+    a: 'Beyond voltage class, consider mechanical durability, surface finish (anti-skid patterns), resistance to flame/oil/moisture where relevant, marking legibility, and whether a wear-indicator (bi-colour) or a wear-indicator (bi-colour) feature is needed for the application.',
   },
   {
     q: 'What is the difference between IEC 61111 and ASTM D178?',
@@ -169,7 +169,7 @@ export default function IECClient() {
 
               <p className="product-hero-intro text-body-large text-be-grey-650 leading-relaxed mb-4 lg:mb-5">
                 IEC 61111:2009 insulating mats for live working up to 36 000 V.
-                Available in three variants — HV, Auto Glow, and Bi-Colour —
+                Available in two variants — HV and Bi-Colour —
                 across Classes 0 through 4 for IEC-member markets worldwide.
               </p>
 
@@ -276,7 +276,7 @@ export default function IECClient() {
           <SectionHeader
             eyebrow="Product Variants"
             title="Available IEC 61111:2009 Variants"
-            supportingText="Three insulating mat variants — each fully compliant with IEC 61111:2009 across all five voltage classes, with distinct safety enhancements."
+            supportingText="Two insulating mat variants — each fully compliant with IEC 61111:2009 across all five voltage classes, with distinct safety enhancements."
             align="center"
           />
 

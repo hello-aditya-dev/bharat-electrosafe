@@ -173,12 +173,6 @@ export const allTrustMarks: TrustMark[] = [
     logo: '/media/certifications/nabl.webp',
     alt: 'NABL accreditation mark',
   },
-  {
-    label: 'ACL Certification',
-    note: 'Certificate of Compliance ACL25053002 — Accura Certification Limited — Expired 29 May 2026',
-    logo: '/media/certifications/acl.webp',
-    alt: 'ACL certification mark',
-  },
 ];
 
 /* ────────────────────────────────────────────

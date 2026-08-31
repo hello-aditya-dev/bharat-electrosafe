@@ -244,7 +244,7 @@ export const coloredStripVisuals: ProductVisuals = {
 
 /* ────────────────────────────────────────────
    IEC 61111:2009 International
-   Reuses: 01 (HV), 10 (Auto Glow), 07 (Bi-Colour)
+   Reuses: 01 (HV), 07 (Bi-Colour)
    ──────────────────────────────────────────── */
 
 export const iecVisuals: ProductVisuals = {

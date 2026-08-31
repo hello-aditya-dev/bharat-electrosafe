@@ -201,7 +201,7 @@ export default function IECClient() {
                 { icon: Award, label: 'Standard', value: 'IEC 61111:2009' },
                 { icon: Zap, label: 'Classes', value: '0, 1, 2, 3, 4' },
                 { icon: Ruler, label: 'Working Voltage', value: '36,000 V AC' },
-                { icon: Layers, label: 'Thickness', value: '2.0–4.0 mm' },
+                { icon: Layers, label: 'Thickness', value: '2.0–5.2 mm' },
                 { icon: Shield, label: 'Testing', value: 'Test certificate with every supply' },
                 { icon: Globe, label: 'Markets', value: 'International / Global' },
               ].map(({ icon: Icon, label, value }) => (
@@ -255,7 +255,7 @@ export default function IECClient() {
                     Get Quote
                     <ArrowRight className="size-4 ml-1.5" />
                   </PrimaryButton>
-                  <SecondaryButton href="/products/electrical-insulating-mats/auto-glow-hv" className="self-start">
+                  <SecondaryButton href="/products/electrical-insulating-mats/high-voltage-electrical-insulation-mats" className="self-start">
                     Learn More
                   </SecondaryButton>
                 </div>
@@ -436,7 +436,7 @@ export default function IECClient() {
                   { icon: Zap, text: 'Classes 0–4: maximum working voltage 1.0 kV to 36.0 kV' },
                   { icon: Eye, text: 'Product name marking provided on the mat.' },
                   { icon: Globe, text: 'International / Global IEC 61111:2009 applications' },
-                  { icon: Ruler, text: 'Thickness 2.0–4.0 mm depending on class' },
+                  { icon: Ruler, text: 'Thickness 2.0–5.2 mm depending on class' },
                   { icon: FileText, text: 'Test certificate supplied with every supply.' },
                   { icon: Shield, text: 'Tested in accredited and internationally recognized laboratories' },
                   { icon: GripHorizontal, text: 'Anti-slip surface with 50 N minimum slip resistance' },
@@ -455,18 +455,6 @@ export default function IECClient() {
                 <p className="text-body text-be-grey-650">
                   Standard elastomeric compound with moulded IEC marking. Suitable for
                   all indoor and covered switchgear installations.
-                </p>
-              </div>
-
-              <div className="border-t border-be-grey-250 pt-5">
-                <div className="flex items-center gap-2 mb-3">
-                  <Sparkles className="size-4 text-be-yellow-text" aria-hidden="true" />
-                  <h3 className="text-base font-semibold text-be-charcoal-950">Auto Glow</h3>
-                </div>
-                <p className="text-body text-be-grey-650">
-                  Insulating mats with innovative glow technology, designed to
-                  enhance visibility in low-light conditions and during power
-                  interruptions.
                 </p>
               </div>
 
