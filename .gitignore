@@ -55,3 +55,7 @@ server.log
 # Playwright test output
 /test-results/
 /playwright-report/
+
+# Sandbox artifacts — never commit these
+.zscripts/
+upload/

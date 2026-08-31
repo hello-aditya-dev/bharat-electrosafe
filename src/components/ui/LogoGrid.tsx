@@ -31,7 +31,7 @@ interface LogoGridProps {
  *   • Sufficient internal padding so no logo touches the cell edge
  *   • `object-fit: contain` so aspect ratios are preserved (no stretch)
  *   • Subtle hover: border warms to brand yellow, very slight bg lift
- *   • No animation, no scale, no shadow膨胀 — keeps the section calm
+ *   • No animation, no scale, no shadow expansion — keeps the section calm
  *
  * Accessibility:
  *   • Every logo `<img>` carries accurate `alt` text — never the same
