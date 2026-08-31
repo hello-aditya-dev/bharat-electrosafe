@@ -87,17 +87,17 @@ export const productNavGroups: ProductNavGroup[] = [
           },
           {
             name: 'Auto Glow',
-            href: '/products/auto-glow-reflective-band-insulating-mats',
+            href: '/products/electrical-insulating-mats/auto-glow-reflective-band-insulating-mats',
             description: 'Insulating mats with reflective/glow visibility band for low-light conditions',
           },
           {
             name: 'Bi-Colour',
-            href: '/products/bi-color-insulating-mats',
+            href: '/products/electrical-insulating-mats/bi-color-insulating-mats',
             description: 'Dual-colour insulating mats with visible layer differentiation',
           },
           {
             name: 'Colored Strip',
-            href: '/products/coloured-strip-insulating-mats',
+            href: '/products/electrical-insulating-mats/coloured-strip-insulating-mats',
             description: 'Insulating mats with high-visibility coloured boundary strip',
           },
         ],

@@ -125,7 +125,7 @@ const DOMESTIC_PRODUCTS: DomesticProduct[] = [
   },
   {
     name: 'Auto Glow',
-    href: '/products/auto-glow-reflective-band-insulating-mats',
+    href: '/products/electrical-insulating-mats/auto-glow-reflective-band-insulating-mats',
     description: 'Insulating mats with reflective/glow visibility band for low-light and emergency conditions.',
     imageSrc: autoGlowVisuals.card.src,
     imageAlt: autoGlowVisuals.card.alt,
@@ -133,7 +133,7 @@ const DOMESTIC_PRODUCTS: DomesticProduct[] = [
   },
   {
     name: 'Bi-Colour',
-    href: '/products/bi-color-insulating-mats',
+    href: '/products/electrical-insulating-mats/bi-color-insulating-mats',
     description: 'Dual-colour insulating mats with visible layer differentiation for safety compliance.',
     imageSrc: biColourVisuals.card.src,
     imageAlt: biColourVisuals.card.alt,
@@ -141,7 +141,7 @@ const DOMESTIC_PRODUCTS: DomesticProduct[] = [
   },
   {
     name: 'Colored Strip',
-    href: '/products/coloured-strip-insulating-mats',
+    href: '/products/electrical-insulating-mats/coloured-strip-insulating-mats',
     description: 'Insulating mats with high-visibility coloured boundary strip for safe pathways.',
     imageSrc: coloredStripVisuals.card.src,
     imageAlt: coloredStripVisuals.card.alt,
@@ -552,13 +552,6 @@ function ElectricalInsulatingMatsSection() {
                     <span className="w-1.5 h-1.5 rounded-full bg-be-brand-blue" aria-hidden="true" />
                     <Link href="/products/electrical-insulating-mats/dual-layer-dual-colour" className="font-medium text-be-navy-800 hover:text-be-brand-blue transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-be-yellow-500 rounded">
                       Dual Layer Dual Colour
-                    </Link>
-                    <span className="text-xs text-be-navy-700 bg-be-brand-blue/10 px-2 py-0.5 rounded-full">Specialized</span>
-                  </li>
-                  <li className="flex items-center gap-2">
-                    <span className="w-1.5 h-1.5 rounded-full bg-be-brand-blue" aria-hidden="true" />
-                    <Link href="/products/electrical-insulating-mats/auto-glow-hv" className="font-medium text-be-navy-800 hover:text-be-brand-blue transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-be-yellow-500 rounded">
-                      Auto Glow HV
                     </Link>
                     <span className="text-xs text-be-navy-700 bg-be-brand-blue/10 px-2 py-0.5 rounded-full">Specialized</span>
                   </li>

@@ -39,21 +39,21 @@ const domesticProducts: RangeProduct[] = [
   },
   {
     name: 'Auto Glow',
-    href: '/products/auto-glow-reflective-band-insulating-mats',
+    href: '/products/electrical-insulating-mats/auto-glow-reflective-band-insulating-mats',
     description:
       'Insulating mats with a reflective/glow visibility band for low-light and emergency conditions.',
     visual: autoGlowVisuals.card,
   },
   {
     name: 'Bi-Colour',
-    href: '/products/bi-color-insulating-mats',
+    href: '/products/electrical-insulating-mats/bi-color-insulating-mats',
     description:
       'Dual-colour insulating mats with visible layer differentiation for safety compliance.',
     visual: biColourVisuals.card,
   },
   {
     name: 'Colored Strip',
-    href: '/products/coloured-strip-insulating-mats',
+    href: '/products/electrical-insulating-mats/coloured-strip-insulating-mats',
     description:
       'Insulating mats with a high-visibility coloured boundary strip for safe pathways.',
     visual: coloredStripVisuals.card,
@@ -174,13 +174,6 @@ export default function EIMHubClient() {
                 className="inline-flex items-center gap-1.5 text-sm font-medium text-be-charcoal-950 border border-be-grey-300 bg-be-white px-4 py-2 rounded-lg hover:border-be-yellow-400 hover:bg-be-yellow-50 hover:text-be-yellow-text-hover transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-be-yellow-500 focus-visible:ring-offset-2"
               >
                 HV Insulating Mats
-                <ChevronRight className="size-3.5" aria-hidden="true" />
-              </Link>
-              <Link
-                href="/products/electrical-insulating-mats/international-iec-61111#auto-glow"
-                className="inline-flex items-center gap-1.5 text-sm font-medium text-be-charcoal-950 border border-be-grey-300 bg-be-white px-4 py-2 rounded-lg hover:border-be-yellow-400 hover:bg-be-yellow-50 hover:text-be-yellow-text-hover transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-be-yellow-500 focus-visible:ring-offset-2"
-              >
-                Auto Glow
                 <ChevronRight className="size-3.5" aria-hidden="true" />
               </Link>
               <Link

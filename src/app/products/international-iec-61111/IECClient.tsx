@@ -14,7 +14,6 @@ import {
   Phone,
   Check,
   ArrowRight,
-  Sparkles,
   Palette,
   Factory,
   Building2,
@@ -45,18 +44,15 @@ import { cn } from '@/lib/utils';
 import { FeatureList } from '@/components/ui/FeatureList';
 import { company } from '@/data/company';
 import { iecVisuals } from '@/data/product-visuals';
+import { iecClasses as iecClassData } from '@/data/iec-61111';
+import { PRODUCT_ROUTES } from '@/data/product-routes';
 
 /* ────────────────────────────────────────────
    IEC 61111:2009 Class specification data
+   Single source of truth: src/data/iec-61111.ts
+   (values taken directly from the official Bharat
+   Electrosafe IEC 61111 brochure).
    ──────────────────────────────────────────── */
-
-const iecClasses = [
-  { class: 'Class 0', maxWorkingVoltage: '500 V', proofTestVoltage: '5 kV', thickness: '2 mm' },
-  { class: 'Class 1', maxWorkingVoltage: '1 000 V', proofTestVoltage: '10 kV', thickness: '2 mm' },
-  { class: 'Class 2', maxWorkingVoltage: '7 000 V', proofTestVoltage: '20 kV', thickness: '2 mm' },
-  { class: 'Class 3', maxWorkingVoltage: '17 000 V', proofTestVoltage: '30 kV', thickness: '2 mm' },
-  { class: 'Class 4', maxWorkingVoltage: '36 000 V', proofTestVoltage: '40 kV', thickness: '2 mm' },
-];
 
 /* ────────────────────────────────────────────
    Applications — from client IEC 61111 brochure
@@ -114,7 +110,7 @@ const iecFaqItems: { q: string; a: string }[] = [
   },
   {
     q: 'What other mat properties matter besides class?',
-    a: 'Beyond voltage class, consider mechanical durability, surface finish (anti-skid patterns), resistance to flame/oil/moisture where relevant, marking legibility, and whether a wear-indicator (bi-colour) or a wear-indicator (bi-colour) feature is needed for the application.',
+    a: 'Beyond voltage class, consider mechanical durability, surface finish (anti-skid patterns), resistance to flame/oil/moisture where relevant, marking legibility, and whether a wear-indicator (bi-colour) feature is needed for the application.',
   },
   {
     q: 'What is the difference between IEC 61111 and ASTM D178?',
@@ -183,10 +179,10 @@ export default function IECClient() {
               </div>
             </div>
 
-            {/* Media side — 3-product visual with IEC reference chip */}
+            {/* Media side — product visuals with IEC reference chip */}
             <div className="min-w-0 lg:col-span-6 xl:col-span-7 flex flex-col gap-3">
-              {/* Three product thumbnails */}
-              <div className="grid grid-cols-3 gap-3">
+              {/* Product thumbnails — HV + Bi-Colour (Auto Glow is domestic-only) */}
+              <div className="grid grid-cols-2 gap-3">
                 <div className="relative">
                   <ImageFrame
                     src={iecVisuals.hero.src}
@@ -205,18 +201,6 @@ export default function IECClient() {
                     alt={iecVisuals.gallery[0].alt}
                     aspectRatio="landscape"
                     fit={iecVisuals.gallery[0].fit}
-                    priority
-                  />
-                  <span className="absolute bottom-1.5 left-1.5 bg-be-charcoal-950/80 text-be-white text-[10px] font-semibold px-1.5 py-0.5 rounded">
-                    Auto Glow
-                  </span>
-                </div>
-                <div className="relative">
-                  <ImageFrame
-                    src={iecVisuals.gallery[1].src}
-                    alt={iecVisuals.gallery[1].alt}
-                    aspectRatio="landscape"
-                    fit={iecVisuals.gallery[1].fit}
                     priority
                   />
                   <span className="absolute bottom-1.5 left-1.5 bg-be-charcoal-950/80 text-be-white text-[10px] font-semibold px-1.5 py-0.5 rounded">
@@ -253,7 +237,7 @@ export default function IECClient() {
                 { icon: Award, label: 'Standard', value: 'IEC 61111:2009' },
                 { icon: Zap, label: 'Classes', value: '0, 1, 2, 3, 4' },
                 { icon: Ruler, label: 'Max Voltage', value: '36 000 V' },
-                { icon: Layers, label: 'Min. Thickness', value: '2 mm' },
+                { icon: Layers, label: 'Thickness Range', value: '2.0–5.2 mm' },
                 { icon: Shield, label: 'Testing', value: 'CPRI / NABL' },
                 { icon: Globe, label: 'Markets', value: 'IEC-member' },
               ].map(({ icon: Icon, label, value }) => (
@@ -270,9 +254,13 @@ export default function IECClient() {
         </section>
 
         {/* ══════════════════════════════════════
-            3. AVAILABLE PRODUCT VARIANTS
+            3. AVAILABLE PRODUCT VARIANTS — HV + Bi-Colour
+            (Auto Glow is a domestic-only product and is deliberately
+            not part of the international/Global IEC offering.)
             ══════════════════════════════════════ */}
         <SectionShell variant="standard" bg="bg-be-white" topRule>
+          <div id="hv-insulating-mats" className="scroll-mt-24" aria-label="HV Insulating Mats" />
+          <div id="bi-colour" className="scroll-mt-24" aria-label="Bi-Colour" />
           <SectionHeader
             eyebrow="Product Variants"
             title="Available IEC 61111:2009 Variants"
@@ -280,16 +268,19 @@ export default function IECClient() {
             align="center"
           />
 
-          <div className="mt-8 grid grid-cols-1 md:grid-cols-3 gap-6">
+          {/* Balanced two-card grid — HV Insulating Mats + Bi-Colour.
+              These are the two valid international offerings; cards share
+              equal width/height, consistent image area, title and CTA placement. */}
+          <div className="mt-8 grid grid-cols-1 md:grid-cols-2 gap-6 max-w-4xl mx-auto">
             {/* HV Card */}
-            <div className="group flex flex-col rounded-xl border border-be-grey-250 bg-be-white overflow-hidden hover:shadow-lg transition-shadow">
+            <div className="group flex flex-col h-full rounded-xl border border-be-grey-250 bg-be-white overflow-hidden hover:shadow-lg transition-shadow">
               <div className="relative aspect-[4/3] overflow-hidden bg-be-cream">
                 <Image
                   src={iecVisuals.hero.src}
                   alt={iecVisuals.hero.alt}
                   fill
                   className={`${iecVisuals.hero.fit === 'contain' ? 'object-contain p-4' : 'object-cover'} group-hover:scale-105 transition-transform duration-300`}
-                  sizes="(max-width: 768px) 100vw, 33vw"
+                  sizes="(max-width: 768px) 100vw, 50vw"
                 />
               </div>
               <div className="flex flex-col gap-3 p-5 flex-1">
@@ -302,50 +293,27 @@ export default function IECClient() {
                   voltage identification marking. Reliable operator protection at installations
                   up to 36 000 V.
                 </p>
-                <PrimaryButton href="/contact-us?type=quote&product=iec-hv-insulating-mats" className="mt-1 self-start">
-                  Get Quote
-                  <ArrowRight className="size-4 ml-1.5" />
-                </PrimaryButton>
+                <div className="flex flex-wrap items-center gap-2 mt-1">
+                  <PrimaryButton href="/contact-us?type=quote&product=iec-hv-insulating-mats">
+                    Get Quote
+                    <ArrowRight className="size-4 ml-1.5" />
+                  </PrimaryButton>
+                  <SecondaryButton href={PRODUCT_ROUTES.hv}>
+                    View Product
+                  </SecondaryButton>
+                </div>
               </div>
             </div>
 
-            {/* Auto Glow Card */}
-            <div className="group flex flex-col rounded-xl border border-be-grey-250 bg-be-white overflow-hidden hover:shadow-lg transition-shadow">
+            {/* Bi-Colour Card */}
+            <div className="group flex flex-col h-full rounded-xl border border-be-grey-250 bg-be-white overflow-hidden hover:shadow-lg transition-shadow">
               <div className="relative aspect-[4/3] overflow-hidden bg-be-cream">
                 <Image
                   src={iecVisuals.gallery[0].src}
                   alt={iecVisuals.gallery[0].alt}
                   fill
                   className={`${iecVisuals.gallery[0].fit === 'contain' ? 'object-contain p-4' : 'object-cover'} group-hover:scale-105 transition-transform duration-300`}
-                  sizes="(max-width: 768px) 100vw, 33vw"
-                />
-              </div>
-              <div className="flex flex-col gap-3 p-5 flex-1">
-                <div className="flex items-center gap-2">
-                  <Sparkles className="size-5 text-be-yellow-text" aria-hidden="true" />
-                  <h3 className="text-lg font-semibold text-be-charcoal-950">Auto-Glow Mats</h3>
-                </div>
-                <p className="text-body text-be-grey-650 flex-1">
-                  Enhanced with a photoluminescent strip that remains visible in darkness.
-                  Operators can locate mat boundaries during power outages — no external
-                  power source needed.
-                </p>
-                <PrimaryButton href="/contact-us?type=quote&product=iec-auto-glow" className="mt-1 self-start">
-                  Get Quote
-                  <ArrowRight className="size-4 ml-1.5" />
-                </PrimaryButton>
-              </div>
-            </div>
-
-            {/* Bi-Colour Card */}
-            <div className="group flex flex-col rounded-xl border border-be-grey-250 bg-be-white overflow-hidden hover:shadow-lg transition-shadow">
-              <div className="relative aspect-[4/3] overflow-hidden bg-be-cream">
-                <Image
-                  src={iecVisuals.gallery[1].src}
-                  alt={iecVisuals.gallery[1].alt}
-                  fill
-                  className={`${iecVisuals.gallery[1].fit === 'contain' ? 'object-contain p-4' : 'object-cover'} group-hover:scale-105 transition-transform duration-300`}
-                  sizes="(max-width: 768px) 100vw, 33vw"
+                  sizes="(max-width: 768px) 100vw, 50vw"
                 />
               </div>
               <div className="flex flex-col gap-3 p-5 flex-1">
@@ -358,10 +326,15 @@ export default function IECClient() {
                   When wear exposes the inner colour, it signals the mat needs replacement.
                   No measuring instruments needed.
                 </p>
-                <PrimaryButton href="/contact-us?type=quote&product=iec-bi-colour" className="mt-1 self-start">
-                  Get Quote
-                  <ArrowRight className="size-4 ml-1.5" />
-                </PrimaryButton>
+                <div className="flex flex-wrap items-center gap-2 mt-1">
+                  <PrimaryButton href="/contact-us?type=quote&product=iec-bi-colour">
+                    Get Quote
+                    <ArrowRight className="size-4 ml-1.5" />
+                  </PrimaryButton>
+                  <SecondaryButton href={PRODUCT_ROUTES.dualLayerDualColour}>
+                    View Product
+                  </SecondaryButton>
+                </div>
               </div>
             </div>
           </div>
@@ -374,26 +347,32 @@ export default function IECClient() {
           <SectionHeader
             eyebrow="Technical Specifications"
             title="IEC 61111:2009 Classification Table"
-            supportingText="Voltage class, maximum working voltage, and proof test voltage per IEC 61111:2009. All five classes share a minimum mat thickness of 2 mm."
+            supportingText="Product code, voltage class, maximum working voltage, proof test voltage, dielectric strength, thickness and weight per the official Bharat Electrosafe IEC 61111 brochure. Mat thickness ranges from 2.0 mm (Class 0) to 5.2 mm (Class 4)."
           />
 
           <div className="mt-6 overflow-x-auto">
-            <table className="w-full min-w-[480px] border-collapse text-body">
+            <table className="w-full min-w-[640px] border-collapse text-body">
               <thead>
                 <tr className="border-b-2 border-be-yellow-500">
+                  <th className="text-left py-3 pr-4 font-semibold text-be-charcoal-950">Product Code</th>
                   <th className="text-left py-3 pr-4 font-semibold text-be-charcoal-950">Class</th>
-                  <th className="text-left py-3 pr-4 font-semibold text-be-charcoal-950">Maximum Working Voltage</th>
-                  <th className="text-left py-3 pr-4 font-semibold text-be-charcoal-950">Proof Test Voltage</th>
-                  <th className="text-left py-3 font-semibold text-be-charcoal-950">Min. Thickness</th>
+                  <th className="text-left py-3 pr-4 font-semibold text-be-charcoal-950">Max Working Voltage</th>
+                  <th className="text-left py-3 pr-4 font-semibold text-be-charcoal-950">AC Proof Voltage</th>
+                  <th className="text-left py-3 pr-4 font-semibold text-be-charcoal-950">Dielectric Strength</th>
+                  <th className="text-left py-3 pr-4 font-semibold text-be-charcoal-950">Thickness</th>
+                  <th className="text-left py-3 font-semibold text-be-charcoal-950">Approx. Weight</th>
                 </tr>
               </thead>
               <tbody>
-                {iecClasses.map((row) => (
-                  <tr key={row.class} className="border-b border-be-grey-250 hover:bg-be-yellow-50/50 transition-colors">
-                    <td className="py-3 pr-4 font-semibold text-be-charcoal-950">{row.class}</td>
+                {iecClassData.map((row) => (
+                  <tr key={row.productCode} className="border-b border-be-grey-250 hover:bg-be-yellow-50/50 transition-colors">
+                    <td className="py-3 pr-4 font-semibold text-be-charcoal-950 whitespace-nowrap">{row.productCode}</td>
+                    <td className="py-3 pr-4 font-semibold text-be-charcoal-950">{row.classLabel}</td>
                     <td className="py-3 pr-4 text-be-charcoal-800">{row.maxWorkingVoltage}</td>
-                    <td className="py-3 pr-4 text-be-charcoal-800">{row.proofTestVoltage}</td>
-                    <td className="py-3 text-be-charcoal-800">{row.thickness}</td>
+                    <td className="py-3 pr-4 text-be-charcoal-800">{row.acProofVoltage}</td>
+                    <td className="py-3 pr-4 text-be-charcoal-800">{row.dielectricStrength}</td>
+                    <td className="py-3 pr-4 text-be-charcoal-800">{row.thickness}</td>
+                    <td className="py-3 text-be-charcoal-800 whitespace-nowrap">{row.approxWeight}</td>
                   </tr>
                 ))}
               </tbody>
@@ -403,9 +382,9 @@ export default function IECClient() {
           <div className="mt-4 flex items-start gap-2 text-metadata text-be-grey-650">
             <Shield className="size-4 shrink-0 mt-0.5 text-be-yellow-text" aria-hidden="true" />
             <p>
-              All values per IEC 61111:2009 Table 1. Proof test voltage is the
-              withstand voltage applied during routine verification. These are
-              IEC classifications — do not confuse with IS 15652:2006 Classes A–D.
+              All values per IEC 61111:2009 and the official Bharat Electrosafe brochure.
+              AC proof voltage is the withstand voltage applied during routine verification.
+              These are IEC classifications — do not confuse with IS 15652:2006 Classes A–D.
             </p>
           </div>
         </SectionShell>
@@ -428,11 +407,11 @@ export default function IECClient() {
               </h3>
               <FeatureList
                 items={[
-                  { icon: Shield, text: 'Elastomeric insulating compound, minimum 2 mm thickness' },
-                  { icon: Zap, text: 'Type-tested at NABL-accredited laboratory (CPRI)' },
+                  { icon: Shield, text: 'Elastomer-free compound of natural rubber and synthetic polymers with anti-slip surface, 2.0–5.2 mm thickness by class' },
+                  { icon: Zap, text: 'Type-tested at accredited and internationally recognized laboratories' },
                   { icon: Eye, text: 'Permanently moulded IEC marking: standard, class, voltage, manufacturer, date' },
                   { icon: Globe, text: 'Recognised in all IEC-member country markets' },
-                  { icon: Ruler, text: 'Available in Classes 0, 1, 2, 3 and 4 (500 V to 36 000 V)' },
+                  { icon: Ruler, text: 'Available in Classes 0, 1, 2, 3 and 4 (1.0 kV to 36.0 kV)' },
                   { icon: Award, text: 'Custom sizes available on request' },
                 ]}
               />
@@ -446,20 +425,8 @@ export default function IECClient() {
                   <h3 className="text-base font-semibold text-be-charcoal-950">HV — Standard</h3>
                 </div>
                 <p className="text-body text-be-grey-650">
-                  Standard elastomeric compound with moulded IEC marking. Suitable for
+                  Standard high-voltage compound with moulded IEC marking. Suitable for
                   all indoor and covered switchgear installations.
-                </p>
-              </div>
-
-              <div className="border-t border-be-grey-250 pt-5">
-                <div className="flex items-center gap-2 mb-3">
-                  <Sparkles className="size-4 text-be-yellow-text" aria-hidden="true" />
-                  <h3 className="text-base font-semibold text-be-charcoal-950">Auto Glow — Photoluminescent</h3>
-                </div>
-                <p className="text-body text-be-grey-650">
-                  Adds a photoluminescent strip integrated during moulding. Charges under
-                  ambient/UV light; emits afterglow in darkness. Ideal for substations,
-                  low-light switchgear rooms, and emergency egress routes.
                 </p>
               </div>
 
@@ -496,7 +463,7 @@ export default function IECClient() {
                   {[
                     'Standard reference: IEC 61111:2009',
                     'Class designation (e.g. Class 2)',
-                    'Maximum working voltage (e.g. 17 000 V)',
+                    'Maximum working voltage (e.g. 17.0 kV)',
                     'Manufacturer name: Bharat Electrosafe',
                     'Month and year of manufacture',
                   ].map((item) => (

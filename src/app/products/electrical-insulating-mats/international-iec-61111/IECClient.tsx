@@ -14,7 +14,6 @@ import {
   Phone,
   Check,
   ArrowRight,
-  Sparkles,
   Palette,
   Factory,
   Building2,
@@ -144,8 +143,8 @@ export default function IECClient() {
 
             {/* Media side — 3-product visual with IEC reference chip */}
             <div className="min-w-0 lg:col-span-6 xl:col-span-7 flex flex-col gap-3">
-              {/* Three product thumbnails */}
-              <div className="grid grid-cols-3 gap-3">
+              {/* Product thumbnails — HV + Bi-Colour (balanced two-up) */}
+              <div className="grid grid-cols-2 gap-3">
                 <div className="relative">
                   <ImageFrame
                     src={iecVisuals.hero.src}
@@ -161,10 +160,10 @@ export default function IECClient() {
 
                 <div className="relative">
                   <ImageFrame
-                    src={iecVisuals.gallery[1].src}
-                    alt={iecVisuals.gallery[1].alt}
+                    src={iecVisuals.gallery[0].src}
+                    alt={iecVisuals.gallery[0].alt}
                     aspectRatio="landscape"
-                    fit={iecVisuals.gallery[1].fit}
+                    fit={iecVisuals.gallery[0].fit}
                     priority
                   />
                   <span className="absolute bottom-1.5 left-1.5 bg-be-charcoal-950/80 text-be-white text-[10px] font-semibold px-1.5 py-0.5 rounded">
@@ -266,10 +265,10 @@ export default function IECClient() {
             <div id="bi-colour" className="scroll-mt-24 group flex flex-col rounded-xl border border-be-grey-250 bg-be-white overflow-hidden hover:shadow-lg transition-shadow">
               <div className="relative aspect-[4/3] overflow-hidden bg-be-cream">
                 <Image
-                  src={iecVisuals.gallery[1].src}
-                  alt={iecVisuals.gallery[1].alt}
+                  src={iecVisuals.gallery[0].src}
+                  alt={iecVisuals.gallery[0].alt}
                   fill
-                  className={`${iecVisuals.gallery[1].fit === 'contain' ? 'object-contain p-4' : 'object-cover'} group-hover:scale-105 transition-transform duration-300`}
+                  className={`${iecVisuals.gallery[0].fit === 'contain' ? 'object-contain p-4' : 'object-cover'} group-hover:scale-105 transition-transform duration-300`}
                   sizes="(max-width: 768px) 100vw, 33vw"
                 />
               </div>
@@ -304,7 +303,7 @@ export default function IECClient() {
           <SectionHeader
             eyebrow="Technical Specifications"
             title="IEC 61111:2009 Classification Table"
-            supportingText="All five classes with thickness, maximum allowed thickness, maximum working voltage, AC proof voltage, dielectric strength, and approximate weight per IEC 61111:2009 Table 1."
+            supportingText="All five classes with thickness, maximum working voltage, AC proof voltage, dielectric strength, and approximate weight per IEC 61111:2009 and the official Bharat Electrosafe brochure."
           />
 
           <div className="mt-6 overflow-x-auto -mx-4 px-4 sm:mx-0 sm:px-0">
@@ -336,7 +335,6 @@ export default function IECClient() {
                   <td className="py-3 pr-4 font-semibold text-be-charcoal-950">BES CD</td>
                   <td className="py-3 pr-4 text-be-charcoal-800 italic">Custom</td>
                   <td className="py-3 pr-4 text-be-charcoal-800">Up to 2.0 mm</td>
-                  <td className="py-3 pr-4 text-be-charcoal-800">Up to 14.0 mm</td>
                   <td className="py-3 pr-4 text-be-charcoal-800">Up to 36.0 kV</td>
                   <td className="py-3 pr-4 text-be-charcoal-800">Up to 40.0 kV</td>
                   <td className="py-3 pr-4 text-be-charcoal-800">Up to 40.0 kV</td>
@@ -390,9 +388,6 @@ export default function IECClient() {
                     <span className="font-medium text-be-charcoal-950">{variant.thickness}</span>
                   </div>
                   <div className="flex justify-between text-sm">
-                    <span className="text-be-grey-650">Max thickness allowed</span>
-                  </div>
-                  <div className="flex justify-between text-sm">
                     <span className="text-be-grey-650">Max working voltage</span>
                     <span className="font-medium text-be-charcoal-950">{variant.maxWorkingVoltage}</span>
                   </div>
@@ -432,7 +427,7 @@ export default function IECClient() {
               </h3>
               <FeatureList
                 items={[
-                  { icon: Shield, text: 'Elastomeric insulating compound (natural rubber and synthetic polymers)' },
+                  { icon: Shield, text: 'Elastomer-free; combination of natural rubber and synthetic polymers with anti-slip surface' },
                   { icon: Zap, text: 'Classes 0–4: maximum working voltage 1.0 kV to 36.0 kV' },
                   { icon: Eye, text: 'Product name marking provided on the mat.' },
                   { icon: Globe, text: 'International / Global IEC 61111:2009 applications' },
@@ -453,7 +448,7 @@ export default function IECClient() {
                   <h3 className="text-base font-semibold text-be-charcoal-950">HV — Standard</h3>
                 </div>
                 <p className="text-body text-be-grey-650">
-                  Standard elastomeric compound with moulded IEC marking. Suitable for
+                  Standard compound with moulded IEC marking. Suitable for
                   all indoor and covered switchgear installations.
                 </p>
               </div>
@@ -650,9 +645,6 @@ export default function IECClient() {
                 <h4 className="text-sm font-semibold text-be-charcoal-950">Standard Colour</h4>
               </div>
               <p className="text-body text-be-charcoal-800">{iecDimensions.standardColour}</p>
-              <div className="flex items-start gap-2 mt-4">
-                <Ruler className="size-4 shrink-0 mt-0.5 text-be-yellow-text" aria-hidden="true" />
-              </div>
             </div>
           </div>
         </SectionShell>

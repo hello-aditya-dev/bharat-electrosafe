@@ -174,10 +174,17 @@ const nextConfig: NextConfig = {
       permanent: true,
     };
 
-    const autoGlowRedirects = [
-      { source: '/products/electrical-insulating-mats/auto-glow-hv', destination: '/products/electrical-insulating-mats', permanent: true },
-      { source: '/products/electrical-insulating-mats/auto-glow-reflective-band-insulating-mats', destination: '/products/electrical-insulating-mats', permanent: true },
-      { source: '/products/auto-glow-reflective-band-insulating-mats', destination: '/products/electrical-insulating-mats', permanent: true },
+    // International Auto Glow was retired from the Global/IEC offering.
+    // The obsolete international URL is 301-redirected to the canonical
+    // Global IEC page so no indexed public URL becomes dead.
+    //
+    // IMPORTANT: the DOMESTIC Auto Glow product
+    // (/products/electrical-insulating-mats/auto-glow-reflective-band-insulating-mats)
+    // is an active domestic product and must NOT be redirected — it is
+    // served by its own page. Its legacy top-level path is handled by
+    // legacyProductRedirects below.
+    const internationalAutoGlowRedirects = [
+      { source: '/products/electrical-insulating-mats/auto-glow-hv', destination: '/products/electrical-insulating-mats/international-iec-61111', permanent: true },
     ];
 
     return [
@@ -186,7 +193,7 @@ const nextConfig: NextConfig = {
         destination: r.destination,
         permanent: true,
       })),
-      ...autoGlowRedirects,
+      ...internationalAutoGlowRedirects,
 
       domesticRedirect,
       ...legacyProductRedirects.map((r) => ({

@@ -77,9 +77,13 @@ export const config = {
      * Match all request paths except those starting with:
      * - _next/static (static files)
      * - _next/image (image optimization files)
+     * - _next/webpack-hmr (dev-only HMR event stream — must bypass the
+     *   proxy or the streaming response can be buffered/broken, which
+     *   hangs waitForWebpackRuntimeHotUpdate and blocks React hydration
+     *   in local development)
      * - favicon.ico, favicon-*.png, apple-touch-icon.png
      * - icons/, og/, images/, media/, brand/, documents/ (static public assets)
      */
-    '/((?!_next/static|_next/image|favicon\\.ico|favicon-|apple-touch-icon|icons/|og/|images/|media/|brand/|documents/|robots\\.txt|llms\\.txt).*)',
+    '/((?!_next/static|_next/image|_next/webpack-hmr|favicon\\.ico|favicon-|apple-touch-icon|icons/|og/|images/|media/|brand/|documents/|robots\\.txt|llms\\.txt).*)',
   ],
 };

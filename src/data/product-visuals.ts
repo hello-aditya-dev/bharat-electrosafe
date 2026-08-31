@@ -303,7 +303,9 @@ export const coloredStripVisuals: ProductVisuals = {
 
 /* ────────────────────────────────────────────
    IEC 61111:2009 International
-   Reuses: 01 (HV), 10 (Auto Glow), 07 (Bi-Colour)
+   Reuses: 01 (HV), 07 (Bi-Colour)
+   NOTE: Auto Glow is a DOMESTIC-only product. Its imagery must NOT
+   appear in the international/Global IEC visual set.
    ──────────────────────────────────────────── */
 
 export const iecVisuals: ProductVisuals = {
@@ -318,11 +320,6 @@ export const iecVisuals: ProductVisuals = {
     fit: 'cover',
   },
   gallery: [
-    {
-      src: `${PROD}/auto-glow-reflective-band-insulating-mats/client-approved/auto-glow-card-dark.webp`,
-      alt: 'IEC Auto Glow variant — reflective boundary band',
-      fit: 'cover',
-    },
     {
       src: `${PROD}/bi-color-insulating-mats/client-approved/bi-colour-card-cross-section.webp`,
       alt: 'IEC Bi-Colour variant — dual-layer insulating mat',
