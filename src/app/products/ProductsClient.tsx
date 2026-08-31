@@ -547,7 +547,12 @@ function ElectricalInsulatingMatsSection() {
               <div className="flex flex-col gap-2 mb-6">
                 <span className="text-sm font-medium text-be-charcoal-950">Products available:</span>
                 <ul className="flex flex-col gap-1.5 text-sm text-be-grey-650">
-                  <li className="flex items-center gap-2"><span className="w-1.5 h-1.5 rounded-full bg-be-brand-blue" aria-hidden="true" /> HV Insulating Mats</li>
+                  <li className="flex items-center gap-2">
+                    <span className="w-1.5 h-1.5 rounded-full bg-be-brand-blue" aria-hidden="true" />
+                    <Link href="/products/electrical-insulating-mats/international-iec-61111/hv-insulating-mats" className="font-medium text-be-navy-800 hover:text-be-brand-blue transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-be-yellow-500 rounded">
+                      HV Insulating Mats
+                    </Link>
+                  </li>
                   <li className="flex items-center gap-2">
                     <span className="w-1.5 h-1.5 rounded-full bg-be-brand-blue" aria-hidden="true" />
                     <Link href="/products/electrical-insulating-mats/dual-layer-dual-colour" className="font-medium text-be-navy-800 hover:text-be-brand-blue transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-be-yellow-500 rounded">

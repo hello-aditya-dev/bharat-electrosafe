@@ -170,7 +170,7 @@ export default function EIMHubClient() {
             {/* Product navigation links */}
             <div className="flex flex-wrap gap-3 mb-5">
               <Link
-                href="/products/electrical-insulating-mats/international-iec-61111#hv-insulating-mats"
+                href="/products/electrical-insulating-mats/international-iec-61111/hv-insulating-mats"
                 className="inline-flex items-center gap-1.5 text-sm font-medium text-be-charcoal-950 border border-be-grey-300 bg-be-white px-4 py-2 rounded-lg hover:border-be-yellow-400 hover:bg-be-yellow-50 hover:text-be-yellow-text-hover transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-be-yellow-500 focus-visible:ring-offset-2"
               >
                 HV Insulating Mats

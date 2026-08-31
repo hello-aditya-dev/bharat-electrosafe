@@ -1,16 +1,26 @@
 import { Metadata } from 'next';
-import { buildUrl, canonicalOrigin, allowIndexing } from '@/lib/site-url';
+import { buildUrl, allowIndexing } from '@/lib/site-url';
 import { breadcrumbSchema, serializeJsonLd, type BreadcrumbItem } from '@/lib/structured-data';
-import IECClient from './IECClient';
+import { PRODUCT_ROUTES } from '@/data/product-routes';
+import GlobalHVClient from './GlobalHVClient';
 
 /* ────────────────────────────────────────────
-   Metadata
+   GLOBAL HV INSULATING MATS — dedicated page.
+
+   This page is the GLOBAL / INTERNATIONAL HV product
+   (IEC 61111:2009, Class 0–4). It is a SEPARATE page from
+   the DOMESTIC HV page (IS 15652:2006, Class A/B/C) at
+   /products/electrical-insulating-mats/high-voltage-electrical-insulation-mats.
+
+   DO NOT MERGE. This page must never present IS 15652:2006
+   Class A/B/C data — all technical values come exclusively
+   from src/data/iec-61111.ts.
    ──────────────────────────────────────────── */
 
-const PAGE_TITLE = 'International Insulating Mats IEC 61111:2009';
+const PAGE_TITLE = 'HV Insulating Mats IEC 61111:2009';
 const PAGE_DESCRIPTION =
-  'IEC 61111:2009 compliant insulating mats for international markets — Class 0 to Class 4, including bi-colour variants.';
-const CANONICAL_PATH = '/products/international-iec-61111';
+  'HV insulating mats certified to IEC 61111:2009 for international markets — Classes 0 to 4, maximum working voltage 1.0 kV to 36.0 kV AC, thickness 2.0–5.2 mm.';
+const CANONICAL_PATH = PRODUCT_ROUTES.internationalHv;
 const canonicalUrl = buildUrl(CANONICAL_PATH);
 
 export const metadata: Metadata = {
@@ -36,16 +46,19 @@ export const metadata: Metadata = {
 };
 
 /* ────────────────────────────────────────────
-   Structured data (breadcrumb only — no Product schema)
+   Structured data — breadcrumb walks through the
+   Global IEC 61111 hub, keeping the GLOBAL context.
    ──────────────────────────────────────────── */
 
 const breadcrumbItems: BreadcrumbItem[] = [
   { name: 'Home', href: '/' },
   { name: 'Products', href: '/products' },
-  { name: 'International / Global (IEC 61111:2009)', href: CANONICAL_PATH },
+  { name: 'Electrical Insulating Mats', href: PRODUCT_ROUTES.electricalInsulatingMats },
+  { name: 'International / Global (IEC 61111:2009)', href: PRODUCT_ROUTES.international },
+  { name: 'HV Insulating Mats', href: CANONICAL_PATH },
 ];
 
-export default function InternationalIEC61111Page() {
+export default function GlobalHVInsulatingMatsPage() {
   return (
     <>
       <script
@@ -54,7 +67,7 @@ export default function InternationalIEC61111Page() {
           __html: serializeJsonLd(breadcrumbSchema(breadcrumbItems, CANONICAL_PATH)),
         }}
       />
-      <IECClient />
+      <GlobalHVClient />
     </>
   );
 }

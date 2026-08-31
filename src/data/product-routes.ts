@@ -101,6 +101,17 @@ export const productRoutes: ProductRoute[] = [
     ],
   },
 
+  // ── Global HV Insulating Mats (IEC 61111) ──
+  // SEPARATE page from the domestic HV page (IS 15652:2006).
+  // All technical data on this page comes from src/data/iec-61111.ts.
+  {
+    key: 'international-hv-insulating-mats',
+    displayName: 'HV Insulating Mats (IEC 61111)',
+    canonicalPath: '/products/electrical-insulating-mats/international-iec-61111/hv-insulating-mats',
+    legacyPaths: [],
+    parentKey: 'international-iec-61111',
+  },
+
   // ── Dual Layer Dual Colour (IEC 61111 specialized innovation page) ──
   {
     key: 'dual-layer-dual-colour',
@@ -266,6 +277,7 @@ export const PRODUCT_ROUTES = {
   biColour: '/products/electrical-insulating-mats/bi-color-insulating-mats' as const,
   colouredStrip: '/products/electrical-insulating-mats/coloured-strip-insulating-mats' as const,
   international: '/products/electrical-insulating-mats/international-iec-61111' as const,
+  internationalHv: '/products/electrical-insulating-mats/international-iec-61111/hv-insulating-mats' as const,
   dualLayerDualColour: '/products/electrical-insulating-mats/dual-layer-dual-colour' as const,
   waterproofingSolutions: '/products/waterproofing-solutions' as const,
   geoMembrane: '/products/geo-membrane-lining' as const,

@@ -254,7 +254,7 @@ export default function IECClient() {
                     Get Quote
                     <ArrowRight className="size-4 ml-1.5" />
                   </PrimaryButton>
-                  <SecondaryButton href="/products/electrical-insulating-mats/high-voltage-electrical-insulation-mats" className="self-start">
+                  <SecondaryButton href="/products/electrical-insulating-mats/international-iec-61111/hv-insulating-mats" className="self-start">
                     Learn More
                   </SecondaryButton>
                 </div>

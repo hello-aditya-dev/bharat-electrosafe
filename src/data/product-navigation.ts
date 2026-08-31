@@ -109,8 +109,8 @@ export const productNavGroups: ProductNavGroup[] = [
         items: [
           {
             name: 'HV Insulating Mats',
-            href: '/products/electrical-insulating-mats/international-iec-61111#hv-insulating-mats',
-            description: 'IEC 61111 compliant high-voltage insulating mats',
+            href: '/products/electrical-insulating-mats/international-iec-61111/hv-insulating-mats',
+            description: 'IEC 61111 compliant high-voltage insulating mats — Classes 0–4',
           },
           {
             name: 'Dual Layer Dual Colour',
