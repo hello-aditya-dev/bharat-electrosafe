@@ -231,8 +231,9 @@ export default function BrandShowcase() {
         {/* ── RIGHT: dynamic module (heading + logo strip + dots) ── */}
         <div className="flex flex-col">
           {/* Dynamic category heading — changes with the carousel so it
-              always describes the visible logo group. */}
-          <div className="mb-2.5 lg:text-left text-center">
+              always describes the visible logo group. Centered over the
+              logo strip (shares the same parent content region + center). */}
+          <div className="mb-2.5 text-center">
             <span className="text-[11px] font-semibold text-be-navy-800 uppercase tracking-wider">
               {activeSlide.label}
             </span>
@@ -271,8 +272,9 @@ export default function BrandShowcase() {
           </div>
 
           {/* Compact pagination dots — keyboard accessible, close to logos.
-              Active state derived ONLY from `active` (single source of truth). */}
-          <div className="mt-3.5 flex items-center justify-center lg:justify-start gap-2.5">
+              Active state derived ONLY from `active` (single source of truth).
+              Centered over the logo strip (shares the same center axis). */}
+          <div className="mt-3.5 flex items-center justify-center gap-2.5">
             {brandShowcaseSlides.map((s, i) => (
               <button
                 key={s.id}
