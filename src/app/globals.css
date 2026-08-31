@@ -2207,4 +2207,18 @@
   [class*='rounded-lg'] {
     break-inside: avoid;
   }
+
+  /* Table headers may wrap instead of clipping at the page edge
+     ("Approx. Weight" was cut off on paper); cell padding tightens
+     so wide class tables fit the printable width. */
+  th {
+    white-space: normal !important;
+    word-wrap: break-word;
+  }
+
+  th,
+  td {
+    padding-left: 7px !important;
+    padding-right: 7px !important;
+  }
 }

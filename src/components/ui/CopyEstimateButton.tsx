@@ -5,11 +5,9 @@ import { Check, Copy } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { copyTextToClipboard } from '@/lib/clipboard';
 
-interface CopyTableButtonProps {
-  /** Column headers, in display order. */
-  headers: string[];
-  /** Row cells, each aligned with `headers`. */
-  rows: string[][];
+interface CopyEstimateButtonProps {
+  /** Plain-text summary lines to place on the clipboard. */
+  lines: string[];
   /** Accessible name / tooltip text. */
   label?: string;
   /** Optional class name for layout adjustments. */
@@ -17,16 +15,17 @@ interface CopyTableButtonProps {
 }
 
 /**
- * Copies a specification table to the clipboard as tab-separated values
- * (paste-ready for Excel / Google Sheets / email). Shows a transient
- * "Copied" state and announces success to screen readers.
+ * Copies a free-form estimate summary (weight estimator result, class
+ * recommendation, …) to the clipboard as plain text lines — paste-ready
+ * for emails or procurement notes. Shows a transient "Copied" state and
+ * announces success to screen readers. Same design language and fallback
+ * behaviour as CopyTableButton (via the shared clipboard helper).
  */
-export function CopyTableButton({
-  headers,
-  rows,
-  label = 'Copy table',
+export function CopyEstimateButton({
+  lines,
+  label = 'Copy estimate',
   className,
-}: CopyTableButtonProps) {
+}: CopyEstimateButtonProps) {
   const [copied, setCopied] = useState(false);
   const resetTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
@@ -36,16 +35,8 @@ export function CopyTableButton({
     };
   }, []);
 
-  const buildTsv = (): string => {
-    const lines = [headers.join('\t')];
-    for (const row of rows) {
-      lines.push(row.join('\t'));
-    }
-    return lines.join('\n');
-  };
-
   const handleCopy = async () => {
-    const ok = await copyTextToClipboard(buildTsv());
+    const ok = await copyTextToClipboard(lines.filter(Boolean).join('\n'));
     if (ok) {
       setCopied(true);
       if (resetTimerRef.current) clearTimeout(resetTimerRef.current);
@@ -59,7 +50,7 @@ export function CopyTableButton({
         type="button"
         onClick={handleCopy}
         title={label}
-        aria-label={copied ? 'Table copied to clipboard' : label}
+        aria-label={copied ? 'Estimate copied to clipboard' : label}
         className={cn(
           'inline-flex items-center gap-1.5 rounded-lg border px-3 py-2 min-h-[44px] text-sm font-medium transition-all duration-200',
           'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-be-yellow-500 focus-visible:ring-offset-2',
@@ -75,10 +66,8 @@ export function CopyTableButton({
         )}
         {copied ? 'Copied' : label}
       </button>
-      {/* Screen-reader announcement — the visible button label change is
-          often not re-read by assistive tech without a live region. */}
-      <span aria-live="polite" role="status" className="sr-only">
-        {copied ? 'Specification table copied to clipboard as spreadsheet-compatible text.' : ''}
+      <span className="sr-only" role="status" aria-live="polite">
+        {copied ? 'Estimate copied to clipboard' : ''}
       </span>
     </span>
   );

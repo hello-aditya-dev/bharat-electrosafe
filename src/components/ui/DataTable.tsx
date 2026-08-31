@@ -42,14 +42,14 @@ export function DataTable({
           {rows.map((row, rowIndex) => (
             <tr
               key={rowIndex}
-              className="border-t border-be-grey-250 bg-be-white hover:bg-be-cream/50 transition-colors"
+              className="border-t border-be-grey-250 bg-be-white even:bg-be-cream hover:bg-be-yellow-50/60 transition-colors"
             >
               {row.map((cell, cellIndex) => (
                 <td
                   key={cellIndex}
                   className={cn(
                     'px-4 py-3 text-be-charcoal-800 whitespace-nowrap',
-                    stickyFirstColumn && cellIndex === 0 && 'sticky left-0 bg-be-white z-10 font-medium text-be-charcoal-950'
+                    stickyFirstColumn && cellIndex === 0 && 'sticky left-0 bg-be-white z-10 font-medium text-be-charcoal-950 even:bg-be-cream'
                   )}
                 >
                   {cell}

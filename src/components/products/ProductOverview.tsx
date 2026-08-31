@@ -72,8 +72,9 @@ export function ProductOverview({ product }: ProductOverviewProps) {
   return (
     <SectionShell variant="standard" bg="bg-be-white" topRule>
       <div className="flex flex-col lg:flex-row gap-8 lg:gap-10 items-start">
-        {/* Left: Application image */}
-        <div className="lg:w-[45%] order-first lg:order-last">
+        {/* Left: Application image (screen only — printed spec sheets
+            carry the overview text and benefits, not photography) */}
+        <div className="print-hide lg:w-[45%] order-first lg:order-last">
           <ImageFrame
             src={overview.src}
             alt={overview.alt}

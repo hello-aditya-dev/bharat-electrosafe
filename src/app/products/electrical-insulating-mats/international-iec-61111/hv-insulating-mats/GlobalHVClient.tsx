@@ -45,6 +45,7 @@ import { cn } from '@/lib/utils';
 import { company } from '@/data/company';
 import { iecVisuals } from '@/data/product-visuals';
 import { CopyTableButton } from '@/components/ui/CopyTableButton';
+import { CopyEstimateButton } from '@/components/ui/CopyEstimateButton';
 import { PrintSpecSheetButton } from '@/components/ui/PrintSpecSheetButton';
 import {
   normalizeClassLabel,
@@ -70,6 +71,18 @@ import { PRODUCT_ROUTES } from '@/data/product-routes';
    ──────────────────────────────────────────── */
 
 /* Applications with icons — mapped from data */
+
+/* ── Standard roll areas (real brochure data + arithmetic only) ──
+   iecDimensions.standardSizes strings like '1.0 m × 10.0 m' are parsed
+   into per-roll areas so the estimator can express an entered area as
+   a number of standard rolls. Pure unit arithmetic on published
+   dimensions — no invented product data. */
+const STANDARD_ROLLS = iecDimensions.standardSizes.flatMap((size) => {
+  const dims = size.split('×').map((part) => parseFloat(part));
+  return dims.length === 2 && dims.every(Number.isFinite)
+    ? [{ label: size, areaM2: dims[0] * dims[1] }]
+    : [];
+});
 
 const appIconMap: Record<string, LucideIcon> = {
   'Electrical Substations': Zap,
@@ -170,6 +183,17 @@ export default function GlobalHVClient() {
   const areaDisplayM2 = hasValidArea
     ? areaM2.toLocaleString('en-IN', { maximumFractionDigits: 2 })
     : null;
+
+  /* Roll coverage — how many standard rolls cover the entered area.
+     ceil() rounds up because partial rolls must still be ordered. */
+  const rollCoverage =
+    hasValidArea && areaM2 > 0 && STANDARD_ROLLS.length > 0
+      ? STANDARD_ROLLS.map((r) => ({
+          ...r,
+          rolls: Math.ceil(areaM2 / r.areaM2),
+          coveredM2: Math.ceil(areaM2 / r.areaM2) * r.areaM2,
+        }))
+      : null;
 
   /* Deep-link init: a URL carrying ?class=Class 3 (e.g. a shared link)
      initialises the selector to that class's maximum working voltage.
@@ -682,6 +706,36 @@ export default function GlobalHVClient() {
                       </div>
                     ))}
                   </dl>
+
+                  {/* Standard roll coverage — arithmetic on published
+                      brochure roll sizes; ceil() because partial rolls
+                      must still be ordered. */}
+                  {rollCoverage && (
+                    <div className="rounded-lg border border-be-grey-250 bg-be-white px-3 py-2.5">
+                      <p className="text-metadata text-be-grey-650 flex items-center gap-1.5">
+                        <Layers className="size-3.5" aria-hidden="true" />
+                        Standard roll coverage
+                      </p>
+                      <ul className="mt-1.5 flex flex-col gap-1">
+                        {rollCoverage.map((r) => (
+                          <li key={r.label} className="flex flex-wrap items-baseline gap-x-2 text-sm">
+                            <span className="font-semibold text-be-charcoal-950">
+                              ≈ {r.rolls} {r.rolls === 1 ? 'roll' : 'rolls'}
+                            </span>
+                            <span className="text-be-grey-650">
+                              of {r.label} ({r.areaM2.toLocaleString('en-IN')} m² each)
+                            </span>
+                            {r.coveredM2 > areaM2 && (
+                              <span className="text-metadata text-be-grey-650">
+                                — covers {r.coveredM2.toLocaleString('en-IN')} m², {r.coveredM2 - areaM2 < 1 ? 'fully' : `${(r.coveredM2 - areaM2).toLocaleString('en-IN', { maximumFractionDigits: 1 })} m² spare`}
+                              </span>
+                            )}
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
+                  )}
+
                   <div className="print-hide flex flex-wrap items-center gap-3">
                     <PrimaryButton
                       href={`/contact-us?type=quote&product=iec-hv-insulating-mats&class=${encodeURIComponent(estimatorDetails.classLabel)}`}
@@ -689,6 +743,24 @@ export default function GlobalHVClient() {
                     >
                       Request a Quote for {estimatorDetails.classLabel}
                     </PrimaryButton>
+                    <CopyEstimateButton
+                      lines={[
+                        `Bharat Electrosafe — HV Insulating Mats (IEC 61111:2009)`,
+                        `Class: ${estimatorDetails.classLabel} (${estimatorDetails.productCode})`,
+                        `Thickness: ${estimatorDetails.thickness}`,
+                        `Mat area: ${areaDisplayM2} m²`,
+                        `Approx. weight basis: ${estimatorDetails.approxWeight}`,
+                        `Estimated total weight: ${totalDisplay}`,
+                        ...(rollCoverage
+                          ? rollCoverage.map(
+                              (r) =>
+                                `Standard rolls: ≈ ${r.rolls} × ${r.label} (${r.areaM2.toLocaleString('en-IN')} m² each)`,
+                            )
+                          : []),
+                        `Source: bharatelectrosafe.com — values per IEC 61111:2009 and the official Bharat Electrosafe brochure. Planning estimate only.`,
+                      ]}
+                      label="Copy estimate"
+                    />
                     <p className="text-metadata text-be-grey-650 max-w-xs">
                       {estimatorUnit === 'ft2'
                         ? `Entered ${parsedArea.toLocaleString('en-IN')} ft² — converted at 1 m² = ${FT2_PER_M2} ft².`

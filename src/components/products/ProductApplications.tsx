@@ -80,8 +80,9 @@ export function ProductApplications({ product }: ProductApplicationsProps) {
   return (
     <SectionShell variant="standard" bg="bg-be-warm-white" topRule>
       <div className="flex flex-col lg:flex-row gap-8 lg:gap-10">
-          {/* Left: installed-use image */}
-          <div className="lg:w-[45%]">
+          {/* Left: installed-use image (screen only — printed spec
+              sheets keep the applications list, not photography) */}
+          <div className="print-hide lg:w-[45%]">
             <ImageFrame
               src={application.src}
               alt={application.alt}

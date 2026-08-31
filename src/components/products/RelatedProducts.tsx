@@ -35,7 +35,7 @@ export function RelatedProducts({ product }: RelatedProductsProps) {
   }
 
   return (
-    <SectionShell variant="standard" bg="bg-be-warm-white" topRule>
+    <SectionShell variant="standard" bg="bg-be-warm-white" topRule className="print-hide">
       <SectionHeader
           eyebrow="Related Products"
           title="Explore Related Products"
