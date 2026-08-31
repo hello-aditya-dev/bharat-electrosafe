@@ -1,12 +1,18 @@
 'use client';
 
-import { useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { Zap, Gauge, CircleCheck, Info, Shield } from 'lucide-react';
 import { SectionShell } from '@/components/ui/SectionShell';
 import { SectionHeader } from '@/components/ui/SectionHeader';
 import { PrimaryButton } from '@/components/ui/PrimaryButton';
 import { SecondaryButton } from '@/components/ui/SecondaryButton';
+import { CopyTableButton } from '@/components/ui/CopyTableButton';
 import { cn } from '@/lib/utils';
+import {
+  normalizeClassLabel,
+  readClassParam,
+  syncClassParam,
+} from '@/lib/class-selector-url';
 import type { SpecificationTable } from '@/data/products';
 
 /* ────────────────────────────────────────────
@@ -89,16 +95,22 @@ export default function DomesticClassSelector({
   const maxVoltage = Math.max(...classRows.map((c) => c.workingVoltageNum));
 
   return (
-    <ClassSelectorInner classRows={classRows} maxVoltage={maxVoltage} />
+    <ClassSelectorInner
+      classRows={classRows}
+      maxVoltage={maxVoltage}
+      specifications={specifications}
+    />
   );
 }
 
 function ClassSelectorInner({
   classRows,
   maxVoltage,
+  specifications,
 }: {
   classRows: DomesticClassRow[];
   maxVoltage: number;
+  specifications: SpecificationTable;
 }) {
   const [voltageInput, setVoltageInput] = useState('');
   const parsedVoltage = parseFloat(voltageInput);
@@ -109,6 +121,33 @@ function ClassSelectorInner({
   const exceedsRange = hasValidVoltage && parsedVoltage > maxVoltage;
 
   const selectPreset = (v: number) => setVoltageInput(String(v));
+
+  /* Deep-link init: a URL carrying ?class=Class B (e.g. a shared link)
+     initialises the selector to that class's working voltage. Mount-effect
+     (not a useState initializer) to avoid any SSR/client markup mismatch. */
+  const deepLinkAppliedRef = useRef(false);
+  useEffect(() => {
+    if (deepLinkAppliedRef.current) return;
+    deepLinkAppliedRef.current = true;
+    const klass = readClassParam();
+    if (!klass) return;
+    const match = classRows.find(
+      (c) => normalizeClassLabel(c.classLabel) === normalizeClassLabel(klass),
+    );
+    /* Deliberate post-mount initialisation from an external mutable source
+       (the URL) — the deep-linked class cannot be known at SSR render time. */
+    // eslint-disable-next-line react-hooks/set-state-in-effect
+    if (match) setVoltageInput(String(match.workingVoltageNum));
+  }, []);
+
+  /* Mirror the current recommendation into the URL (?class=Class B) so the
+     selector state is shareable. replaceState only — no navigation, no
+     history pollution; other query params are preserved. */
+  useEffect(() => {
+    const target = recommended ? recommended.classLabel : null;
+    if ((readClassParam() ?? null) === target) return;
+    syncClassParam(target);
+  }, [recommended, voltageInput]);
 
   return (
     <SectionShell
@@ -121,8 +160,17 @@ function ClassSelectorInner({
       <SectionHeader
         eyebrow="Interactive Tool"
         title="Which IS 15652:2006 Class Do You Need?"
-        supportingText={`Enter your installation's working voltage in kV AC. The selector matches it against the domestic class thresholds (Class A to Class ${classRows[classRows.length - 1]?.classLetter ?? 'C'}, up to ${maxVoltage.toFixed(1)} kV).`}
+        supportingText={`Enter your installation's working voltage in kV AC. The selector matches it against the domestic class thresholds (Class A to Class ${classRows[classRows.length - 1]?.classLetter ?? 'C'}, up to ${maxVoltage.toFixed(1)} kV). The selected class is reflected in the page URL so you can share or bookmark it.`}
       />
+
+      {/* Spreadsheet-ready copy of the IS 15652 class table */}
+      <div className="mt-4 flex justify-end">
+        <CopyTableButton
+          headers={specifications.headers}
+          rows={specifications.rows}
+          label="Copy class table"
+        />
+      </div>
 
       <div className="mt-8 max-w-3xl mx-auto">
         {/* Preset voltage chips — one per domestic class */}
@@ -186,12 +234,14 @@ function ClassSelectorInner({
           )}
         </div>
 
-        {/* Result panel */}
+        {/* Result panel — keyed on the outcome so the entrance animation
+            replays whenever the recommendation changes. */}
         <div
           role="status"
           aria-live="polite"
+          key={recommended?.classLabel ?? (exceedsRange ? 'over-range' : 'empty')}
           className={cn(
-            'rounded-xl border p-5 sm:p-6 transition-colors duration-300',
+            'rounded-xl border p-5 sm:p-6 transition-colors duration-300 animate-in fade-in-0 slide-in-from-bottom-1 duration-500',
             recommended
               ? 'border-be-yellow-400 bg-be-yellow-50'
               : exceedsRange
@@ -301,17 +351,17 @@ function ClassSelectorInner({
                 key={c.classLabel}
                 aria-current={active ? 'true' : undefined}
                 className={cn(
-                  'rounded-xl border p-4 transition-all duration-300 flex flex-col gap-2',
+                  'rounded-xl border p-4 transition-all duration-300 flex flex-col gap-2 group',
                   active
                     ? 'border-be-yellow-500 bg-be-yellow-50 shadow-sm ring-1 ring-be-yellow-400'
-                    : 'border-be-grey-250 bg-be-cream',
+                    : 'border-be-grey-250 bg-be-cream hover:border-be-yellow-400 hover:shadow-sm',
                 )}
               >
                 <div className="flex items-center justify-between gap-2">
                   <span className="inline-flex items-center gap-1.5 text-sm font-bold text-be-charcoal-950">
                     <Shield
                       className={cn(
-                        'size-4',
+                        'size-4 transition-transform duration-300 group-hover:scale-110',
                         active ? 'text-be-yellow-text' : 'text-be-grey-650',
                       )}
                       aria-hidden="true"

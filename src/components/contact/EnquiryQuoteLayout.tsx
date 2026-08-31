@@ -296,6 +296,16 @@ export default function EnquiryQuoteLayout() {
       )}
 
       <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-4" noValidate>
+        {/* Screen-reader announcement: when the URL (?class=) prefills the
+            Operating Voltage, the value appears in a field further down the
+            form — announce it politely so non-visual users learn about the
+            auto-filled field and where it came from. */}
+        <p aria-live="polite" className="sr-only">
+          {voltageHighlighted
+            ? 'Operating Voltage in the quotation details was auto-filled from the selected class.'
+            : ''}
+        </p>
+
         {/* Honeypot field (hidden from users) */}
         <div className="sr-only" aria-hidden="true">
           <input type="text" {...register('website')} tabIndex={-1} autoComplete="off" />

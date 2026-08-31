@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import {
   Shield,
   Zap,
@@ -44,6 +44,12 @@ import { FeatureList } from '@/components/ui/FeatureList';
 import { cn } from '@/lib/utils';
 import { company } from '@/data/company';
 import { iecVisuals } from '@/data/product-visuals';
+import { CopyTableButton } from '@/components/ui/CopyTableButton';
+import {
+  normalizeClassLabel,
+  readClassParam,
+  syncClassParam,
+} from '@/lib/class-selector-url';
 import {
   iecClasses,
   iecSpecialVariants,
@@ -128,6 +134,34 @@ export default function GlobalHVClient() {
     : null;
 
   const selectPreset = (v: number) => setVoltageInput(String(v));
+
+  /* Deep-link init: a URL carrying ?class=Class 3 (e.g. a shared link)
+     initialises the selector to that class's maximum working voltage.
+     Mount-effect (not a useState initializer) to avoid any SSR/client
+     markup mismatch. */
+  const deepLinkAppliedRef = useRef(false);
+  useEffect(() => {
+    if (deepLinkAppliedRef.current) return;
+    deepLinkAppliedRef.current = true;
+    const klass = readClassParam();
+    if (!klass) return;
+    const match = iecClassThresholds.find(
+      (c) => normalizeClassLabel(c.classLabel) === normalizeClassLabel(klass),
+    );
+    /* Deliberate post-mount initialisation from an external mutable source
+       (the URL) — the deep-linked class cannot be known at SSR render time. */
+    // eslint-disable-next-line react-hooks/set-state-in-effect
+    if (match) setVoltageInput(String(match.maxWorkingVoltageNum));
+  }, []);
+
+  /* Mirror the current recommendation into the URL (?class=Class 3) so the
+     selector state is shareable. replaceState only — no navigation, no
+     history pollution; other query params are preserved. */
+  useEffect(() => {
+    const target = recommended ? recommended.classLabel : null;
+    if ((readClassParam() ?? null) === target) return;
+    syncClassParam(target);
+  }, [recommended, voltageInput]);
 
   return (
     <div className="min-h-screen flex flex-col bg-be-warm-white">
@@ -223,7 +257,7 @@ export default function GlobalHVClient() {
           <SectionHeader
             eyebrow="Interactive Tool"
             title="Which IEC Class Do You Need?"
-            supportingText={`Enter your installation's maximum working voltage in kV AC. The selector matches it against the IEC 61111:2009 class thresholds (up to ${MAX_IEC_VOLTAGE.toFixed(1)} kV).`}
+            supportingText={`Enter your installation's maximum working voltage in kV AC. The selector matches it against the IEC 61111:2009 class thresholds (up to ${MAX_IEC_VOLTAGE.toFixed(1)} kV). The selected class is reflected in the page URL so you can share or bookmark it.`}
           />
 
           <div className="mt-8 max-w-3xl mx-auto">
@@ -284,12 +318,14 @@ export default function GlobalHVClient() {
               )}
             </div>
 
-            {/* Result panel */}
+            {/* Result panel — keyed on the outcome so the entrance animation
+                replays whenever the recommendation changes. */}
             <div
               role="status"
               aria-live="polite"
+              key={recommended?.classLabel ?? (exceedsRange ? 'over-range' : 'empty')}
               className={cn(
-                'rounded-xl border p-5 sm:p-6 transition-colors duration-300',
+                'rounded-xl border p-5 sm:p-6 transition-colors duration-300 animate-in fade-in-0 slide-in-from-bottom-1 duration-500',
                 recommended
                   ? 'border-be-yellow-400 bg-be-yellow-50'
                   : exceedsRange
@@ -379,6 +415,31 @@ export default function GlobalHVClient() {
             title="IEC 61111:2009 Class Table — HV Insulating Mats"
             supportingText="All five classes with thickness, maximum working voltage, AC proof voltage, dielectric strength, and approximate weight per IEC 61111:2009 and the official Bharat Electrosafe brochure."
           />
+
+          {/* Spreadsheet-ready copy of the IEC class table */}
+          <div className="mt-4 flex justify-end">
+            <CopyTableButton
+              headers={[
+                'Product Code',
+                'Class',
+                'Thickness',
+                'Max Working Voltage',
+                'AC Proof Voltage',
+                'Dielectric Strength',
+                'Approx. Weight',
+              ]}
+              rows={iecClasses.map((row) => [
+                row.productCode,
+                row.classLabel,
+                row.thickness,
+                row.maxWorkingVoltage,
+                row.acProofVoltage,
+                row.dielectricStrength,
+                row.approxWeight,
+              ])}
+              label="Copy class table"
+            />
+          </div>
 
           <div className="mt-6 overflow-x-auto -mx-4 px-4 sm:mx-0 sm:px-0">
             <table className="w-full min-w-[820px] border-collapse text-body">
