@@ -46,6 +46,7 @@ import { company } from '@/data/company';
 import { iecVisuals } from '@/data/product-visuals';
 import { CopyTableButton } from '@/components/ui/CopyTableButton';
 import { CopyEstimateButton } from '@/components/ui/CopyEstimateButton';
+import { WhatsAppShareButton } from '@/components/ui/WhatsAppShareButton';
 import { PrintSpecSheetButton } from '@/components/ui/PrintSpecSheetButton';
 import {
   normalizeClassLabel,
@@ -196,6 +197,31 @@ export default function GlobalHVClient() {
           coveredM2: Math.ceil(areaM2 / r.areaM2) * r.areaM2,
         }))
       : null;
+
+  /* Estimate summary lines — one source of truth shared by the copy
+     button and the WhatsApp action (both add the share link at click
+     time via their includeLink prop). */
+  const estimateLines = estimatorDetails
+    ? [
+        `Bharat Electrosafe — HV Insulating Mats (IEC 61111:2009)`,
+        `Class: ${estimatorDetails.classLabel} (${estimatorDetails.productCode})`,
+        `Thickness: ${estimatorDetails.thickness}`,
+        ...(hasValidArea
+          ? [
+              `Mat area: ${areaDisplayM2} m²`,
+              `Approx. weight basis: ${estimatorDetails.approxWeight}`,
+              ...(totalDisplay ? [`Estimated total weight: ${totalDisplay}`] : []),
+            ]
+          : []),
+        ...(rollCoverage
+          ? rollCoverage.map(
+              (r) =>
+                `Standard rolls: ≈ ${r.rolls} × ${r.label} (${r.areaM2.toLocaleString('en-IN')} m² each)`,
+            )
+          : []),
+        `Source: bharatelectrosafe.com — values per IEC 61111:2009 and the official Bharat Electrosafe brochure. Planning estimate only.`,
+      ]
+    : [];
 
   /* Deep-link init: a URL carrying ?class=Class 3 (e.g. a shared link)
      initialises the selector to that class's maximum working voltage.
@@ -769,6 +795,8 @@ export default function GlobalHVClient() {
                     </div>
                   )}
 
+                  {/* Shared by the copy button and the WhatsApp action —
+                      one source of truth for the estimate summary text. */}
                   <div className="print-hide flex flex-wrap items-center gap-3">
                     <PrimaryButton
                       href={`/contact-us?type=quote&product=iec-hv-insulating-mats&class=${encodeURIComponent(estimatorDetails.classLabel)}`}
@@ -778,23 +806,10 @@ export default function GlobalHVClient() {
                     </PrimaryButton>
                     <CopyEstimateButton
                       includeLink
-                      lines={[
-                        `Bharat Electrosafe — HV Insulating Mats (IEC 61111:2009)`,
-                        `Class: ${estimatorDetails.classLabel} (${estimatorDetails.productCode})`,
-                        `Thickness: ${estimatorDetails.thickness}`,
-                        `Mat area: ${areaDisplayM2} m²`,
-                        `Approx. weight basis: ${estimatorDetails.approxWeight}`,
-                        `Estimated total weight: ${totalDisplay}`,
-                        ...(rollCoverage
-                          ? rollCoverage.map(
-                              (r) =>
-                                `Standard rolls: ≈ ${r.rolls} × ${r.label} (${r.areaM2.toLocaleString('en-IN')} m² each)`,
-                            )
-                          : []),
-                        `Source: bharatelectrosafe.com — values per IEC 61111:2009 and the official Bharat Electrosafe brochure. Planning estimate only.`,
-                      ]}
+                      lines={estimateLines}
                       label="Copy estimate"
                     />
+                    <WhatsAppShareButton includeLink lines={estimateLines} />
                     <p className="text-metadata text-be-grey-650 max-w-xs">
                       {estimatorUnit === 'ft2'
                         ? `Entered ${parsedArea.toLocaleString('en-IN')} ft² — converted at 1 m² = ${FT2_PER_M2} ft².`

@@ -232,7 +232,8 @@ function HeroSlideContent({ slide }: { slide: HeroSlide }) {
           {slide.lede}
         </p>
 
-        <div className="be-split-hero__ctas">
+        {/* CTA row (screen only — navigation links are dead on paper) */}
+        <div className="be-split-hero__ctas print-hide">
           <PrimaryButton href={slide.primaryCta.href} size="lg" className="be-hero-cta">
             {slide.primaryCta.label}
           </PrimaryButton>
@@ -429,7 +430,7 @@ export default function HomeHero() {
 
             All behaviour (loop, autoplay, pause on hover/focus,
             prefers-reduced-motion, dot/arrow navigation) is unchanged. */}
-        <div className="container-site page-horizontal-padding">
+        <div className="container-site page-horizontal-padding print-hide">
           <div className="flex items-center justify-center gap-2 sm:gap-3 pb-1.5 pt-1.5">
             {/* Prev arrow — 44px touch target; icon aligned to inner (right)
                 edge on mobile so it sits flush next to the dots. */}
