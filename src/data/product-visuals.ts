@@ -209,42 +209,51 @@ export const autoGlowVisuals: ProductVisuals = {
 /* Bi-Colour visuals — FINAL COLOURWAY: BLACK / YELLOW.
    Every superseded two-layer render (blue/orange, grey/blue) has been
    withdrawn from active display per the client's final Bi-Colour
-   direction. Until BLACK/YELLOW photography is supplied by the client,
-   the only honest active visual is the labelled colourway schematic
-   (a diagram — never presented as a photograph). */
+   direction. BLACK/YELLOW product photography is now sourced from the
+   client-supplied "BharatElectrosafe- All Products" brochure (page 4,
+   "Bi – Colour - Blue and Orange/ Black and Yellow" product strip) —
+   a genuine Bharat Electrosafe product photograph with no legacy
+   branding. The labelled colourway schematic remains as the technical
+   construction diagram (clearly an illustration, never a photograph). */
 const BI_COLOUR_SCHEMATIC = `${PROD}/bi-color-insulating-mats/bi-colour-schematic-black-yellow.svg`;
+const BI_COLOUR_PHOTO = `${PROD}/bi-color-insulating-mats/client-brochure-bi-colour-black-yellow.webp`;
 
 export const biColourVisuals: ProductVisuals = {
   card: {
-    src: BI_COLOUR_SCHEMATIC,
-    alt: 'Colourway schematic — black top layer over yellow wear-indicator layer (illustration, not a photograph)',
+    src: BI_COLOUR_PHOTO,
+    alt: 'Black and yellow bi-colour insulating mat roll — black walking surface with yellow wear-indicator underside (client brochure product photo)',
     fit: 'contain',
   },
   hero: {
-    src: BI_COLOUR_SCHEMATIC,
-    alt: 'Dual Layer Dual Colour colourway schematic — black top layer with yellow wear-indicator layer (illustration)',
+    src: BI_COLOUR_PHOTO,
+    alt: 'Dual Layer Dual Colour insulating mat — black top layer with yellow wear-indicator underside (client brochure product photo)',
     fit: 'contain',
   },
   gallery: [
     {
+      src: BI_COLOUR_PHOTO,
+      alt: 'Black and yellow bi-colour insulating mat roll — product photo from the official Bharat Electrosafe brochure',
+      fit: 'contain',
+    },
+    {
       src: BI_COLOUR_SCHEMATIC,
-      alt: 'Colourway schematic — black walking surface over yellow wear-indicator layer (illustration)',
+      alt: 'Colourway construction diagram — black walking surface over yellow wear-indicator layer (illustration)',
       fit: 'contain',
     },
   ],
   technicalDetail: {
     src: BI_COLOUR_SCHEMATIC,
-    alt: 'Dual-layer construction schematic — black top layer, yellow lower wear-indicator layer (illustration)',
+    alt: 'Dual-layer construction diagram — black top layer, yellow lower wear-indicator layer (illustration)',
     fit: 'contain',
   },
   menuPreview: {
-    src: BI_COLOUR_SCHEMATIC,
-    alt: 'Bi-Colour colourway schematic preview',
+    src: BI_COLOUR_PHOTO,
+    alt: 'Bi-Colour insulating mat — black and yellow product photo',
     fit: 'contain',
   },
   homePreview: {
-    src: BI_COLOUR_SCHEMATIC,
-    alt: 'Bi-Colour insulating mats — colourway schematic (illustration)',
+    src: BI_COLOUR_PHOTO,
+    alt: 'Bi-Colour insulating mats — black and yellow product photo',
     fit: 'contain',
   },
 };
@@ -301,16 +310,18 @@ export const coloredStripVisuals: ProductVisuals = {
 
 /* ────────────────────────────────────────────
    IEC 61111:2009 International
-   Reuses: 01 (HV), 07 (Bi-Colour)
    NOTE: Auto Glow is a DOMESTIC-only product. Its imagery must NOT
    appear in the international/Global IEC visual set.
+   Product photography sourced from the client-supplied All-Products
+   brochure (IEC 61111 Technical Specifications page) and the genuine
+   Bharat Electrosafe printed class-2 mat marking photo.
    ──────────────────────────────────────────── */
 
 export const iecVisuals: ProductVisuals = {
   card: {
-    src: `${PROD}/electrical-insulating-mats/eim-hero-electrical-insulating-mat.webp`,
-    alt: 'IEC 61111:2009 compliant insulating mat',
-    fit: 'cover',
+    src: `${PROD}/international-iec/client-brochure-black-fabric-roll.webp`,
+    alt: 'IEC 61111:2009 fabric-finish insulating mat roll in standard black (client brochure product photo)',
+    fit: 'contain',
   },
   hero: {
     src: `${PROD}/electrical-insulating-mats/client-hv-approved/domestic-hv-card.webp`,
@@ -319,8 +330,16 @@ export const iecVisuals: ProductVisuals = {
   },
   gallery: [
     {
-      src: `${PROD}/bi-color-insulating-mats/bi-colour-schematic-black-yellow.svg`,
-      alt: 'Bi-Colour colourway schematic — black top layer over yellow wear-indicator layer (illustration)',
+      /* gallery[0] is consumed by the Global IEC hub hero "Bi-Colour"
+         slot and the Dual Layer Dual Colour variant card — it MUST be
+         the BLACK/YELLOW bi-colour representation. */
+      src: `${PROD}/bi-color-insulating-mats/client-brochure-bi-colour-black-yellow.webp`,
+      alt: 'Black and yellow bi-colour IEC 61111 insulating mat roll (client brochure product photo)',
+      fit: 'contain',
+    },
+    {
+      src: `${PROD}/international-iec/client-brochure-black-fabric-roll.webp`,
+      alt: 'IEC 61111:2009 fabric-finish insulating mat roll in standard black (client brochure product photo)',
       fit: 'contain',
     },
     {
@@ -330,14 +349,14 @@ export const iecVisuals: ProductVisuals = {
     },
     {
       src: `${PROD}/international-iec/iec-61111-class-2.webp`,
-      alt: 'IEC 61111 Class 2 insulating mat marking',
+      alt: 'Genuine Bharat Electrosafe printed mat marking — IEC 61111/2009 Class 2, max use 17000 V, proof 20000 V, withstand 30000 V',
       fit: 'contain',
     },
   ],
   menuPreview: {
-    src: `${PROD}/electrical-insulating-mats/eim-hero-electrical-insulating-mat.webp`,
-    alt: 'IEC 61111 mat preview',
-    fit: 'cover',
+    src: `${PROD}/international-iec/client-brochure-black-fabric-roll.webp`,
+    alt: 'IEC 61111 insulating mat preview',
+    fit: 'contain',
   },
   homePreview: {
     src: '/media/categories/electrical-insulating-mats-category.png',

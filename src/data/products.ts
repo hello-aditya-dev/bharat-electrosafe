@@ -703,18 +703,28 @@ const BCIM = '/media/products/bi-color-insulating-mats';
 
 /* FINAL COLOURWAY: BLACK / YELLOW.
    The superseded two-layer renders (blue/orange) have been withdrawn
-   from active display per the client's final Bi-Colour direction. The
-   only honest active visual is the labelled colourway schematic — a
-   diagram, never presented as a photograph. BLACK/YELLOW product
-   photography is requested in docs/PRODUCT-PHOTOGRAPHY-GAPS.md. */
+   from active display per the client's final Bi-Colour direction.
+   BLACK/YELLOW product photography is sourced from the client-supplied
+   "BharatElectrosafe- All Products" brochure (page 4 product strip) —
+   a genuine Bharat Electrosafe product photograph with no legacy
+   branding. The labelled colourway diagram remains as the technical
+   construction illustration (clearly a diagram, never a photograph). */
 const BCIM_COLOURWAY_SCHEMATIC = `${BCIM}/bi-colour-schematic-black-yellow.svg`;
+const BCIM_PRODUCT_PHOTO = `${BCIM}/client-brochure-bi-colour-black-yellow.webp`;
 
 const bcimGallery: ProductGalleryImage[] = [
   {
-    src: BCIM_COLOURWAY_SCHEMATIC,
-    alt: 'Colourway schematic — black walking-surface layer over yellow wear-indicator layer (illustration, not a photograph)',
-    caption: 'Documented colourway — schematic illustration',
+    src: BCIM_PRODUCT_PHOTO,
+    alt: 'Black and yellow bi-colour insulating mat roll — product photo from the official Bharat Electrosafe brochure',
+    caption: 'Black / Yellow colourway — product photograph',
     type: 'product',
+    fit: 'contain',
+  },
+  {
+    src: BCIM_COLOURWAY_SCHEMATIC,
+    alt: 'Colourway construction diagram — black walking-surface layer over yellow wear-indicator layer (illustration, not a photograph)',
+    caption: 'Documented colourway — construction diagram',
+    type: 'alternate',
     fit: 'contain',
   },
 ];
@@ -726,8 +736,8 @@ const biColorInsulatingMats: ProductData = {
   category: 'electrical-insulation',
   images: {
     thumbnail: {
-      src: BCIM_COLOURWAY_SCHEMATIC,
-      alt: 'Bi-colour insulating mat colourway schematic — black top layer above yellow wear-indicator layer (illustration)',
+      src: BCIM_PRODUCT_PHOTO,
+      alt: 'Bi-colour insulating mat — black walking surface with yellow wear-indicator underside (client brochure product photo)',
       fit: 'contain',
     },
     gallery: bcimGallery,

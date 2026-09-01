@@ -33,7 +33,7 @@ export default function BiColorClient({ product }: { product: ProductData }) {
             size="full"
             topLabel="Black"
             bottomLabel="Yellow"
-            note="Documented colourway — schematic illustration. BLACK/YELLOW product photography to follow."
+            note="Documented colourway — construction diagram (illustration). Product photograph shown in the gallery above."
           />
         </div>
       </div>

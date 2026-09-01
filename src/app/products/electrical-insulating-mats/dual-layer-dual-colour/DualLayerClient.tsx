@@ -27,7 +27,6 @@ import { SecondaryButton } from '@/components/ui/SecondaryButton';
 import { TechnicalBadge } from '@/components/ui/TechnicalBadge';
 import { ImageFrame } from '@/components/ui/ImageFrame';
 import { FeatureList } from '@/components/ui/FeatureList';
-import ColourwaySchematic from '@/components/products/ColourwaySchematic';
 import { biColourVisuals } from '@/data/product-visuals';
 import { PRODUCT_ROUTES } from '@/data/product-routes';
 
@@ -92,14 +91,16 @@ export default function DualLayerClient() {
               </div>
             </div>
 
-            {/* Media — colourway schematic (documented BLACK/YELLOW colourway;
-                superseded blue/orange renders are withdrawn from display) */}
+            {/* Media — genuine BLACK/YELLOW product photograph from the client's
+                All-Products brochure (p. 4); the labelled colourway schematic
+                remains in the Innovation section as the construction diagram */}
             <div className="min-w-0 lg:col-span-6 xl:col-span-7 flex flex-col gap-3">
-              <ColourwaySchematic
-                size="full"
-                topLabel="Black"
-                bottomLabel="Yellow"
-                note="Documented colourway — schematic illustration. BLACK/YELLOW product photography to follow."
+              <ImageFrame
+                src={biColourVisuals.hero.src}
+                alt={biColourVisuals.hero.alt}
+                aspectRatio="landscape"
+                fit={biColourVisuals.hero.fit}
+                priority
               />
             </div>
           </div>

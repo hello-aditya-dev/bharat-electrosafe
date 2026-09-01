@@ -54,7 +54,6 @@ import { company } from '@/data/company';
 import { iecVisuals } from '@/data/product-visuals';
 import {
   iecClasses,
-  iecSpecialVariants,
   iecApplications,
   iecMaterialCharacteristics,
   iecDimensions,
@@ -337,15 +336,6 @@ export default function IECClient() {
                     <td className="py-3 text-be-charcoal-800">{row.approxWeight}</td>
                   </tr>
                 ))}
-                <tr className="border-b border-be-grey-250 bg-be-cream/50">
-                  <td className="py-3 pr-4 font-semibold text-be-charcoal-950">BES CD</td>
-                  <td className="py-3 pr-4 text-be-charcoal-800 italic">Custom</td>
-                  <td className="py-3 pr-4 text-be-charcoal-800">Up to 2.0 mm</td>
-                  <td className="py-3 pr-4 text-be-charcoal-800">Up to 36.0 kV</td>
-                  <td className="py-3 pr-4 text-be-charcoal-800">Up to 40.0 kV</td>
-                  <td className="py-3 pr-4 text-be-charcoal-800">Up to 40.0 kV</td>
-                  <td className="py-3 text-be-charcoal-800">—</td>
-                </tr>
               </tbody>
             </table>
           </div>
@@ -362,61 +352,7 @@ export default function IECClient() {
         </SectionShell>
 
         {/* ══════════════════════════════════════
-            5. SPECIAL RIBBED VARIANTS
-            ══════════════════════════════════════ */}
-        <SectionShell variant="standard" bg="bg-be-white" topRule ariaLabel="Special ribbed variants">
-          <SectionHeader
-            eyebrow="Fine Ribbed Top & Textured Bottom Surface"
-            title="Fine Ribbed Variants"
-            supportingText="Fine ribbed top surface with textured bottom surface. Available on request."
-          />
-
-          <div className="mt-8 grid grid-cols-1 md:grid-cols-2 gap-6">
-            {iecSpecialVariants.filter(v => v.modelCode !== 'BES CD').map((variant) => (
-              <div
-                key={variant.modelCode}
-                className="flex flex-col rounded-xl border border-be-grey-250 bg-be-cream overflow-hidden"
-              >
-                <div className="px-5 pt-5 pb-3 border-b border-be-grey-250 bg-be-white">
-                  <div className="flex items-center gap-2 mb-1">
-                    <GripHorizontal className="size-4 text-be-yellow-text" aria-hidden="true" />
-                    <h3 className="text-base font-semibold text-be-charcoal-950">{variant.modelCode}</h3>
-                  </div>
-                  <p className="text-sm text-be-grey-650">{variant.description}</p>
-                </div>
-                <div className="px-5 py-4 flex flex-col gap-2">
-                  <div className="flex justify-between text-sm">
-                    <span className="text-be-grey-650">Class range</span>
-                    <span className="font-medium text-be-charcoal-950">{variant.classRange}</span>
-                  </div>
-                  <div className="flex justify-between text-sm">
-                    <span className="text-be-grey-650">Thickness</span>
-                    <span className="font-medium text-be-charcoal-950">{variant.thickness}</span>
-                  </div>
-                  <div className="flex justify-between text-sm">
-                    <span className="text-be-grey-650">Max working voltage</span>
-                    <span className="font-medium text-be-charcoal-950">{variant.maxWorkingVoltage}</span>
-                  </div>
-                  <div className="flex justify-between text-sm">
-                    <span className="text-be-grey-650">Proof voltage</span>
-                    <span className="font-medium text-be-charcoal-950">{variant.proofVoltage}</span>
-                  </div>
-                  <div className="flex justify-between text-sm">
-                    <span className="text-be-grey-650">Dielectric strength</span>
-                    <span className="font-medium text-be-charcoal-950">{variant.dielectricStrength}</span>
-                  </div>
-                  <div className="flex justify-between text-sm">
-                    <span className="text-be-grey-650">Approx. weight</span>
-                    <span className="font-medium text-be-charcoal-950">{variant.approxWeight}</span>
-                  </div>
-                </div>
-              </div>
-            ))}
-          </div>
-        </SectionShell>
-
-        {/* ══════════════════════════════════════
-            6. PRODUCT CONSTRUCTION & REQUIREMENTS
+            5. PRODUCT CONSTRUCTION & REQUIREMENTS
             ══════════════════════════════════════ */}
         <SectionShell variant="standard" bg="bg-be-cream" topRule>
           <SectionHeader

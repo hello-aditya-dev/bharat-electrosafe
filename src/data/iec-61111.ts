@@ -69,52 +69,15 @@ export const iecClasses: IECClass[] = [
 ];
 
 /* ────────────────────────────────────────────
-   Special Ribbed Variants
+   NOTE ON "SPECIAL VARIANTS" (removed):
+   Earlier drafts carried "BES RB 001 / BES RB 002 / BES CD"
+   ribbed/custom variant rows. The client's verify-or-remove rule
+   requires every product code to be traceable to approved source
+   material. Those variant codes are NOT present in the client-supplied
+   "BharatElectrosafe- All Products" brochure (IEC 61111 Technical
+   Specifications page lists BES 001–005 only), so they were removed
+   from all client-facing UI rather than published as unverifiable fact.
    ──────────────────────────────────────────── */
-
-export interface IECSpecialVariant {
-  modelCode: string;
-  description: string;
-  classRange: string;
-  thickness: string;
-  maxWorkingVoltage: string;
-  proofVoltage: string;
-  dielectricStrength: string;
-  approxWeight: string;
-}
-
-export const iecSpecialVariants: IECSpecialVariant[] = [
-  {
-    modelCode: 'BES RB 001',
-    description: 'Fine ribbed top surface with textured bottom surface',
-    classRange: 'Class 0–2',
-    thickness: '3.0 mm',
-    maxWorkingVoltage: '17.0 kV',
-    proofVoltage: '20.0 kV',
-    dielectricStrength: '30.0 kV',
-    approxWeight: '4.5 kg/m²',
-  },
-  {
-    modelCode: 'BES RB 002',
-    description: 'Fine ribbed top surface with textured bottom surface',
-    classRange: 'Class 3–4',
-    thickness: '5.0 mm',
-    maxWorkingVoltage: '36.0 kV',
-    proofVoltage: '40.0 kV',
-    dielectricStrength: '50.0 kV',
-    approxWeight: '7.5 kg/m²',
-  },
-  {
-    modelCode: 'BES CD',
-    description: 'Custom specification',
-    classRange: '—',
-    thickness: 'Up to 2.0 mm',
-    maxWorkingVoltage: 'Up to 36.0 kV',
-    proofVoltage: 'Up to 40.0 kV',
-    dielectricStrength: 'Up to 40.0 kV',
-    approxWeight: '—',
-  },
-];
 
 /* ────────────────────────────────────────────
    Applications

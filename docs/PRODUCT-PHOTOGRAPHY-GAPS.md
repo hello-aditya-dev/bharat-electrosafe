@@ -149,7 +149,7 @@ Photography direction:
 
 ## 8. Bi-Colour — BLACK / YELLOW photography (FINAL COLOURWAY REQUIRED)
 
-**Status: BLOCKING for final product presentation.**
+**Status: RESOLVED AT BROCHURE QUALITY — higher-resolution photography still welcome.**
 
 The client's final direction is Bi-Colour = **BLACK top layer + YELLOW
 wear-indicator layer**. Every superseded two-layer asset in the archive
@@ -162,12 +162,23 @@ wear-indicator layer**. Every superseded two-layer asset in the archive
 (or grey/blue) presentation and has been **withdrawn from all active display**
 in this audit.
 
-Until approved BLACK/YELLOW photography is supplied, the only active visual
-is the labelled colourway schematic
-(`bi-colour-schematic-black-yellow.svg` / `ColourwaySchematic` component) —
-an honest diagram, never presented as a photograph.
+**Update (final PDF-sourced audit):** the client-supplied
+`BharatElectrosafe- All Products_compressed.pdf` brochure (page 4,
+"Technical Specifications — IEC 61111/2009", Bi-Colour product strip)
+contains a genuine BLACK/YELLOW bi-colour product photograph. The roll
+was cropped from the brochure strip and is now the active Bi-Colour
+visual (`public/media/products/bi-color-insulating-mats/
+client-brochure-bi-colour-black-yellow.webp`) across the Bi-Colour card,
+hero, gallery, menu preview and home preview, and in the Global IEC
+gallery. The labelled colourway schematic
+(`bi-colour-schematic-black-yellow.svg` / `ColourwaySchematic`
+component) remains as the clearly-labelled technical construction
+diagram.
 
-Photography direction:
+Limitation: the brochure is a compressed PDF, so the extracted photo is
+~460 px wide. It is honest and brand-safe, but studio-quality
+photography of the BLACK/YELLOW product is still the preferred final
+asset. Photography direction (unchanged):
 - Black walking surface with the yellow lower/wear-indicator layer visible
   (edge, corner or cross-section angle that shows both layers)
 - One clean product shot on a plain background, minimum 2000 px wide
@@ -175,3 +186,4 @@ Photography direction:
 - One in-situ switchroom shot showing the installed mat
 - Photograph the actual BLACK/YELLOW product — do not re-shoot or retint
   the superseded blue/orange stock
+
