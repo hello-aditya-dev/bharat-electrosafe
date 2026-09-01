@@ -147,43 +147,43 @@ Photography direction:
 
 ---
 
-## 8. Bi-Colour — BLACK / YELLOW photography (FINAL COLOURWAY REQUIRED)
+## 8. Bi-Colour — imagery status (client correction applied)
 
-**Status: RESOLVED AT BROCHURE QUALITY — higher-resolution photography still welcome.**
+**Status: PREVIOUSLY APPROVED IMAGERY RESTORED per client correction.**
 
-The client's final direction is Bi-Colour = **BLACK top layer + YELLOW
-wear-indicator layer**. Every superseded two-layer asset in the archive
-(`card.webp`, `client-bi-colour/product-01..03.png`,
-`client-approved/bi-colour-card-cross-section.webp`,
-`client-approved/bi-colour-clean-product.webp`,
-`client-approved/bi-colour-layer-detail.webp`, `product-demo-bi-color.webp`,
-`gallery/01-dual-layer-roll.webp`, `bcim-hero-dual-layer-insulating-mat.webp`,
-`bcim-application-visible-wear-indicator.webp`) depicts the older blue/orange
-(or grey/blue) presentation and has been **withdrawn from all active display**
-in this audit.
+Client decision (latest instruction, overrides earlier colourway-image
+swaps): the previously approved Bi-Colour visuals —
+`client-bi-colour/product-01..03.png`, `client-approved/bi-colour-card-cross-section.webp`,
+`product-demo-bi-color.webp`, `gallery/01-dual-layer-roll.webp`,
+`bcim-hero-dual-layer-insulating-mat.webp`, `card.webp` — are **active
+again** on the domestic Bi-Colour page, the Global IEC hub Bi-Colour
+slot, the Dual Layer Dual Colour page and every card/menu surface.
 
-**Update (final PDF-sourced audit):** the client-supplied
-`BharatElectrosafe- All Products_compressed.pdf` brochure (page 4,
-"Technical Specifications — IEC 61111/2009", Bi-Colour product strip)
-contains a genuine BLACK/YELLOW bi-colour product photograph. The roll
-was cropped from the brochure strip and is now the active Bi-Colour
-visual (`public/media/products/bi-color-insulating-mats/
-client-brochure-bi-colour-black-yellow.webp`) across the Bi-Colour card,
-hero, gallery, menu preview and home preview, and in the Global IEC
-gallery. The labelled colourway schematic
-(`bi-colour-schematic-black-yellow.svg` / `ColourwaySchematic`
-component) remains as the clearly-labelled technical construction
-diagram.
+The two later replacements were **rejected by the client** and are no
+longer referenced by any active page:
 
-Limitation: the brochure is a compressed PDF, so the extracted photo is
-~460 px wide. It is honest and brand-safe, but studio-quality
-photography of the BLACK/YELLOW product is still the preferred final
-asset. Photography direction (unchanged):
+- `bi-colour-schematic-black-yellow.svg` — labelled colourway schematic.
+  Retained in the repository as an inert asset only; it may be reused
+  solely as a clearly-labelled construction diagram if the client asks,
+  never as a primary product image.
+- `client-brochure-bi-colour-black-yellow.webp` +
+  `client-brochure-black-fabric-roll.webp` — crops from the client
+  All-Products brochure (p. 4). Genuine client photography, but the
+  client judged the brochure crops visually worse than the previous
+  imagery; retained on disk unreferenced.
+
+The client's BLACK/YELLOW colourway direction remains in force for
+**text/data**: product copy may state the documented colourway
+(black walking surface, yellow wear-indicator layer) and the
+`ColourwaySchematic` component remains available as a labelled diagram
+where a non-primary construction illustration is needed (currently: the
+Global IEC variant card and the Dual Layer innovation section, exactly
+as before the rejected swaps).
+
+Photography direction (only if the client later wants new imagery):
 - Black walking surface with the yellow lower/wear-indicator layer visible
   (edge, corner or cross-section angle that shows both layers)
 - One clean product shot on a plain background, minimum 2000 px wide
 - One roll/edge shot showing the layer boundary
 - One in-situ switchroom shot showing the installed mat
-- Photograph the actual BLACK/YELLOW product — do not re-shoot or retint
-  the superseded blue/orange stock
-
+- Photograph the actual product — do not retint or fabricate

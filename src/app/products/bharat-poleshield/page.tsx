@@ -31,6 +31,7 @@ export const metadata: Metadata = {
 const breadcrumbItems: BreadcrumbItem[] = [
   { name: 'Home', href: '/' },
   { name: 'Products', href: '/products' },
+  { name: 'Electrical Insulating Mats', href: '/products/electrical-insulating-mats' },
   { name: 'Bharat PoleShield', href: CANONICAL_PATH },
 ];
 

@@ -96,6 +96,11 @@ export const productNavGroups: ProductNavGroup[] = [
             description: 'Dual-colour insulating mats with visible layer differentiation',
           },
           {
+            name: 'Bharat PoleShield',
+            href: '/products/bharat-poleshield',
+            description: 'Pole protection brand direction — Protecting Every Pole, Protecting Every Life',
+          },
+          {
             name: 'Colored Strip',
             href: '/products/electrical-insulating-mats/coloured-strip-insulating-mats',
             description: 'Insulating mats with high-visibility coloured boundary strip',
@@ -116,16 +121,6 @@ export const productNavGroups: ProductNavGroup[] = [
             name: 'Dual Layer Dual Colour',
             href: '/products/electrical-insulating-mats/dual-layer-dual-colour',
             description: 'IEC 61111 dual layer dual colour insulating mats with visible wear indication',
-          },
-        ],
-      },
-      {
-        name: 'Bharat PoleShield',
-        items: [
-          {
-            name: 'Bharat PoleShield',
-            href: '/products/bharat-poleshield',
-            description: 'Pole protection brand direction — Protecting Every Pole, Protecting Every Life',
           },
         ],
       },

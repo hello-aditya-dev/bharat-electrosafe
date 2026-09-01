@@ -38,6 +38,7 @@ import {
 import type { LucideIcon } from 'lucide-react';
 import { Header } from '@/components/layout/Header';
 import { Footer } from '@/components/layout/Footer';
+import ColourwaySchematic from '@/components/products/ColourwaySchematic';
 import { BackToTop } from '@/components/ui/BackToTop';
 import { MobileStickyCTA } from '@/components/ui/MobileStickyCTA';
 import { Breadcrumb } from '@/components/ui/Breadcrumb';
@@ -287,6 +288,12 @@ export default function IECClient() {
                   colourway: Black surface with a Yellow wear-indicator layer.
                   Designed in line with IEC 61111.
                 </p>
+                <ColourwaySchematic
+                  size="compact"
+                  topLabel="Black"
+                  bottomLabel="Yellow"
+                  note="Documented colourway — schematic illustration."
+                />
                 <div className="flex flex-col gap-2 mt-1">
                   <PrimaryButton href="/contact-us?type=quote&product=iec-bi-colour" className="self-start">
                     Get Quote

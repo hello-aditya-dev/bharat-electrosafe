@@ -35,6 +35,7 @@ const POLESHIELD_LOGO_ALT =
 const breadcrumbItems = [
   { label: 'Home', href: '/' },
   { label: 'Products', href: PRODUCT_ROUTES.products },
+  { label: 'Electrical Insulating Mats', href: PRODUCT_ROUTES.electricalInsulatingMats },
   { label: 'Bharat PoleShield' },
 ];
 

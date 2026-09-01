@@ -701,31 +701,40 @@ const colouredStripInsulatingMats: ProductData = {
 
 const BCIM = '/media/products/bi-color-insulating-mats';
 
-/* FINAL COLOURWAY: BLACK / YELLOW.
-   The superseded two-layer renders (blue/orange) have been withdrawn
-   from active display per the client's final Bi-Colour direction.
-   BLACK/YELLOW product photography is sourced from the client-supplied
-   "BharatElectrosafe- All Products" brochure (page 4 product strip) —
-   a genuine Bharat Electrosafe product photograph with no legacy
-   branding. The labelled colourway diagram remains as the technical
-   construction illustration (clearly a diagram, never a photograph). */
-const BCIM_COLOURWAY_SCHEMATIC = `${BCIM}/bi-colour-schematic-black-yellow.svg`;
-const BCIM_PRODUCT_PHOTO = `${BCIM}/client-brochure-bi-colour-black-yellow.webp`;
-
+/* Client-approved Bi-Colour gallery images from the Bi-Colour folder.
+   RESTORED per client correction: these are the previously approved
+   domestic Bi-Colour visuals. The later brochure-crop/schematic swap
+   was rejected by the client; do not replace these images again.
+   The documented BLACK/YELLOW colourway direction stays in the
+   product text — imagery remains the previously approved assets. */
 const bcimGallery: ProductGalleryImage[] = [
   {
-    src: BCIM_PRODUCT_PHOTO,
-    alt: 'Black and yellow bi-colour insulating mat roll — product photo from the official Bharat Electrosafe brochure',
-    caption: 'Black / Yellow colourway — product photograph',
+    src: `${BCIM}/client-bi-colour/product-01.png`,
+    alt: 'Bi-Colour dual-layer insulating mat — complete product view',
+    caption: 'Bi-Colour insulating mat',
     type: 'product',
     fit: 'contain',
   },
   {
-    src: BCIM_COLOURWAY_SCHEMATIC,
-    alt: 'Colourway construction diagram — black walking-surface layer over yellow wear-indicator layer (illustration, not a photograph)',
-    caption: 'Documented colourway — construction diagram',
-    type: 'alternate',
+    src: `${BCIM}/client-bi-colour/product-02.png`,
+    alt: 'Bi-Colour insulating mat — alternate view showing dual-layer construction',
+    caption: 'Dual-layer construction',
+    type: 'product',
     fit: 'contain',
+  },
+  {
+    src: `${BCIM}/client-bi-colour/product-03.png`,
+    alt: 'Bi-Colour insulating mat — close-up detail',
+    caption: 'Close-up detail',
+    type: 'product',
+    fit: 'contain',
+  },
+  {
+    src: `${BCIM}/gallery/01-dual-layer-roll.webp`,
+    alt: 'Bi-Colour dual-layer mat roll',
+    caption: 'Dual-layer mat roll',
+    type: 'alternate',
+    fit: 'cover',
   },
 ];
 
@@ -736,9 +745,9 @@ const biColorInsulatingMats: ProductData = {
   category: 'electrical-insulation',
   images: {
     thumbnail: {
-      src: BCIM_PRODUCT_PHOTO,
-      alt: 'Bi-colour insulating mat — black walking surface with yellow wear-indicator underside (client brochure product photo)',
-      fit: 'contain',
+      src: `${BCIM}/card.webp`,
+      alt: 'Bi-color insulating mat showing a blue top layer above a contrasting red base layer',
+      fit: 'cover',
     },
     gallery: bcimGallery,
     overview: bcimGallery[0],

@@ -173,12 +173,14 @@ export const productRoutes: ProductRoute[] = [
   },
 
   // ── Bharat PoleShield (distinct brand direction — placeholder architecture) ──
+  // Parent = Electrical Insulating Mats (NOT HV): PoleShield is a direct
+  // child of the EIM family per the client's product-hierarchy correction.
   {
     key: 'bharat-poleshield',
     displayName: 'Bharat PoleShield',
     canonicalPath: '/products/bharat-poleshield',
     legacyPaths: [],
-    parentKey: 'products',
+    parentKey: 'electrical-insulating-mats',
   },
 ];
 

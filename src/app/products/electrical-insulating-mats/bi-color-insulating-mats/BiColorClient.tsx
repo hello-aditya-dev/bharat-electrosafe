@@ -5,40 +5,40 @@ import { biColourVisuals } from '@/data/product-visuals';
 import { SectionShell } from '@/components/ui/SectionShell';
 import { SectionHeader } from '@/components/ui/SectionHeader';
 import { PRODUCT_ROUTES } from '@/data/product-routes';
-import ColourwaySchematic from '@/components/products/ColourwaySchematic';
+import Image from 'next/image';
 import type { ProductData } from '@/data/products';
 
 /**
  * Bi-Colour client page.
  *
  * Uses the shared ProductDetailTemplate but injects a "Layer Construction"
- * subsection showing the documented colourway schematic. Per the specific
- * image rules, the schematic goes in this subsection — NOT as the hero or
- * card image. The documented colourway is BLACK / YELLOW; superseded
- * two-layer renders are withdrawn from display.
+ * subsection showing the cross-section diagram. Per the specific image rules,
+ * the cross-section goes in this subsection — NOT as the hero or card image.
  */
 export default function BiColorClient({ product }: { product: ProductData }) {
 
-  // Layer Construction subsection using the documented colourway schematic
-  const layerConstruction = (
+  // Layer Construction subsection using the technicalDetail visual
+  const layerConstruction = biColourVisuals.technicalDetail ? (
     <SectionShell variant="standard" bg="bg-be-warm-white" topRule>
       <SectionHeader
         eyebrow="Layer Construction"
         title="Dual-Layer Cross-Section"
-        supportingText="The Bi-Colour mat features two contrasting elastomer layers for immediate visual identification of wear-through, enhancing safety inspection in switchrooms. Documented colourway: black walking surface with a yellow wear-indicator layer."
+        supportingText="The Bi-Colour mat features two contrasting elastomer layers for immediate visual identification of wear-through, enhancing safety inspection in switchrooms."
       />
       <div className="mt-6 flex justify-center">
-        <div className="w-full max-w-lg">
-          <ColourwaySchematic
-            size="full"
-            topLabel="Black"
-            bottomLabel="Yellow"
-            note="Documented colourway — construction diagram (illustration). Product photograph shown in the gallery above."
+        <div className="relative w-full max-w-lg aspect-[4/3] overflow-hidden rounded-2xl border border-be-grey-200 bg-[#FAFAF7]">
+          <Image
+            src={biColourVisuals.technicalDetail.src}
+            alt={biColourVisuals.technicalDetail.alt}
+            fill
+            className="object-contain p-6"
+            sizes="(max-width: 768px) 100vw, 480px"
+            priority={false}
           />
         </div>
       </div>
     </SectionShell>
-  );
+  ) : null;
 
   return (
     <ProductDetailTemplate

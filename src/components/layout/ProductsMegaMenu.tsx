@@ -350,30 +350,8 @@ export function ProductsMegaMenu({ onClose }: ProductsMegaMenuProps) {
                   </div>
                 </div>
 
-                {/* Additional specialized brand directions (e.g. Bharat PoleShield) */}
-                {(electricalGroup.children as ProductNavSubGroup[]).length > 2 && (
-                  <div className="mt-4 pt-3 border-t border-be-grey-200/60">
-                    {(electricalGroup.children as ProductNavSubGroup[])
-                      .slice(2)
-                      .map((sub) => (
-                        <div key={sub.name}>
-                          <div className="flex items-baseline gap-1.5 mb-1">
-                            <p className="text-[12px] font-semibold text-be-charcoal-900">
-                              {sub.name}
-                            </p>
-                            <span className="text-[9px] font-semibold text-be-charcoal-700 bg-be-yellow-50 px-1 py-[0.5px] rounded">
-                              Brand Direction
-                            </span>
-                          </div>
-                          <div className="flex flex-col gap-[3px]">
-                            {sub.items.map((item) => (
-                              <ProductLink key={item.href} item={item} onClose={onClose} />
-                            ))}
-                          </div>
-                        </div>
-                      ))}
-                  </div>
-                )}
+                {/* PoleShield renders inside the Domestic list
+                    (product-navigation.ts) — no separate sub-group. */}
               </div>
 
               {/* Abstract illustration */}

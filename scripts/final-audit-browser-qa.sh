@@ -30,7 +30,7 @@ echo "== ROUTE + CONTENT QA =="
 check "/" "Homepage" "Bharat Electrosafe" ""
 check "/products" "Products hub" "Products" ""
 check "/products/electrical-insulating-mats" "EIM family hub" "Electrical Insulating Mats" ""
-check "/products/electrical-insulating-mats/high-voltage-electrical-insulation-mats" "DOMESTIC HV" "IS 15652:2006" "IEC 61111"
+check "/products/electrical-insulating-mats/high-voltage-electrical-insulation-mats" "DOMESTIC HV" "IS 15652:2006" "Class 0"
 check "/products/electrical-insulating-mats/auto-glow-reflective-band-insulating-mats" "DOMESTIC AUTO GLOW" "Auto Glow" "IEC 61111:2009 Classes"
 check "/products/electrical-insulating-mats/bi-color-insulating-mats" "DOMESTIC BI-COLOUR" "Bi-Color Insulating Mats" ""
 check "/products/electrical-insulating-mats/international-iec-61111" "GLOBAL IEC HUB" "IEC 61111:2009" "IS 15652:2006 Class A"
@@ -74,7 +74,7 @@ $B eval "
     values_36kV: t.includes('36.0 kV') || t.includes('36 kV'),
     thickness_5_2: t.includes('5.2 mm'),
     is15652_clean: !(t.includes('3.3 kV') && t.includes('Class A')),
-    estimator: t.includes('Estimated weight') || t.includes('weight estimator') || t.includes('Estimated Weight'),
+    estimator: t.includes('Estimated weight') || t.includes('weight estimator') || t.includes('Estimated Weight') || t.includes('Estimate Total Mat Weight'),
   });
 })()" 2>/dev/null
 
@@ -93,43 +93,72 @@ $B eval "
   });
 })()" 2>/dev/null
 
-echo "== BI-COLOUR SCHEMATIC LIVE CHECK (domestic) =="
+echo "== DOMESTIC BI-COLOUR RESTORED-IMAGE CHECK =="
 $B open "http://localhost:3200/products/electrical-insulating-mats/bi-color-insulating-mats" > /dev/null 2>&1; sleep 1.2
 $B eval "
 (() => {
   const imgs = Array.from(document.querySelectorAll('img')).map(i => i.currentSrc || i.src);
-  const legacy = imgs.filter(s => /card-cross-section|client-bi-colour|product-demo-bi-color|dual-layer-roll|bcim-hero|card\.webp/.test(s) && s.includes('bi-color'));
   const t = document.body.innerText;
   return JSON.stringify({
-    legacyImages: legacy.length,
+    restoredClientImages: imgs.filter(s => /client-bi-colour|product-demo-bi-color|card-cross-section|01-dual-layer-roll/.test(s)).length,
+    cardThumb: imgs.some(s => s.includes('bi-color-insulating-mats/card.webp')),
     schematicSvg: imgs.some(s => s.includes('bi-colour-schematic-black-yellow')),
-    schematicComponent: t.includes('Colourway') || t.includes('colourway'),
-    blackYellowText: t.includes('Black') && t.includes('Yellow'),
+    brochureCrop: imgs.some(s => s.includes('client-brochure-bi-colour')),
     orangeText: /orange/i.test(t),
   });
 })()" 2>/dev/null
 
-echo "== BI-COLOUR ON GLOBAL HUB (image src check) =="
+echo "== BI-COLOUR ON GLOBAL HUB (restored previous global image) =="
 $B open "http://localhost:3200/products/electrical-insulating-mats/international-iec-61111" > /dev/null 2>&1; sleep 1.2
 $B eval "
 (() => {
   const imgs = Array.from(document.querySelectorAll('img')).map(i => i.currentSrc || i.src);
   return JSON.stringify({
-    legacyBiColour: imgs.filter(s => /bi-colour-card-cross-section|client-bi-colour/.test(s)).length,
+    restoredBiColour: imgs.filter(s => s.includes('bi-colour-card-cross-section') || s.includes('client-bi-colour')).length,
     schematicSvg: imgs.filter(s => s.includes('bi-colour-schematic-black-yellow')).length,
+    brochureCrop: imgs.filter(s => s.includes('client-brochure')).length,
   });
 })()" 2>/dev/null
 
-echo "== DUAL LAYER PAGE CHECK =="
+echo "== DUAL LAYER PAGE (restored previous global hero + labelled diagram) =="
 $B open "http://localhost:3200/products/electrical-insulating-mats/dual-layer-dual-colour" > /dev/null 2>&1; sleep 1.2
 $B eval "
 (() => {
   const imgs = Array.from(document.querySelectorAll('img')).map(i => i.currentSrc || i.src);
   const t = document.body.innerText;
   return JSON.stringify({
-    legacyBiColour: imgs.filter(s => /bi-colour-card-cross-section|client-bi-colour|product-demo-bi-color/.test(s)).length,
-    schematicComponent: t.includes('Colourway'),
-    blackYellow: t.includes('Black') && t.includes('Yellow'),
+    restoredHero: imgs.some(s => s.includes('client-bi-colour/product-01')),
+    restoredCrossSection: imgs.some(s => s.includes('product-demo-bi-color')),
+    schematicComponent: t.includes('Colourway') || t.includes('colourway'),
+    blackYellowText: t.includes('Black') && t.includes('Yellow'),
+    brochureCrop: imgs.some(s => s.includes('client-brochure')),
+  });
+})()" 2>/dev/null
+
+echo "== POLESHIELD HIERARCHY CHECK (direct EIM child, breadcrumb + nav) =="
+$B open "http://localhost:3200/products/bharat-poleshield" > /dev/null 2>&1; sleep 1.2
+$B eval "
+(() => {
+  const main = document.querySelector('main');
+  const t = main ? main.innerText : document.body.innerText;
+  return JSON.stringify({
+    breadcrumbHasEIM: t.includes('Electrical Insulating Mats'),
+    breadcrumbChain: t.includes('Products') && t.includes('Electrical Insulating Mats') && t.includes('Bharat PoleShield'),
+    noIECclaim: !t.includes('IEC 61111'),
+    noISclaim: !t.includes('IS 15652'),
+  });
+})()" 2>/dev/null
+$B open "http://localhost:3200/" > /dev/null 2>&1; sleep 1.2
+$B set viewport 1440 900 2>/dev/null || $B viewport 1440 900 2>/dev/null
+$B click 'button[aria-controls="products-mega-menu"]' > /dev/null 2>&1; sleep 0.8
+$B eval "
+(() => {
+  const menu = document.querySelector('#products-mega-menu');
+  const links = menu ? Array.from(menu.querySelectorAll('a[href]')).map(a => a.getAttribute('href')) : [];
+  const txt = menu ? menu.innerText : '';
+  return JSON.stringify({
+    poleShieldInDomesticGroup: txt.indexOf('Bharat PoleShield') > -1 && txt.indexOf('Bharat PoleShield') < txt.indexOf('International'),
+    hrefPresent: links.includes('/products/bharat-poleshield'),
   });
 })()" 2>/dev/null
 
