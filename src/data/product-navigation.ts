@@ -118,9 +118,9 @@ export const productNavGroups: ProductNavGroup[] = [
             description: 'IEC 61111 compliant high-voltage insulating mats — Classes 0–4',
           },
           {
-            name: 'Dual Layer Dual Colour',
+            name: 'Dual Layer Bi-Colour',
             href: '/products/electrical-insulating-mats/dual-layer-dual-colour',
-            description: 'IEC 61111 dual layer dual colour insulating mats with visible wear indication',
+            description: 'IEC 61111 dual layer bi-colour insulating mats with visible wear indication',
           },
         ],
       },

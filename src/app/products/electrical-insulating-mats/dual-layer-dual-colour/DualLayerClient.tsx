@@ -12,6 +12,10 @@ import {
   Zap,
   Globe,
   ArrowRight,
+  Palette,
+  Ruler,
+  Award,
+  Check,
 } from 'lucide-react';
 import type { LucideIcon } from 'lucide-react';
 import { Header } from '@/components/layout/Header';
@@ -28,8 +32,12 @@ import { TechnicalBadge } from '@/components/ui/TechnicalBadge';
 import { ImageFrame } from '@/components/ui/ImageFrame';
 import { FeatureList } from '@/components/ui/FeatureList';
 import ColourwaySchematic from '@/components/products/ColourwaySchematic';
-import { biColourVisuals } from '@/data/product-visuals';
+import { dualLayerBiColourVisuals } from '@/data/product-visuals';
 import { PRODUCT_ROUTES } from '@/data/product-routes';
+import {
+  iecBiColourClasses,
+  iecBiColourProductSpec,
+} from '@/data/iec-61111';
 
 /* ── Client-approved applications (exact list) ── */
 const APPLICATIONS: { icon: LucideIcon; label: string }[] = [
@@ -48,7 +56,17 @@ const breadcrumbItems = [
   { label: 'Home', href: '/' },
   { label: 'Products', href: PRODUCT_ROUTES.products },
   { label: 'Electrical Insulating Mats', href: PRODUCT_ROUTES.electricalInsulatingMats },
-  { label: 'Dual Layer Dual Colour' },
+  { label: 'Dual Layer Bi-Colour' },
+];
+
+/* ── Quick spec cards (hero summary) ── */
+const QUICK_SPECS: { icon: LucideIcon; label: string; value: string }[] = [
+  { icon: Award, label: 'Standard', value: iecBiColourProductSpec.standard },
+  { icon: Zap, label: 'Classes', value: '0, 1, 2, 3, 4' },
+  { icon: Zap, label: 'Max. Use Voltage', value: 'AC up to 36,000 V · DC up to 54,000 V' },
+  { icon: Layers, label: 'Thickness', value: iecBiColourProductSpec.thicknessRange },
+  { icon: Palette, label: 'Colourway', value: iecBiColourProductSpec.colourway },
+  { icon: Ruler, label: 'Finish', value: iecBiColourProductSpec.finish },
 ];
 
 export default function DualLayerClient() {
@@ -65,21 +83,22 @@ export default function DualLayerClient() {
             {/* Text */}
             <div className="min-w-0 lg:col-span-6 xl:col-span-5 flex flex-col">
               <div className="flex flex-wrap gap-2 mb-2.5 lg:mb-3">
-                <TechnicalBadge label="IEC 61111" />
-                <TechnicalBadge label="Specialized Innovation" />
+                <TechnicalBadge label="IEC 61111:2009" />
+                <TechnicalBadge label="International / Global" />
               </div>
 
               <Eyebrow className="mb-3">An Innovative Safety Solution from India to the World</Eyebrow>
 
               <h1 className="product-hero-h1 text-product-h1 text-be-charcoal-950 mb-3 lg:mb-4">
-                Dual Layer Dual Colour HV Electrical Insulating Mats
+                Dual Layer Bi-Colour HV Electrical Insulating Mats
               </h1>
 
               <p className="product-hero-intro text-body-large text-be-grey-650 leading-relaxed mb-4 lg:mb-5">
                 Bharat Electrosafe introduces an innovative advancement in the field
-                of electrical safety with its Dual Layer Dual Colour High Voltage
-                Electrical Insulating Mats, designed to offer an additional visual
-                safety advantage for critical electrical working environments.
+                of electrical safety with its Dual Layer Bi-Colour High Voltage
+                Electrical Insulating Mats, designed in line with IEC 61111:2009 to
+                offer an additional visual safety advantage for critical electrical
+                working environments.
               </p>
 
               <div className="flex flex-wrap gap-3">
@@ -92,27 +111,44 @@ export default function DualLayerClient() {
               </div>
             </div>
 
-            {/* Media */}
+            {/* Media — previously approved Global Bi-Colour image */}
             <div className="min-w-0 lg:col-span-6 xl:col-span-7 flex flex-col gap-3">
               <ImageFrame
-                src={biColourVisuals.hero.src}
-                alt={biColourVisuals.hero.alt}
+                src={dualLayerBiColourVisuals.hero.src}
+                alt={dualLayerBiColourVisuals.hero.alt}
                 aspectRatio="landscape"
-                fit={biColourVisuals.hero.fit}
+                fit={dualLayerBiColourVisuals.hero.fit}
                 priority
               />
             </div>
           </div>
         </SectionShell>
 
-        {/* ═══ 2. CORE INNOVATION — VISIBLE WEAR INDICATION ═══ */}
+        {/* ═══ 2. QUICK SPECIFICATION CARDS ═══ */}
+        <section aria-label="Product summary" className="border-y border-be-yellow-100 bg-be-yellow-50">
+          <div className="container-site page-horizontal-padding py-6 md:py-7">
+            <ul className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-x-6 gap-y-4">
+              {QUICK_SPECS.map(({ icon: Icon, label, value }) => (
+                <li key={label} className="flex flex-col items-center sm:items-start gap-1">
+                  <span className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-be-white border border-be-yellow-100" aria-hidden="true">
+                    <Icon className="h-3.5 w-3.5 text-be-yellow-text" />
+                  </span>
+                  <div className="text-metadata text-be-grey-650">{label}</div>
+                  <div className="text-[14px] leading-snug font-semibold text-be-charcoal-950">{value}</div>
+                </li>
+              ))}
+            </ul>
+          </div>
+        </section>
+
+        {/* ═══ 3. CORE INNOVATION — VISIBLE WEAR INDICATION ═══ */}
         <SectionShell variant="standard" bg="bg-be-white" topRule id="innovation" ariaLabel="The Innovation: A Visible Wear Indication">
           <div className="flex flex-col lg:flex-row gap-8 lg:gap-10 items-start">
-            {/* Left — two-layer visual */}
+            {/* Left — dual-layer cross-section visual */}
             <div className="lg:w-[45%]">
               <ImageFrame
-                src={biColourVisuals.technicalDetail?.src ?? biColourVisuals.card.src}
-                alt={biColourVisuals.technicalDetail?.alt ?? 'Dual layer dual colour insulating mat cross-section'}
+                src={dualLayerBiColourVisuals.technicalDetail?.src ?? dualLayerBiColourVisuals.card.src}
+                alt={dualLayerBiColourVisuals.technicalDetail?.alt ?? 'Dual layer Bi-Colour insulating mat cross-section'}
                 aspectRatio="landscape"
                 fit="contain"
               />
@@ -123,11 +159,11 @@ export default function DualLayerClient() {
               <SectionHeader
                 eyebrow="The Innovation"
                 title="A Visible Wear Indication"
-                supportingText="Unlike conventional single-colour insulating mats, Bharat Electrosafe's innovative Dual Layer Dual Colour technology provides an additional visual reference for monitoring the condition of the mat."
+                supportingText="Unlike conventional single-colour insulating mats, Bharat Electrosafe's innovative Dual Layer Bi-Colour technology provides an additional visual reference for monitoring the condition of the mat."
               />
 
               <p className="text-body text-be-grey-650 leading-relaxed">
-                Developed with a unique dual-layer and dual-colour construction,
+                Developed with a unique dual-layer and bi-colour construction,
                 these insulating mats are designed to provide a visible indication
                 of wear or damage to the top layer. When the upper layer is
                 significantly worn, damaged or deteriorated, the contrasting colour
@@ -136,15 +172,14 @@ export default function DualLayerClient() {
               </p>
 
               <p className="text-body text-be-charcoal-800 font-medium">
-                The contrasting lower layer is designed to act as a visible wear
-                indicator, supporting:
+                {iecBiColourProductSpec.dualLayerFunction}
               </p>
 
               <ColourwaySchematic
                 size="full"
                 topLabel="Black"
                 bottomLabel="Yellow"
-                note="Documented colourway: Black surface with a contrasting Yellow wear-indicator layer, in line with the IEC 61111 dual-colour construction. Schematic illustration — request photographs for the actual finish."
+                note={`Documented colourway: Black surface with a contrasting Yellow wear-indicator layer, in line with the IEC 61111 dual-colour construction. Schematic illustration — request photographs for the actual finish.`}
               />
 
               <FeatureList
@@ -160,12 +195,12 @@ export default function DualLayerClient() {
           </div>
         </SectionShell>
 
-        {/* ═══ 3. APPLICATIONS ═══ */}
+        {/* ═══ 4. APPLICATIONS ═══ */}
         <SectionShell variant="standard" bg="bg-be-cream" topRule ariaLabel="Applications">
           <SectionHeader
             eyebrow="Applications"
             title="Where It's Used"
-            supportingText="Dual Layer Dual Colour HV Electrical Insulating Mats are designed for demanding high-voltage electrical working environments."
+            supportingText="Dual Layer Bi-Colour HV Electrical Insulating Mats are designed for demanding high-voltage electrical working environments."
             align="center"
           />
           <ul className="mt-8 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
@@ -183,7 +218,134 @@ export default function DualLayerClient() {
           </ul>
         </SectionShell>
 
-        {/* ═══ 4. INNOVATION STORY ═══ */}
+        {/* ═══ 5. TECHNICAL SPECIFICATIONS — Bi-Colour class table ═══ */}
+        <SectionShell variant="technical" bg="bg-be-cream" id="specifications" ariaLabel="Dual Layer Bi-Colour technical specifications">
+          <SectionHeader
+            eyebrow="Technical Specifications"
+            title="Dual Layer Bi-Colour — Class Data (IEC 61111:2009)"
+            supportingText="All five classes with thickness, maximum use voltage (AC and DC), and weight per width × length combination. Source-verified against the client-supplied IEC 61111:2009 Bi-Colour catalogue (page 19 for Class 0, page 20 for Classes 1–4)."
+          />
+
+          {/* Class summary cards */}
+          <div className="mt-6 grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-3">
+            {iecBiColourClasses.map((cls) => (
+              <div key={cls.classLabel} className="p-4 rounded-lg border border-be-grey-250 bg-be-white">
+                <div className="text-metadata text-be-grey-650 mb-1">{cls.classLabel}</div>
+                <div className="text-base font-semibold text-be-charcoal-950">{cls.thickness}</div>
+                <div className="text-metadata text-be-charcoal-800 mt-2">
+                  AC {cls.maxUseVoltageAC}
+                </div>
+                <div className="text-metadata text-be-charcoal-800">
+                  DC {cls.maxUseVoltageDC}
+                </div>
+              </div>
+            ))}
+          </div>
+
+          {/* Detailed weight table — per class, per width × length */}
+          <div className="mt-8 space-y-8">
+            {iecBiColourClasses.map((cls) => (
+              <div key={cls.classLabel}>
+                <h3 className="text-lg font-semibold text-be-charcoal-950 mb-3">
+                  {cls.classLabel} — {cls.thickness}
+                  <span className="ml-3 text-metadata font-normal text-be-grey-650">
+                    AC {cls.maxUseVoltageAC} · DC {cls.maxUseVoltageDC}
+                  </span>
+                </h3>
+                <div className="overflow-x-auto -mx-4 px-4 sm:mx-0 sm:px-0">
+                  <table className="w-full min-w-[560px] border-collapse text-body">
+                    <thead>
+                      <tr className="border-b-2 border-be-yellow-500">
+                        <th className="text-left py-3 pr-4 font-semibold text-be-charcoal-950 whitespace-nowrap">Length</th>
+                        <th className="text-left py-3 pr-4 font-semibold text-be-charcoal-950 whitespace-nowrap">Width 1.0 Meter — Weight</th>
+                        <th className="text-left py-3 font-semibold text-be-charcoal-950 whitespace-nowrap">Width 1.2 Meter — Weight</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {cls.weights.map((row) => (
+                        <tr key={row.length} className="border-b border-be-grey-250 hover:bg-be-yellow-50/50 transition-colors">
+                          <td className="py-3 pr-4 font-semibold text-be-charcoal-950">{row.length}</td>
+                          <td className="py-3 pr-4 text-be-charcoal-800">{row.weight1m}</td>
+                          <td className="py-3 text-be-charcoal-800">{row.weight1_2m}</td>
+                        </tr>
+                      ))}
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            ))}
+          </div>
+
+          <div className="mt-4 flex items-start gap-2 text-metadata text-be-grey-650">
+            <ShieldCheck className="size-4 shrink-0 mt-0.5 text-be-yellow-text" aria-hidden="true" />
+            <p>
+              All values per IEC 61111:2009 Bi-Colour (Dual Layer) source pages,
+              visually verified against the rendered PDF. Maximum Use Voltage is
+              listed separately for AC and DC — do not interchange the two.
+              Proof voltage, dielectric strength and withstand voltage are
+              intentionally not listed: they are not published by the source for
+              this Bi-Colour product. These are IEC classifications — do not
+              confuse with IS 15652:2006 Classes A–C.
+            </p>
+          </div>
+        </SectionShell>
+
+        {/* ═══ 6. PRODUCT CONSTRUCTION & SIZES ═══ */}
+        <SectionShell variant="standard" bg="bg-be-white" topRule ariaLabel="Construction, sizes and finish">
+          <SectionHeader
+            eyebrow="Construction & Sizes"
+            title="Construction, Sizes and Finish"
+            supportingText="Standard widths, lengths and finish for the Dual Layer Bi-Colour IEC 61111:2009 insulating mats."
+            align="center"
+          />
+
+          <div className="mt-8 grid grid-cols-1 md:grid-cols-3 gap-6">
+            <div className="p-5 rounded-lg border border-be-grey-250 bg-be-cream">
+              <div className="flex items-center gap-2 mb-3">
+                <Ruler className="size-4 text-be-yellow-text" aria-hidden="true" />
+                <h4 className="text-sm font-semibold text-be-charcoal-950">Standard Widths</h4>
+              </div>
+              <ul className="flex flex-col gap-1.5">
+                {iecBiColourProductSpec.widths.map((w) => (
+                  <li key={w} className="flex items-start gap-2 text-body text-be-charcoal-800">
+                    <Check className="size-4 shrink-0 mt-0.5 text-be-yellow-text" aria-hidden="true" />
+                    <span>{w}</span>
+                  </li>
+                ))}
+              </ul>
+            </div>
+
+            <div className="p-5 rounded-lg border border-be-grey-250 bg-be-cream">
+              <div className="flex items-center gap-2 mb-3">
+                <Ruler className="size-4 text-be-yellow-text" aria-hidden="true" />
+                <h4 className="text-sm font-semibold text-be-charcoal-950">Standard Lengths</h4>
+              </div>
+              <ul className="flex flex-col gap-1.5">
+                {iecBiColourProductSpec.lengths.map((l) => (
+                  <li key={l} className="flex items-start gap-2 text-body text-be-charcoal-800">
+                    <Check className="size-4 shrink-0 mt-0.5 text-be-yellow-text" aria-hidden="true" />
+                    <span>{l}</span>
+                  </li>
+                ))}
+              </ul>
+            </div>
+
+            <div className="p-5 rounded-lg border border-be-grey-250 bg-be-cream">
+              <div className="flex items-center gap-2 mb-3">
+                <Palette className="size-4 text-be-yellow-text" aria-hidden="true" />
+                <h4 className="text-sm font-semibold text-be-charcoal-950">Finish & Colourway</h4>
+              </div>
+              <p className="text-body text-be-charcoal-800">
+                <span className="font-medium">Finish:</span> {iecBiColourProductSpec.finish}
+              </p>
+              <p className="text-body text-be-charcoal-800 mt-2">
+                <span className="font-medium">Colourway:</span> {iecBiColourProductSpec.colourway}
+              </p>
+            </div>
+          </div>
+        </SectionShell>
+
+        {/* ═══ 7. INNOVATION STORY ═══ */}
         <SectionShell variant="compact" bg="bg-be-white" topRule ariaLabel="Innovation Driven by Safety">
           <div className="flex flex-col items-center text-center gap-5 max-w-3xl mx-auto">
             <SectionHeader
@@ -201,7 +363,7 @@ export default function DualLayerClient() {
           </div>
         </SectionShell>
 
-        {/* ═══ 5. INDIA TO THE WORLD ═══ */}
+        {/* ═══ 8. INDIA TO THE WORLD ═══ */}
         <SectionShell variant="standard" bg="bg-be-cream" topRule ariaLabel="From India to the World">
           <div className="flex flex-col lg:flex-row gap-8 lg:gap-10 items-center">
             <div className="lg:w-[55%] flex flex-col gap-5">
@@ -215,7 +377,7 @@ export default function DualLayerClient() {
               </p>
               <p className="text-body text-be-charcoal-800 leading-relaxed">
                 Developed in India with a focus on innovation, quality and
-                electrical safety, our Dual Layer Dual Colour HV Electrical
+                electrical safety, our Dual Layer Bi-Colour HV Electrical
                 Insulating Mats represent Bharat Electrosafe's vision of
                 delivering advanced insulating mat solutions — From India to the
                 World.
@@ -223,27 +385,27 @@ export default function DualLayerClient() {
             </div>
             <div className="lg:w-[45%]">
               <ImageFrame
-                src={biColourVisuals.card.src}
-                alt={biColourVisuals.card.alt}
+                src={dualLayerBiColourVisuals.card.src}
+                alt={dualLayerBiColourVisuals.card.alt}
                 aspectRatio="landscape"
-                fit={biColourVisuals.card.fit}
+                fit={dualLayerBiColourVisuals.card.fit}
               />
             </div>
           </div>
         </SectionShell>
 
-        {/* ═══ 6. WHY BHARAT ELECTROSAFE ═══ */}
+        {/* ═══ 9. WHY BHARAT ELECTROSAFE ═══ */}
         <SectionShell variant="standard" bg="bg-be-white" topRule ariaLabel="Why Bharat Electrosafe">
           <SectionHeader
             eyebrow="Why Bharat Electrosafe"
             title="A forward-looking innovation in electrical safety"
-            supportingText="Designed in line with IEC 61111, our Dual Layer Dual Colour HV Electrical Insulating Mats combine quality-driven Indian manufacturing with an additional visual safety advantage."
+            supportingText="Designed in line with IEC 61111:2009, our Dual Layer Bi-Colour HV Electrical Insulating Mats combine quality-driven Indian manufacturing with an additional visual safety advantage."
           />
           <div className="mt-8 max-w-3xl">
             <FeatureList
               items={[
-                { icon: Layers, text: 'Innovative Dual Layer Dual Colour technology' },
-                { icon: ClipboardCheck, text: 'Designed in line with IEC 61111' },
+                { icon: Layers, text: 'Innovative Dual Layer Bi-Colour technology' },
+                { icon: ClipboardCheck, text: 'Designed in line with IEC 61111:2009' },
                 { icon: Eye, text: 'Visible wear indication through contrasting layers' },
                 { icon: Wrench, text: 'Focus on improved inspection and maintenance awareness' },
                 { icon: ShieldCheck, text: 'Designed for demanding electrical environments' },
@@ -254,7 +416,7 @@ export default function DualLayerClient() {
           </div>
         </SectionShell>
 
-        {/* ═══ 7. CTA ═══ */}
+        {/* ═══ 10. CTA ═══ */}
         <SectionShell variant="conversion" bg="bg-be-yellow-50" yellowAccent ariaLabel="Request a quote">
           <div className="flex flex-col items-center text-center gap-5 max-w-3xl mx-auto">
             <SectionHeader
@@ -266,7 +428,7 @@ export default function DualLayerClient() {
               Bharat Electrosafe – Innovating Electrical Safety. From India to the World.
             </p>
             <p className="text-body text-be-grey-650 leading-relaxed">
-              Speak to our team about Dual Layer Dual Colour HV Electrical
+              Speak to our team about Dual Layer Bi-Colour HV Electrical
               Insulating Mats for your electrical installation.
             </p>
             <div className="flex flex-wrap gap-3 justify-center">
@@ -274,7 +436,7 @@ export default function DualLayerClient() {
                 Request a Quote
                 <ArrowRight className="size-4 ml-1.5" />
               </PrimaryButton>
-              <SecondaryButton href="/products/electrical-insulating-mats/international-iec-61111">
+              <SecondaryButton href={PRODUCT_ROUTES.international}>
                 View IEC 61111 Range
               </SecondaryButton>
             </div>

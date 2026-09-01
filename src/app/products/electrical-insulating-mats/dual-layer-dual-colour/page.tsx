@@ -4,9 +4,9 @@ import { breadcrumbSchema, serializeJsonLd, type BreadcrumbItem } from '@/lib/st
 import { PRODUCT_ROUTES } from '@/data/product-routes';
 import DualLayerClient from './DualLayerClient';
 
-const PAGE_TITLE = 'Dual Layer Dual Colour HV Insulating Mats';
+const PAGE_TITLE = 'Dual Layer Bi-Colour HV Electrical Insulating Mats';
 const PAGE_DESCRIPTION =
-  'Bharat Electrosafe Dual Layer Dual Colour HV Electrical Insulating Mats — an innovative safety solution designed in line with IEC 61111, with a visible wear indication through contrasting layers. From India to the World.';
+  'Bharat Electrosafe Dual Layer Bi-Colour HV Electrical Insulating Mats — an innovative safety solution designed in line with IEC 61111:2009, with a visible wear indication through contrasting layers. From India to the World.';
 const CANONICAL_PATH = PRODUCT_ROUTES.dualLayerDualColour;
 const canonicalUrl = buildUrl(CANONICAL_PATH);
 
@@ -32,7 +32,7 @@ const breadcrumbItems: BreadcrumbItem[] = [
   { name: 'Home', href: '/' },
   { name: 'Products', href: '/products' },
   { name: 'Electrical Insulating Mats', href: PRODUCT_ROUTES.electricalInsulatingMats },
-  { name: 'Dual Layer Dual Colour', href: CANONICAL_PATH },
+  { name: 'Dual Layer Bi-Colour', href: CANONICAL_PATH },
 ];
 
 export default function DualLayerDualColourPage() {

@@ -556,7 +556,7 @@ function ElectricalInsulatingMatsSection() {
                   <li className="flex items-center gap-2">
                     <span className="w-1.5 h-1.5 rounded-full bg-be-brand-blue" aria-hidden="true" />
                     <Link href="/products/electrical-insulating-mats/dual-layer-dual-colour" className="font-medium text-be-navy-800 hover:text-be-brand-blue transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-be-yellow-500 rounded">
-                      Dual Layer Dual Colour
+                      Dual Layer Bi-Colour
                     </Link>
                     <span className="text-xs text-be-navy-700 bg-be-brand-blue/10 px-2 py-0.5 rounded-full">Specialized</span>
                   </li>

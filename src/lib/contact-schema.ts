@@ -94,7 +94,7 @@ export const productOptions: {
   { value: 'bcim', label: 'Bi-Colour Insulating Mats (Domestic)', group: 'Domestic — IS 15652:2006' },
   { value: 'agrim', label: 'Auto-Glow / Reflective Band Insulating Mats', group: 'Domestic — IS 15652:2006' },
   { value: 'iec-hv-insulating-mats', label: 'HV Insulating Mats — IEC 61111:2009 (Global)', group: 'Global — IEC 61111:2009' },
-  { value: 'dual-layer-dual-colour', label: 'Dual Layer Dual Colour Mats — IEC 61111:2009 (Global)', group: 'Global — IEC 61111:2009' },
+  { value: 'dual-layer-dual-colour', label: 'Dual Layer Bi-Colour Mats — IEC 61111:2009 (Global)', group: 'Global — IEC 61111:2009' },
   { value: 'international-iec-61111', label: 'Global IEC 61111:2009 Range — General', group: 'Global — IEC 61111:2009' },
   { value: 'bm', label: 'Geo Membrane Lining', group: 'Industrial & Civil Products' },
   { value: 'bhs', label: 'Water Stop Seal', group: 'Industrial & Civil Products' },

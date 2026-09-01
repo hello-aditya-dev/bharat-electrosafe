@@ -35,7 +35,7 @@ check "/products/electrical-insulating-mats/auto-glow-reflective-band-insulating
 check "/products/electrical-insulating-mats/bi-color-insulating-mats" "DOMESTIC BI-COLOUR" "Bi-Color Insulating Mats" ""
 check "/products/electrical-insulating-mats/international-iec-61111" "GLOBAL IEC HUB" "IEC 61111:2009" "IS 15652:2006 Class A"
 check "/products/electrical-insulating-mats/international-iec-61111/hv-insulating-mats" "GLOBAL HV" "IEC 61111:2009" "IS 15652:2006 Class A"
-check "/products/electrical-insulating-mats/dual-layer-dual-colour" "DUAL LAYER DUAL COLOUR" "Dual Layer Dual Colour" ""
+check "/products/electrical-insulating-mats/dual-layer-dual-colour" "DUAL LAYER BI-COLOUR" "Dual Layer Bi-Colour" ""
 check "/products/bharat-poleshield" "POLESHIELD" "Protecting Every Pole" ""
 check "/products/geo-membrane-lining" "GEO MEMBRANE" "Geo Membrane" ""
 check "/products/water-stop-seal" "WATER STOP" "Water Stop" ""
@@ -52,7 +52,7 @@ $B eval "
   const t = document.body.innerText;
   return JSON.stringify({
     hvCard: t.includes('HV Insulating Mats'),
-    biColourCard: t.includes('Dual Layer Dual Colour'),
+    biColourCard: t.includes('Dual Layer Bi-Colour'),
     autoGlowAbsent: !t.includes('Auto Glow'),
     poleShieldAbsent: !t.includes('PoleShield'),
     thickness: t.includes('2.0–5.2 mm'),

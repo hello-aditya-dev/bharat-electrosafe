@@ -80,6 +80,170 @@ export const iecClasses: IECClass[] = [
    ──────────────────────────────────────────── */
 
 /* ────────────────────────────────────────────
+   IEC 61111:2009 Bi-Colour (Dual Layer) — class-specific data
+   ────────────────────────────────────────────
+
+   Source: client-supplied "2023 - Raychem RPG - Electrical Safety
+   Protection" catalogue, pages 19 (Class 0) and 20 (Classes 1–4).
+   Visually verified against the rendered PDF — not OCR-only.
+
+   IMPORTANT — these values are Bi-Colour (Dual Layer) ONLY.
+   They MUST NOT be merged into the HV `iecClasses` table above,
+   which uses different thickness/weight values and an additional
+   proof/dielectric column that the Bi-Colour source does NOT
+   publish.
+
+   Per the verify-or-remove rule, the Bi-Colour table contains
+   ONLY the columns the source provides:
+     - Thickness
+     - Width
+     - Length
+     - Maximum Use Voltage AC
+     - Maximum Use Voltage DC
+     - Weight (per width × length combination)
+
+   Proof voltage, dielectric strength and withstand voltage are
+   intentionally ABSENT — the Bi-Colour source pages do not
+   publish them for this product. Do NOT backfill them from the
+   HV table, from IS 15652:2006, or from memory.
+   ──────────────────────────────────────────── */
+
+export interface IECBiColourWeightRow {
+  /** Roll length in metres. */
+  length: string;
+  /** Weight for the 1.0 m width variant, in kg. */
+  weight1m: string;
+  /** Weight for the 1.2 m width variant, in kg. */
+  weight1_2m: string;
+}
+
+export interface IECBiColourClass {
+  classLabel: string;
+  thickness: string;
+  /** Maximum use voltage, AC. */
+  maxUseVoltageAC: string;
+  /** Maximum use voltage, DC. */
+  maxUseVoltageDC: string;
+  /** Available roll widths (metres). */
+  widths: string[];
+  /** Available roll lengths (metres). */
+  lengths: string[];
+  /** Weight per width × length combination, source-verified. */
+  weights: IECBiColourWeightRow[];
+}
+
+export const iecBiColourClasses: IECBiColourClass[] = [
+  {
+    classLabel: 'Class 0',
+    thickness: '2.2 mm',
+    maxUseVoltageAC: '1000 V',
+    maxUseVoltageDC: '1500 V',
+    widths: ['1.0 Meter', '1.2 Meter'],
+    lengths: ['1 Meter', '2 Meter', '5 Meter', '10 Meter'],
+    weights: [
+      { length: '1 Meter', weight1m: '3.40 kg', weight1_2m: '4.00 kg' },
+      { length: '2 Meter', weight1m: '6.80 kg', weight1_2m: '8.00 kg' },
+      { length: '5 Meter', weight1m: '17.00 kg', weight1_2m: '20.50 kg' },
+      { length: '10 Meter', weight1m: '34.00 kg', weight1_2m: '41.00 kg' },
+    ],
+  },
+  {
+    classLabel: 'Class 1',
+    thickness: '2.3 mm',
+    maxUseVoltageAC: '7500 V',
+    maxUseVoltageDC: '11250 V',
+    widths: ['1.0 Meter', '1.2 Meter'],
+    lengths: ['1 Meter', '2 Meter', '5 Meter', '10 Meter'],
+    weights: [
+      { length: '1 Meter', weight1m: '3.50 kg', weight1_2m: '4.20 kg' },
+      { length: '2 Meter', weight1m: '7.00 kg', weight1_2m: '8.50 kg' },
+      { length: '5 Meter', weight1m: '17.80 kg', weight1_2m: '21.30 kg' },
+      { length: '10 Meter', weight1m: '35.60 kg', weight1_2m: '42.80 kg' },
+    ],
+  },
+  {
+    classLabel: 'Class 2',
+    thickness: '2.6 mm',
+    maxUseVoltageAC: '17000 V',
+    maxUseVoltageDC: '27500 V',
+    widths: ['1.0 Meter', '1.2 Meter'],
+    lengths: ['1 Meter', '2 Meter', '5 Meter', '10 Meter'],
+    weights: [
+      { length: '1 Meter', weight1m: '4.00 kg', weight1_2m: '4.80 kg' },
+      { length: '2 Meter', weight1m: '8.00 kg', weight1_2m: '9.60 kg' },
+      { length: '5 Meter', weight1m: '20.00 kg', weight1_2m: '24.00 kg' },
+      { length: '10 Meter', weight1m: '40.00 kg', weight1_2m: '48.00 kg' },
+    ],
+  },
+  {
+    classLabel: 'Class 3',
+    thickness: '3.3 mm',
+    maxUseVoltageAC: '26500 V',
+    maxUseVoltageDC: '39750 V',
+    widths: ['1.0 Meter', '1.2 Meter'],
+    lengths: ['1 Meter', '2 Meter', '5 Meter', '10 Meter'],
+    weights: [
+      { length: '1 Meter', weight1m: '5.10 kg', weight1_2m: '6.10 kg' },
+      { length: '2 Meter', weight1m: '10.20 kg', weight1_2m: '12.30 kg' },
+      { length: '5 Meter', weight1m: '25.60 kg', weight1_2m: '30.70 kg' },
+      { length: '10 Meter', weight1m: '51.20 kg', weight1_2m: '61.40 kg' },
+    ],
+  },
+  {
+    classLabel: 'Class 4',
+    thickness: '5.2 mm',
+    maxUseVoltageAC: '36000 V',
+    maxUseVoltageDC: '54000 V',
+    widths: ['1.0 Meter', '1.2 Meter'],
+    lengths: ['1 Meter', '2 Meter', '5 Meter', '10 Meter'],
+    weights: [
+      { length: '1 Meter', weight1m: '8.00 kg', weight1_2m: '9.60 kg' },
+      { length: '2 Meter', weight1m: '16.00 kg', weight1_2m: '19.30 kg' },
+      { length: '5 Meter', weight1m: '40.00 kg', weight1_2m: '48.00 kg' },
+      { length: '10 Meter', weight1m: '80.00 kg', weight1_2m: '96.70 kg' },
+    ],
+  },
+];
+
+/* ────────────────────────────────────────────
+   Bi-Colour (Dual Layer) — product-level specification
+   ────────────────────────────────────────────
+
+   Source: client-supplied catalogue page 19.
+   - Standard: IEC 61111:2009
+   - Finish: Fabric
+   - Source-listed colour: Black / Orange
+   - CLIENT'S CURRENT APPROVED PRODUCT DIRECTION: Black / Yellow
+     (overrides the source-listed colourway for the active product
+     presentation only — does NOT change the website's brand
+     orange/yellow accent colours and does NOT change the domestic
+     Bi-Colour product).
+
+   The two-colour construction serves as a mechanical damage
+   indication: when the upper layer is worn or damaged enough to
+   expose the contrasting lower layer, this provides a visible
+   cue to inspect and replace the mat. The source describes an
+   indication/cue — NOT an automatic damage-detection guarantee.
+   ──────────────────────────────────────────── */
+
+export const iecBiColourProductSpec = {
+  standard: 'IEC 61111:2009',
+  productName: 'Electrical Insulating Rubber Matting',
+  finish: 'Fabric Finish',
+  /** Active client-approved product colourway. */
+  colourway: 'Black / Yellow',
+  /** Source-listed (legacy) colourway — not published as the active colour. */
+  sourceListedColourway: 'Black / Orange',
+  widths: ['1.0 Meter', '1.2 Meter'],
+  lengths: ['1 Meter', '2 Meter', '5 Meter', '10 Meter'],
+  /** Summary thickness range across all classes (client-approved summary). */
+  thicknessRange: '2.0–5.2 mm',
+  /** Two-colour construction purpose, per source. */
+  dualLayerFunction:
+    'The two colours serve as a mechanical damage indication and provide a cue to replace the mat when the colour change becomes visible on the surface.',
+} as const;
+
+/* ────────────────────────────────────────────
    Applications
    ──────────────────────────────────────────── */
 

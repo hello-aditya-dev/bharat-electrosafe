@@ -280,13 +280,13 @@ export default function IECClient() {
               <div className="flex flex-col gap-3 p-5 flex-1">
                 <div className="flex items-center gap-2">
                   <Palette className="size-5 text-be-yellow-text" aria-hidden="true" />
-                  <h3 className="text-lg font-semibold text-be-charcoal-950">Dual Layer Dual Colour</h3>
+                  <h3 className="text-lg font-semibold text-be-charcoal-950">Dual Layer Bi-Colour</h3>
                 </div>
                 <p className="text-body text-be-grey-650 flex-1">
-                  Dual-layer dual-colour insulating mats with a contrasting lower
+                  Dual-layer bi-colour insulating mats with a contrasting lower
                   layer designed to act as a visible wear indicator. Documented
                   colourway: Black surface with a Yellow wear-indicator layer.
-                  Designed in line with IEC 61111.
+                  Designed in line with IEC 61111:2009.
                 </p>
                 <ColourwaySchematic
                   size="compact"
@@ -405,10 +405,10 @@ export default function IECClient() {
               <div className="border-t border-be-grey-250 pt-5">
                 <div className="flex items-center gap-2 mb-3">
                   <Palette className="size-4 text-be-yellow-text" aria-hidden="true" />
-                  <h3 className="text-base font-semibold text-be-charcoal-950">Dual Layer Dual Colour</h3>
+                  <h3 className="text-base font-semibold text-be-charcoal-950">Dual Layer Bi-Colour</h3>
                 </div>
                 <p className="text-body text-be-grey-650">
-                  Dual-layer dual-colour insulating mats with a contrasting lower
+                  Dual-layer bi-colour insulating mats with a contrasting lower
                   layer designed to act as a visible wear indicator.
                 </p>
               </div>

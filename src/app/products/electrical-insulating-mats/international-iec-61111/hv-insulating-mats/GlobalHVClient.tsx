@@ -955,7 +955,7 @@ export default function GlobalHVClient() {
                   href={PRODUCT_ROUTES.dualLayerDualColour}
                   className="font-medium underline underline-offset-2 hover:text-be-charcoal-950"
                 >
-                  Dual Layer Dual Colour
+                  Dual Layer Bi-Colour
                 </a>{' '}
                 variant.
               </p>
