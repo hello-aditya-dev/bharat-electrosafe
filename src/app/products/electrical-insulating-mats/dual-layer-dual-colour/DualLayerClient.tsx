@@ -92,14 +92,14 @@ export default function DualLayerClient() {
               </div>
             </div>
 
-            {/* Media */}
+            {/* Media — colourway schematic (documented BLACK/YELLOW colourway;
+                superseded blue/orange renders are withdrawn from display) */}
             <div className="min-w-0 lg:col-span-6 xl:col-span-7 flex flex-col gap-3">
-              <ImageFrame
-                src={biColourVisuals.hero.src}
-                alt={biColourVisuals.hero.alt}
-                aspectRatio="landscape"
-                fit={biColourVisuals.hero.fit}
-                priority
+              <ColourwaySchematic
+                size="full"
+                topLabel="Black"
+                bottomLabel="Yellow"
+                note="Documented colourway — schematic illustration. BLACK/YELLOW product photography to follow."
               />
             </div>
           </div>
@@ -108,7 +108,7 @@ export default function DualLayerClient() {
         {/* ═══ 2. CORE INNOVATION — VISIBLE WEAR INDICATION ═══ */}
         <SectionShell variant="standard" bg="bg-be-white" topRule id="innovation" ariaLabel="The Innovation: A Visible Wear Indication">
           <div className="flex flex-col lg:flex-row gap-8 lg:gap-10 items-start">
-            {/* Left — two-layer visual */}
+            {/* Left — two-layer cross-section (colourway schematic) */}
             <div className="lg:w-[45%]">
               <ImageFrame
                 src={biColourVisuals.technicalDetail?.src ?? biColourVisuals.card.src}
@@ -139,13 +139,6 @@ export default function DualLayerClient() {
                 The contrasting lower layer is designed to act as a visible wear
                 indicator, supporting:
               </p>
-
-              <ColourwaySchematic
-                size="full"
-                topLabel="Black"
-                bottomLabel="Yellow"
-                note="Documented colourway: Black surface with a contrasting Yellow wear-indicator layer, in line with the IEC 61111 dual-colour construction. Schematic illustration — request photographs for the actual finish."
-              />
 
               <FeatureList
                 items={[

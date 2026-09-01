@@ -206,48 +206,46 @@ export const autoGlowVisuals: ProductVisuals = {
    Carousel: 07 → 08 → 09 → existing gallery
    ──────────────────────────────────────────── */
 
+/* Bi-Colour visuals — FINAL COLOURWAY: BLACK / YELLOW.
+   Every superseded two-layer render (blue/orange, grey/blue) has been
+   withdrawn from active display per the client's final Bi-Colour
+   direction. Until BLACK/YELLOW photography is supplied by the client,
+   the only honest active visual is the labelled colourway schematic
+   (a diagram — never presented as a photograph). */
+const BI_COLOUR_SCHEMATIC = `${PROD}/bi-color-insulating-mats/bi-colour-schematic-black-yellow.svg`;
+
 export const biColourVisuals: ProductVisuals = {
   card: {
-    src: `${PROD}/bi-color-insulating-mats/client-approved/bi-colour-card-cross-section.webp`,
-    alt: 'Blue dual-layer insulating mat with contrasting red lower layer',
-    fit: 'cover',
+    src: BI_COLOUR_SCHEMATIC,
+    alt: 'Colourway schematic — black top layer over yellow wear-indicator layer (illustration, not a photograph)',
+    fit: 'contain',
   },
   hero: {
-    src: `${PROD}/bi-color-insulating-mats/client-bi-colour/product-01.png`,
-    alt: 'Bi-Colour dual-layer insulating mat — complete product view',
+    src: BI_COLOUR_SCHEMATIC,
+    alt: 'Dual Layer Dual Colour colourway schematic — black top layer with yellow wear-indicator layer (illustration)',
     fit: 'contain',
   },
   gallery: [
     {
-      src: `${PROD}/bi-color-insulating-mats/client-bi-colour/product-02.png`,
-      alt: 'Bi-Colour insulating mat — alternate view showing dual-layer construction',
+      src: BI_COLOUR_SCHEMATIC,
+      alt: 'Colourway schematic — black walking surface over yellow wear-indicator layer (illustration)',
       fit: 'contain',
-    },
-    {
-      src: `${PROD}/bi-color-insulating-mats/client-bi-colour/product-03.png`,
-      alt: 'Bi-Colour insulating mat — close-up detail',
-      fit: 'contain',
-    },
-    {
-      src: `${PROD}/bi-color-insulating-mats/gallery/01-dual-layer-roll.webp`,
-      alt: 'Bi-Colour dual-layer mat roll',
-      fit: 'cover',
     },
   ],
   technicalDetail: {
-    src: `${PROD}/bi-color-insulating-mats/product-demo-bi-color.webp`,
-    alt: 'Bi-Colour layer identification diagram — cross-section',
+    src: BI_COLOUR_SCHEMATIC,
+    alt: 'Dual-layer construction schematic — black top layer, yellow lower wear-indicator layer (illustration)',
     fit: 'contain',
   },
   menuPreview: {
-    src: `${PROD}/bi-color-insulating-mats/bcim-hero-dual-layer-insulating-mat.webp`,
-    alt: 'Bi-Colour mat preview',
-    fit: 'cover',
+    src: BI_COLOUR_SCHEMATIC,
+    alt: 'Bi-Colour colourway schematic preview',
+    fit: 'contain',
   },
   homePreview: {
-    src: `${PROD}/bi-color-insulating-mats/bcim-hero-dual-layer-insulating-mat.webp`,
-    alt: 'Bi-Colour insulating mats',
-    fit: 'cover',
+    src: BI_COLOUR_SCHEMATIC,
+    alt: 'Bi-Colour insulating mats — colourway schematic (illustration)',
+    fit: 'contain',
   },
 };
 
@@ -321,9 +319,9 @@ export const iecVisuals: ProductVisuals = {
   },
   gallery: [
     {
-      src: `${PROD}/bi-color-insulating-mats/client-approved/bi-colour-card-cross-section.webp`,
-      alt: 'IEC Bi-Colour variant — dual-layer insulating mat',
-      fit: 'cover',
+      src: `${PROD}/bi-color-insulating-mats/bi-colour-schematic-black-yellow.svg`,
+      alt: 'Bi-Colour colourway schematic — black top layer over yellow wear-indicator layer (illustration)',
+      fit: 'contain',
     },
     {
       src: `${PROD}/international-iec/iec-61111-class-0-2-2mm.webp`,

@@ -38,7 +38,6 @@ import {
 import type { LucideIcon } from 'lucide-react';
 import { Header } from '@/components/layout/Header';
 import { Footer } from '@/components/layout/Footer';
-import ColourwaySchematic from '@/components/products/ColourwaySchematic';
 import { BackToTop } from '@/components/ui/BackToTop';
 import { MobileStickyCTA } from '@/components/ui/MobileStickyCTA';
 import { Breadcrumb } from '@/components/ui/Breadcrumb';
@@ -285,15 +284,10 @@ export default function IECClient() {
                 </div>
                 <p className="text-body text-be-grey-650 flex-1">
                   Dual-layer dual-colour insulating mats with a contrasting lower
-                  layer designed to act as a visible wear indicator. Designed in
-                  line with IEC 61111.
+                  layer designed to act as a visible wear indicator. Documented
+                  colourway: Black surface with a Yellow wear-indicator layer.
+                  Designed in line with IEC 61111.
                 </p>
-                <ColourwaySchematic
-                  size="compact"
-                  topLabel="Black"
-                  bottomLabel="Yellow"
-                  note="Documented colourway — schematic illustration."
-                />
                 <div className="flex flex-col gap-2 mt-1">
                   <PrimaryButton href="/contact-us?type=quote&product=iec-bi-colour" className="self-start">
                     Get Quote
@@ -362,7 +356,7 @@ export default function IECClient() {
               All values per IEC 61111:2009 Table 1. AC proof voltage is the withstand
               voltage applied during routine verification. Dielectric strength is the
               voltage at which the insulation breaks down during type testing. These are
-              IEC classifications — do not confuse with IS 15652:2006 Classes A–D.
+              IEC classifications — do not confuse with IS 15652:2006 Classes A–C.
             </p>
           </div>
         </SectionShell>

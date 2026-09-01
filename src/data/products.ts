@@ -701,37 +701,21 @@ const colouredStripInsulatingMats: ProductData = {
 
 const BCIM = '/media/products/bi-color-insulating-mats';
 
-/* Client-approved Bi-Colour gallery images from the Bi-Colour folder.
-   The first three images (product-01, product-02, product-03) replace
-   the previously rejected illustration set. */
+/* FINAL COLOURWAY: BLACK / YELLOW.
+   The superseded two-layer renders (blue/orange) have been withdrawn
+   from active display per the client's final Bi-Colour direction. The
+   only honest active visual is the labelled colourway schematic — a
+   diagram, never presented as a photograph. BLACK/YELLOW product
+   photography is requested in docs/PRODUCT-PHOTOGRAPHY-GAPS.md. */
+const BCIM_COLOURWAY_SCHEMATIC = `${BCIM}/bi-colour-schematic-black-yellow.svg`;
+
 const bcimGallery: ProductGalleryImage[] = [
   {
-    src: `${BCIM}/client-bi-colour/product-01.png`,
-    alt: 'Bi-Colour dual-layer insulating mat — complete product view',
-    caption: 'Bi-Colour insulating mat',
+    src: BCIM_COLOURWAY_SCHEMATIC,
+    alt: 'Colourway schematic — black walking-surface layer over yellow wear-indicator layer (illustration, not a photograph)',
+    caption: 'Documented colourway — schematic illustration',
     type: 'product',
     fit: 'contain',
-  },
-  {
-    src: `${BCIM}/client-bi-colour/product-02.png`,
-    alt: 'Bi-Colour insulating mat — alternate view showing dual-layer construction',
-    caption: 'Dual-layer construction',
-    type: 'product',
-    fit: 'contain',
-  },
-  {
-    src: `${BCIM}/client-bi-colour/product-03.png`,
-    alt: 'Bi-Colour insulating mat — close-up detail',
-    caption: 'Close-up detail',
-    type: 'product',
-    fit: 'contain',
-  },
-  {
-    src: `${BCIM}/gallery/01-dual-layer-roll.webp`,
-    alt: 'Bi-Colour dual-layer mat roll',
-    caption: 'Dual-layer mat roll',
-    type: 'alternate',
-    fit: 'cover',
   },
 ];
 
@@ -742,9 +726,9 @@ const biColorInsulatingMats: ProductData = {
   category: 'electrical-insulation',
   images: {
     thumbnail: {
-      src: `${BCIM}/card.webp`,
-      alt: 'Bi-color insulating mat showing a blue top layer above a contrasting red base layer',
-      fit: 'cover',
+      src: BCIM_COLOURWAY_SCHEMATIC,
+      alt: 'Bi-colour insulating mat colourway schematic — black top layer above yellow wear-indicator layer (illustration)',
+      fit: 'contain',
     },
     gallery: bcimGallery,
     overview: bcimGallery[0],

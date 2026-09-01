@@ -144,3 +144,34 @@ Photography direction:
   archive photographs have already been through a compression pass.
 - Avoid duplicate filenames. The current archive contains several byte-identical
   photographs under different names, which is easy to ship twice by accident.
+
+---
+
+## 8. Bi-Colour — BLACK / YELLOW photography (FINAL COLOURWAY REQUIRED)
+
+**Status: BLOCKING for final product presentation.**
+
+The client's final direction is Bi-Colour = **BLACK top layer + YELLOW
+wear-indicator layer**. Every superseded two-layer asset in the archive
+(`card.webp`, `client-bi-colour/product-01..03.png`,
+`client-approved/bi-colour-card-cross-section.webp`,
+`client-approved/bi-colour-clean-product.webp`,
+`client-approved/bi-colour-layer-detail.webp`, `product-demo-bi-color.webp`,
+`gallery/01-dual-layer-roll.webp`, `bcim-hero-dual-layer-insulating-mat.webp`,
+`bcim-application-visible-wear-indicator.webp`) depicts the older blue/orange
+(or grey/blue) presentation and has been **withdrawn from all active display**
+in this audit.
+
+Until approved BLACK/YELLOW photography is supplied, the only active visual
+is the labelled colourway schematic
+(`bi-colour-schematic-black-yellow.svg` / `ColourwaySchematic` component) —
+an honest diagram, never presented as a photograph.
+
+Photography direction:
+- Black walking surface with the yellow lower/wear-indicator layer visible
+  (edge, corner or cross-section angle that shows both layers)
+- One clean product shot on a plain background, minimum 2000 px wide
+- One roll/edge shot showing the layer boundary
+- One in-situ switchroom shot showing the installed mat
+- Photograph the actual BLACK/YELLOW product — do not re-shoot or retint
+  the superseded blue/orange stock

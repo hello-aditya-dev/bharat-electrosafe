@@ -1,0 +1,55 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 600" role="img" aria-labelledby="title desc">
+  <title id="title">Dual Layer Dual Colour insulating mat — colourway schematic</title>
+  <desc id="desc">Schematic diagram of the documented Black over Yellow dual-layer colourway: a black top walking surface above a yellow lower wear-indicator layer. This is an illustration, not a product photograph.</desc>
+
+  <!-- Background -->
+  <rect width="880" height="600" fill="#FAFAF7"/>
+
+  <!-- Header -->
+  <text x="440" y="58" text-anchor="middle" font-family="ui-sans-serif, system-ui, -apple-system, 'Segoe UI', sans-serif" font-size="19" font-weight="700" fill="#1F2937" letter-spacing="0.5">DUAL LAYER DUAL COLOUR — COLOURWAY SCHEMATIC</text>
+  <text x="440" y="84" text-anchor="middle" font-family="ui-sans-serif, system-ui, -apple-system, 'Segoe UI', sans-serif" font-size="13" fill="#6B7280">Documented product colourway: BLACK top layer over YELLOW wear-indicator layer</text>
+
+  <!-- ═══ TOP LAYER (BLACK walking surface) ═══ -->
+  <g>
+    <rect x="150" y="130" width="500" height="130" rx="18" fill="#1B1B1B"/>
+    <!-- coin anti-skid pattern -->
+    <g fill="#333333">
+      <circle cx="215" cy="175" r="17"/><circle cx="285" cy="175" r="17"/><circle cx="355" cy="175" r="17"/><circle cx="425" cy="175" r="17"/><circle cx="495" cy="175" r="17"/><circle cx="565" cy="175" r="17"/><circle cx="635" cy="175" r="17"/>
+      <circle cx="250" cy="215" r="17"/><circle cx="320" cy="215" r="17"/><circle cx="390" cy="215" r="17"/><circle cx="460" cy="215" r="17"/><circle cx="530" cy="215" r="17"/><circle cx="600" cy="215" r="17"/>
+    </g>
+    <rect x="150" y="130" width="500" height="130" rx="18" fill="none" stroke="#0A0A0A" stroke-width="2"/>
+    <!-- label connector -->
+    <line x1="650" y1="195" x2="688" y2="195" stroke="#9CA3AF" stroke-width="2"/>
+    <text x="696" y="190" font-family="ui-sans-serif, system-ui, -apple-system, 'Segoe UI', sans-serif" font-size="15" font-weight="700" fill="#1F2937">TOP LAYER</text>
+    <text x="696" y="210" font-family="ui-sans-serif, system-ui, -apple-system, 'Segoe UI', sans-serif" font-size="13" fill="#4B5563">Black — walking surface</text>
+  </g>
+
+  <!-- ═══ WEAR-INDICATOR ARROWS ═══ -->
+  <g stroke="#9CA3AF" stroke-width="2" fill="none">
+    <line x1="400" y1="270" x2="400" y2="300"/>
+    <path d="M 393 293 L 400 302 L 407 293" fill="none"/>
+  </g>
+  <text x="418" y="292" font-family="ui-sans-serif, system-ui, -apple-system, 'Segoe UI', sans-serif" font-size="12" fill="#6B7280">wear-through reveals</text>
+
+  <!-- ═══ LOWER LAYER (YELLOW wear indicator) ═══ -->
+  <g>
+    <rect x="150" y="330" width="500" height="130" rx="18" fill="#F5C518"/>
+    <rect x="150" y="330" width="500" height="130" rx="18" fill="none" stroke="#D9A800" stroke-width="2"/>
+    <!-- label connector -->
+    <line x1="650" y1="395" x2="688" y2="395" stroke="#9CA3AF" stroke-width="2"/>
+    <text x="696" y="390" font-family="ui-sans-serif, system-ui, -apple-system, 'Segoe UI', sans-serif" font-size="15" font-weight="700" fill="#1F2937">LOWER LAYER</text>
+    <text x="696" y="410" font-family="ui-sans-serif, system-ui, -apple-system, 'Segoe UI', sans-serif" font-size="13" fill="#4B5563">Yellow — wear indicator</text>
+  </g>
+
+  <!-- ═══ SIDE ANNOTATION: total construction ═══ -->
+  <g font-family="ui-sans-serif, system-ui, -apple-system, 'Segoe UI', sans-serif" font-size="12" fill="#6B7280">
+    <line x1="118" y1="130" x2="118" y2="460" stroke="#D1D5DB" stroke-width="2"/>
+    <line x1="112" y1="130" x2="124" y2="130" stroke="#D1D5DB" stroke-width="2"/>
+    <line x1="112" y1="460" x2="124" y2="460" stroke="#D1D5DB" stroke-width="2"/>
+    <text x="98" y="300" text-anchor="middle" transform="rotate(-90 98 300)">TOTAL CONSTRUCTION</text>
+  </g>
+
+  <!-- Footer caption -->
+  <text x="440" y="530" text-anchor="middle" font-family="ui-sans-serif, system-ui, -apple-system, 'Segoe UI', sans-serif" font-size="13" font-weight="600" fill="#374151">Schematic illustration — not a product photograph.</text>
+  <text x="440" y="552" text-anchor="middle" font-family="ui-sans-serif, system-ui, -apple-system, 'Segoe UI', sans-serif" font-size="12" fill="#6B7280">Bharat Electrosafe Dual Layer Dual Colour insulating mats — Black / Yellow documented colourway.</text>
+</svg>
