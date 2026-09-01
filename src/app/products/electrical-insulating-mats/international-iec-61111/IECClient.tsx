@@ -148,7 +148,7 @@ export default function IECClient() {
 
             {/* Media side — 3-product visual with IEC reference chip */}
             <div className="min-w-0 lg:col-span-6 xl:col-span-7 flex flex-col gap-3">
-              {/* Product thumbnails — HV + Bi-Colour (balanced two-up) */}
+              {/* Product thumbnails — HV + Bi-Color (balanced two-up) */}
               <div className="grid grid-cols-2 gap-3">
                 <div className="relative">
                   <ImageFrame
@@ -172,7 +172,7 @@ export default function IECClient() {
                     priority
                   />
                   <span className="absolute bottom-1.5 left-1.5 bg-be-charcoal-950/80 text-be-white text-[10px] font-semibold px-1.5 py-0.5 rounded">
-                    Bi-Colour
+                    Bi-Color
                   </span>
                 </div>
               </div>
@@ -266,7 +266,7 @@ export default function IECClient() {
               </div>
             </div>
 
-            {/* Bi-Colour Card */}
+            {/* Bi-Color Card */}
             <div id="bi-colour" className="scroll-mt-24 group flex flex-col rounded-xl border border-be-grey-250 bg-be-white overflow-hidden hover:shadow-lg transition-shadow">
               <div className="relative aspect-[4/3] overflow-hidden bg-be-cream">
                 <Image
@@ -280,10 +280,10 @@ export default function IECClient() {
               <div className="flex flex-col gap-3 p-5 flex-1">
                 <div className="flex items-center gap-2">
                   <Palette className="size-5 text-be-yellow-text" aria-hidden="true" />
-                  <h3 className="text-lg font-semibold text-be-charcoal-950">Dual Layer Bi-Colour</h3>
+                  <h3 className="text-lg font-semibold text-be-charcoal-950">Bi-Color</h3>
                 </div>
                 <p className="text-body text-be-grey-650 flex-1">
-                  Dual-layer bi-colour insulating mats with a contrasting lower
+                  Dual-layer bi-color insulating mats with a contrasting lower
                   layer designed to act as a visible wear indicator. Documented
                   colourway: Black surface with a Yellow wear-indicator layer.
                   Designed in line with IEC 61111:2009.
@@ -405,10 +405,10 @@ export default function IECClient() {
               <div className="border-t border-be-grey-250 pt-5">
                 <div className="flex items-center gap-2 mb-3">
                   <Palette className="size-4 text-be-yellow-text" aria-hidden="true" />
-                  <h3 className="text-base font-semibold text-be-charcoal-950">Dual Layer Bi-Colour</h3>
+                  <h3 className="text-base font-semibold text-be-charcoal-950">Bi-Color</h3>
                 </div>
                 <p className="text-body text-be-grey-650">
-                  Dual-layer bi-colour insulating mats with a contrasting lower
+                  Dual-layer bi-color insulating mats with a contrasting lower
                   layer designed to act as a visible wear indicator.
                 </p>
               </div>

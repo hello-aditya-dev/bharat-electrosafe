@@ -221,115 +221,49 @@ export const biColourVisuals: ProductVisuals = {
   },
   hero: {
     src: `${PROD}/bi-color-insulating-mats/client-bi-colour/product-01.png`,
-    alt: 'Bi-Colour dual-layer insulating mat — complete product view',
+    alt: 'Bi-Color dual-layer insulating mat — complete product view',
     fit: 'contain',
   },
   gallery: [
     {
       src: `${PROD}/bi-color-insulating-mats/client-bi-colour/product-02.png`,
-      alt: 'Bi-Colour insulating mat — alternate view showing dual-layer construction',
+      alt: 'Bi-Color insulating mat — alternate view showing dual-layer construction',
       fit: 'contain',
     },
     {
       src: `${PROD}/bi-color-insulating-mats/client-bi-colour/product-03.png`,
-      alt: 'Bi-Colour insulating mat — close-up detail',
+      alt: 'Bi-Color insulating mat — close-up detail',
       fit: 'contain',
     },
     {
       src: `${PROD}/bi-color-insulating-mats/gallery/01-dual-layer-roll.webp`,
-      alt: 'Bi-Colour dual-layer mat roll',
+      alt: 'Bi-Color dual-layer mat roll',
       fit: 'cover',
     },
   ],
   technicalDetail: {
     src: `${PROD}/bi-color-insulating-mats/product-demo-bi-color.webp`,
-    alt: 'Bi-Colour layer identification diagram — cross-section',
+    alt: 'Bi-Color layer identification diagram — cross-section',
     fit: 'contain',
   },
   menuPreview: {
     src: `${PROD}/bi-color-insulating-mats/bcim-hero-dual-layer-insulating-mat.webp`,
-    alt: 'Bi-Colour mat preview',
+    alt: 'Bi-Color mat preview',
     fit: 'cover',
   },
   homePreview: {
     src: `${PROD}/bi-color-insulating-mats/bcim-hero-dual-layer-insulating-mat.webp`,
-    alt: 'Bi-Colour insulating mats',
+    alt: 'Bi-Color insulating mats',
     fit: 'cover',
   },
 };
 
-/* ────────────────────────────────────────────
-   Dual Layer Bi-Colour — Global / International IEC 61111:2009
-   ────────────────────────────────────────────
-
-   SEPARATE visual set for the Global / International Dual Layer
-   Bi-Colour page (/products/electrical-insulating-mats/dual-layer-dual-colour).
-   This is intentionally distinct from `biColourVisuals` (Domestic,
-   IS 15652:2006) so changes to the Global page never touch the
-   domestic imagery.
-
-   The hero / card / technicalDetail slots all use the previously
-   approved Global Bi-Colour asset:
-     /media/products/bi-color-insulating-mats/product-demo-bi-color.webp
-
-   That asset is a technical cross-section diagram showing the
-   dual-layer construction and damage-indication principle — it
-   is the previously approved Global Bi-Colour image. The later
-   Black/Yellow schematic SVG that briefly replaced it is NOT
-   used as the primary image.
-
-   The image's alt text describes the actual image (a dual-layer
-   cross-section technical illustration), not the documented
-   Black/Yellow product colourway — the colourway is communicated
-   in product text, not by mislabelling the diagram.
-   ──────────────────────────────────────────── */
-
-const BI_COLOUR_DEMO = `${PROD}/bi-color-insulating-mats/product-demo-bi-color.webp`;
-
-export const dualLayerBiColourVisuals: ProductVisuals = {
-  card: {
-    src: BI_COLOUR_DEMO,
-    alt: 'Dual layer Bi-Colour electrical insulating mat — dual-layer cross-section technical illustration',
-    fit: 'contain',
-  },
-  hero: {
-    src: BI_COLOUR_DEMO,
-    alt: 'Dual layer Bi-Colour electrical insulating mat — dual-layer cross-section technical illustration',
-    fit: 'contain',
-  },
-  gallery: [
-    {
-      src: `${PROD}/bi-color-insulating-mats/client-bi-colour/product-01.png`,
-      alt: 'Dual layer Bi-Colour insulating mat — complete product view',
-      fit: 'contain',
-    },
-    {
-      src: `${PROD}/bi-color-insulating-mats/client-bi-colour/product-02.png`,
-      alt: 'Dual layer Bi-Colour insulating mat — alternate view showing dual-layer construction',
-      fit: 'contain',
-    },
-    {
-      src: `${PROD}/bi-color-insulating-mats/gallery/01-dual-layer-roll.webp`,
-      alt: 'Dual layer Bi-Colour mat roll',
-      fit: 'cover',
-    },
-  ],
-  technicalDetail: {
-    src: BI_COLOUR_DEMO,
-    alt: 'Dual layer Bi-Colour insulating mat — dual-layer cross-section technical illustration',
-    fit: 'contain',
-  },
-  menuPreview: {
-    src: BI_COLOUR_DEMO,
-    alt: 'Dual layer Bi-Colour insulating mat preview',
-    fit: 'contain',
-  },
-  homePreview: {
-    src: BI_COLOUR_DEMO,
-    alt: 'Dual layer Bi-Colour insulating mats',
-    fit: 'contain',
-  },
-};
+/* The Global Bi-Color page (/products/electrical-insulating-mats/
+   dual-layer-dual-colour) reuses `biColourVisuals` for its imagery,
+   exactly as it did before the recent image swap. The domestic
+   Bi-Color page and the Global Bi-Color page therefore share the
+   same previously-approved visual set. No separate Global visual
+   export is needed. */
 
 /* ────────────────────────────────────────────
    Colored Strip
@@ -404,13 +338,12 @@ export const iecVisuals: ProductVisuals = {
   },
   gallery: [
     {
-      /* gallery[0] is consumed by the Global IEC hub hero "Bi-Colour"
-         slot and the Dual Layer Bi-Colour variant card — the
-         previously approved Global Bi-Colour asset
-         (product-demo-bi-color.webp). */
-      src: `${PROD}/bi-color-insulating-mats/product-demo-bi-color.webp`,
-      alt: 'Dual layer Bi-Colour IEC 61111 insulating mat — dual-layer cross-section technical illustration',
-      fit: 'contain',
+      /* gallery[0] is consumed by the Global IEC hub hero "Bi-Color"
+         slot and the Global Bi-Color variant card — the previously
+         approved Global Bi-Color visual. */
+      src: `${PROD}/bi-color-insulating-mats/client-approved/bi-colour-card-cross-section.webp`,
+      alt: 'IEC Bi-Color variant — dual-layer insulating mat',
+      fit: 'cover',
     },
     {
       src: `${PROD}/international-iec/iec-61111-class-0-2-2mm.webp`,

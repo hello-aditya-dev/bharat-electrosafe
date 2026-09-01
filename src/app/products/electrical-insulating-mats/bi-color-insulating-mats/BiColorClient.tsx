@@ -23,7 +23,7 @@ export default function BiColorClient({ product }: { product: ProductData }) {
       <SectionHeader
         eyebrow="Layer Construction"
         title="Dual-Layer Cross-Section"
-        supportingText="The Bi-Colour mat features two contrasting elastomer layers for immediate visual identification of wear-through, enhancing safety inspection in switchrooms."
+        supportingText="The Bi-Color mat features two contrasting elastomer layers for immediate visual identification of wear-through, enhancing safety inspection in switchrooms."
       />
       <div className="mt-6 flex justify-center">
         <div className="relative w-full max-w-lg aspect-[4/3] overflow-hidden rounded-2xl border border-be-grey-200 bg-[#FAFAF7]">

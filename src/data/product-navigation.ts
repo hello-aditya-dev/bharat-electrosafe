@@ -91,7 +91,7 @@ export const productNavGroups: ProductNavGroup[] = [
             description: 'Insulating mats with reflective/glow visibility band for low-light conditions',
           },
           {
-            name: 'Bi-Colour',
+            name: 'Bi-Color',
             href: '/products/electrical-insulating-mats/bi-color-insulating-mats',
             description: 'Dual-colour insulating mats with visible layer differentiation',
           },
@@ -118,9 +118,9 @@ export const productNavGroups: ProductNavGroup[] = [
             description: 'IEC 61111 compliant high-voltage insulating mats — Classes 0–4',
           },
           {
-            name: 'Dual Layer Bi-Colour',
+            name: 'Bi-Color',
             href: '/products/electrical-insulating-mats/dual-layer-dual-colour',
-            description: 'IEC 61111 dual layer bi-colour insulating mats with visible wear indication',
+            description: 'IEC 61111 dual layer bi-color insulating mats with visible wear indication',
           },
         ],
       },

@@ -64,10 +64,10 @@ export const productRoutes: ProductRoute[] = [
     parentKey: 'electrical-insulating-mats',
   },
 
-  // ── Bi-Colour ──
+  // ── Bi-Color (Domestic) ──
   {
     key: 'bi-color-insulating-mats',
-    displayName: 'Bi-Colour',
+    displayName: 'Bi-Color',
     canonicalPath: '/products/electrical-insulating-mats/bi-color-insulating-mats',
     legacyPaths: [
       '/products/bi-color-insulating-mats',
@@ -97,7 +97,7 @@ export const productRoutes: ProductRoute[] = [
     parentKey: 'electrical-insulating-mats',
     anchors: [
       { id: 'hv-insulating-mats', label: 'HV Insulating Mats' },
-      { id: 'bi-colour', label: 'Bi-Colour' },
+      { id: 'bi-color', label: 'Bi-Color' },
     ],
   },
 
@@ -112,13 +112,13 @@ export const productRoutes: ProductRoute[] = [
     parentKey: 'international-iec-61111',
   },
 
-  // ── Dual Layer Bi-Colour (IEC 61111:2009 Global / International specialized innovation page) ──
-  // SEPARATE page from the domestic Bi-Colour page (IS 15652:2006).
-  // All Bi-Colour (Dual Layer) technical data on this page comes from
+  // ── Bi-Color (IEC 61111:2009 Global / International specialized innovation page) ──
+  // SEPARATE page from the domestic Bi-Color page (IS 15652:2006).
+  // All Bi-Color (dual-layer) technical data on this page comes from
   // src/data/iec-61111.ts → iecBiColourClasses + iecBiColourProductSpec.
   {
     key: 'dual-layer-dual-colour',
-    displayName: 'Dual Layer Bi-Colour',
+    displayName: 'Bi-Color',
     canonicalPath: '/products/electrical-insulating-mats/dual-layer-dual-colour',
     legacyPaths: [],
     parentKey: 'electrical-insulating-mats',

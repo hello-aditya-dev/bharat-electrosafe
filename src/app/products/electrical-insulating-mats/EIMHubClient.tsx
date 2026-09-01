@@ -45,7 +45,7 @@ const domesticProducts: RangeProduct[] = [
     visual: autoGlowVisuals.card,
   },
   {
-    name: 'Bi-Colour',
+    name: 'Bi-Color',
     href: '/products/electrical-insulating-mats/bi-color-insulating-mats',
     description:
       'Dual-colour insulating mats with visible layer differentiation for safety compliance.',
@@ -180,7 +180,7 @@ export default function EIMHubClient() {
                 href="/products/electrical-insulating-mats/international-iec-61111#bi-colour"
                 className="inline-flex items-center gap-1.5 text-sm font-medium text-be-charcoal-950 border border-be-grey-300 bg-be-white px-4 py-2 rounded-lg hover:border-be-yellow-400 hover:bg-be-yellow-50 hover:text-be-yellow-text-hover transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-be-yellow-500 focus-visible:ring-offset-2"
               >
-                Bi-Colour
+                Bi-Color
                 <ChevronRight className="size-3.5" aria-hidden="true" />
               </Link>
             </div>

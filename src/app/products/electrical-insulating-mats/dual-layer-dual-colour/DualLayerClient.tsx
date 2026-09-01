@@ -32,7 +32,7 @@ import { TechnicalBadge } from '@/components/ui/TechnicalBadge';
 import { ImageFrame } from '@/components/ui/ImageFrame';
 import { FeatureList } from '@/components/ui/FeatureList';
 import ColourwaySchematic from '@/components/products/ColourwaySchematic';
-import { dualLayerBiColourVisuals } from '@/data/product-visuals';
+import { biColourVisuals } from '@/data/product-visuals';
 import { PRODUCT_ROUTES } from '@/data/product-routes';
 import {
   iecBiColourClasses,
@@ -56,7 +56,7 @@ const breadcrumbItems = [
   { label: 'Home', href: '/' },
   { label: 'Products', href: PRODUCT_ROUTES.products },
   { label: 'Electrical Insulating Mats', href: PRODUCT_ROUTES.electricalInsulatingMats },
-  { label: 'Dual Layer Bi-Colour' },
+  { label: 'Bi-Color' },
 ];
 
 /* ── Quick spec cards (hero summary) ── */
@@ -90,15 +90,16 @@ export default function DualLayerClient() {
               <Eyebrow className="mb-3">An Innovative Safety Solution from India to the World</Eyebrow>
 
               <h1 className="product-hero-h1 text-product-h1 text-be-charcoal-950 mb-3 lg:mb-4">
-                Dual Layer Bi-Colour HV Electrical Insulating Mats
+                Bi-Color HV Electrical Insulating Mats
               </h1>
 
               <p className="product-hero-intro text-body-large text-be-grey-650 leading-relaxed mb-4 lg:mb-5">
                 Bharat Electrosafe introduces an innovative advancement in the field
-                of electrical safety with its Dual Layer Bi-Colour High Voltage
-                Electrical Insulating Mats, designed in line with IEC 61111:2009 to
-                offer an additional visual safety advantage for critical electrical
-                working environments.
+                of electrical safety with its Bi-Color High Voltage Electrical
+                Insulating Mats, designed in line with IEC 61111:2009 to offer an
+                additional visual safety advantage for critical electrical working
+                environments. The dual-layer, two-colour construction provides a
+                visible indication of wear to support inspection and replacement.
               </p>
 
               <div className="flex flex-wrap gap-3">
@@ -111,13 +112,13 @@ export default function DualLayerClient() {
               </div>
             </div>
 
-            {/* Media — previously approved Global Bi-Colour image */}
+            {/* Media — previously approved Bi-Color image */}
             <div className="min-w-0 lg:col-span-6 xl:col-span-7 flex flex-col gap-3">
               <ImageFrame
-                src={dualLayerBiColourVisuals.hero.src}
-                alt={dualLayerBiColourVisuals.hero.alt}
+                src={biColourVisuals.hero.src}
+                alt={biColourVisuals.hero.alt}
                 aspectRatio="landscape"
-                fit={dualLayerBiColourVisuals.hero.fit}
+                fit={biColourVisuals.hero.fit}
                 priority
               />
             </div>
@@ -147,8 +148,8 @@ export default function DualLayerClient() {
             {/* Left — dual-layer cross-section visual */}
             <div className="lg:w-[45%]">
               <ImageFrame
-                src={dualLayerBiColourVisuals.technicalDetail?.src ?? dualLayerBiColourVisuals.card.src}
-                alt={dualLayerBiColourVisuals.technicalDetail?.alt ?? 'Dual layer Bi-Colour insulating mat cross-section'}
+                src={biColourVisuals.technicalDetail?.src ?? biColourVisuals.card.src}
+                alt={biColourVisuals.technicalDetail?.alt ?? 'Bi-Color insulating mat cross-section'}
                 aspectRatio="landscape"
                 fit="contain"
               />
@@ -159,11 +160,11 @@ export default function DualLayerClient() {
               <SectionHeader
                 eyebrow="The Innovation"
                 title="A Visible Wear Indication"
-                supportingText="Unlike conventional single-colour insulating mats, Bharat Electrosafe's innovative Dual Layer Bi-Colour technology provides an additional visual reference for monitoring the condition of the mat."
+                supportingText="Unlike conventional single-colour insulating mats, Bharat Electrosafe's innovative Bi-Color technology provides an additional visual reference for monitoring the condition of the mat."
               />
 
               <p className="text-body text-be-grey-650 leading-relaxed">
-                Developed with a unique dual-layer and bi-colour construction,
+                Developed with a unique dual-layer, two-colour construction,
                 these insulating mats are designed to provide a visible indication
                 of wear or damage to the top layer. When the upper layer is
                 significantly worn, damaged or deteriorated, the contrasting colour
@@ -200,7 +201,7 @@ export default function DualLayerClient() {
           <SectionHeader
             eyebrow="Applications"
             title="Where It's Used"
-            supportingText="Dual Layer Bi-Colour HV Electrical Insulating Mats are designed for demanding high-voltage electrical working environments."
+            supportingText="Bi-Color HV Electrical Insulating Mats are designed for demanding high-voltage electrical working environments."
             align="center"
           />
           <ul className="mt-8 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
@@ -218,12 +219,12 @@ export default function DualLayerClient() {
           </ul>
         </SectionShell>
 
-        {/* ═══ 5. TECHNICAL SPECIFICATIONS — Bi-Colour class table ═══ */}
-        <SectionShell variant="technical" bg="bg-be-cream" id="specifications" ariaLabel="Dual Layer Bi-Colour technical specifications">
+        {/* ═══ 5. TECHNICAL SPECIFICATIONS — Bi-Color class table ═══ */}
+        <SectionShell variant="technical" bg="bg-be-cream" id="specifications" ariaLabel="Bi-Color technical specifications">
           <SectionHeader
             eyebrow="Technical Specifications"
-            title="Dual Layer Bi-Colour — Class Data (IEC 61111:2009)"
-            supportingText="All five classes with thickness, maximum use voltage (AC and DC), and weight per width × length combination. Source-verified against the client-supplied IEC 61111:2009 Bi-Colour catalogue (page 19 for Class 0, page 20 for Classes 1–4)."
+            title="Bi-Color — Class Data (IEC 61111:2009)"
+            supportingText="All five classes with thickness, maximum use voltage (AC and DC), and weight per width × length combination. Source-verified against the client-supplied IEC 61111:2009 Bi-Color catalogue (page 19 for Class 0, page 20 for Classes 1–4)."
           />
 
           {/* Class summary cards */}
@@ -279,12 +280,12 @@ export default function DualLayerClient() {
           <div className="mt-4 flex items-start gap-2 text-metadata text-be-grey-650">
             <ShieldCheck className="size-4 shrink-0 mt-0.5 text-be-yellow-text" aria-hidden="true" />
             <p>
-              All values per IEC 61111:2009 Bi-Colour (Dual Layer) source pages,
+              All values per IEC 61111:2009 Bi-Color (dual-layer) source pages,
               visually verified against the rendered PDF. Maximum Use Voltage is
               listed separately for AC and DC — do not interchange the two.
               Proof voltage, dielectric strength and withstand voltage are
               intentionally not listed: they are not published by the source for
-              this Bi-Colour product. These are IEC classifications — do not
+              this Bi-Color product. These are IEC classifications — do not
               confuse with IS 15652:2006 Classes A–C.
             </p>
           </div>
@@ -295,7 +296,7 @@ export default function DualLayerClient() {
           <SectionHeader
             eyebrow="Construction & Sizes"
             title="Construction, Sizes and Finish"
-            supportingText="Standard widths, lengths and finish for the Dual Layer Bi-Colour IEC 61111:2009 insulating mats."
+            supportingText="Standard widths, lengths and finish for the Bi-Color IEC 61111:2009 insulating mats."
             align="center"
           />
 
@@ -377,18 +378,17 @@ export default function DualLayerClient() {
               </p>
               <p className="text-body text-be-charcoal-800 leading-relaxed">
                 Developed in India with a focus on innovation, quality and
-                electrical safety, our Dual Layer Bi-Colour HV Electrical
-                Insulating Mats represent Bharat Electrosafe's vision of
-                delivering advanced insulating mat solutions — From India to the
-                World.
+                electrical safety, our Bi-Color HV Electrical Insulating Mats
+                represent Bharat Electrosafe's vision of delivering advanced
+                insulating mat solutions — From India to the World.
               </p>
             </div>
             <div className="lg:w-[45%]">
               <ImageFrame
-                src={dualLayerBiColourVisuals.card.src}
-                alt={dualLayerBiColourVisuals.card.alt}
+                src={biColourVisuals.card.src}
+                alt={biColourVisuals.card.alt}
                 aspectRatio="landscape"
-                fit={dualLayerBiColourVisuals.card.fit}
+                fit={biColourVisuals.card.fit}
               />
             </div>
           </div>
@@ -399,12 +399,12 @@ export default function DualLayerClient() {
           <SectionHeader
             eyebrow="Why Bharat Electrosafe"
             title="A forward-looking innovation in electrical safety"
-            supportingText="Designed in line with IEC 61111:2009, our Dual Layer Bi-Colour HV Electrical Insulating Mats combine quality-driven Indian manufacturing with an additional visual safety advantage."
+            supportingText="Designed in line with IEC 61111:2009, our Bi-Color HV Electrical Insulating Mats combine quality-driven Indian manufacturing with an additional visual safety advantage."
           />
           <div className="mt-8 max-w-3xl">
             <FeatureList
               items={[
-                { icon: Layers, text: 'Innovative Dual Layer Bi-Colour technology' },
+                { icon: Layers, text: 'Innovative Bi-Color dual-layer technology' },
                 { icon: ClipboardCheck, text: 'Designed in line with IEC 61111:2009' },
                 { icon: Eye, text: 'Visible wear indication through contrasting layers' },
                 { icon: Wrench, text: 'Focus on improved inspection and maintenance awareness' },
@@ -428,8 +428,8 @@ export default function DualLayerClient() {
               Bharat Electrosafe – Innovating Electrical Safety. From India to the World.
             </p>
             <p className="text-body text-be-grey-650 leading-relaxed">
-              Speak to our team about Dual Layer Bi-Colour HV Electrical
-              Insulating Mats for your electrical installation.
+              Speak to our team about Bi-Color HV Electrical Insulating Mats
+              for your electrical installation.
             </p>
             <div className="flex flex-wrap gap-3 justify-center">
               <PrimaryButton href="/contact-us?type=quote&product=dual-layer-dual-colour" size="lg">
