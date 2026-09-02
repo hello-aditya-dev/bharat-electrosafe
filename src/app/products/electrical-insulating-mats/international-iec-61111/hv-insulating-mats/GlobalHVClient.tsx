@@ -878,6 +878,7 @@ export default function GlobalHVClient() {
             ══════════════════════════════════════ */}
         <SectionShell variant="compact" bg="bg-be-white" topRule ariaLabel="IEC marking and traceability">
           <div className="flex flex-col lg:flex-row gap-8 lg:gap-10 items-start">
+            {/* LEFT — heading + text + Image 1 (Class 2, large) */}
             <div className="lg:w-[45%] flex flex-col gap-5">
               <SectionHeader
                 eyebrow="Identification & Traceability"
@@ -889,15 +890,17 @@ export default function GlobalHVClient() {
                 maximum use voltage, the proof voltage and the withstand voltage —
                 so the correct class is always verifiable on site.
               </p>
-            </div>
-
-            <div className="lg:w-[55%] grid grid-cols-1 sm:grid-cols-2 gap-3">
+              {/* Position 1 — Image 1 (Class 2) in the left large area below the text */}
               <ImageFrame
                 src="/media/products/international-iec/client-approved/iec-marking-class-2-yellow.webp"
                 alt="Bharat Electrosafe IEC 61111/2009 Class 2 mat marking — max use voltage 17000 V, proof voltage 20000 V, withstand voltage 30000 V"
                 aspectRatio="landscape"
                 fit="cover"
               />
+            </div>
+
+            {/* RIGHT — Image 2 (Class 0) as the primary gallery image */}
+            <div className="lg:w-[55%]">
               <ImageFrame
                 src="/media/products/international-iec/client-approved/iec-marking-class-0-red.webp"
                 alt="Bharat Electrosafe IEC 61111/2009 Class 0 mat marking — max use voltage 1000 V, proof voltage 5000 V, withstand voltage 10000 V"
