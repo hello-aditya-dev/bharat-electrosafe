@@ -877,24 +877,20 @@ export default function GlobalHVClient() {
             6. MARKING / TRACEABILITY
             ══════════════════════════════════════ */}
         <SectionShell variant="compact" bg="bg-be-white" topRule ariaLabel="IEC marking and traceability">
-          {/* Heading + text span full width so both images start at the same vertical position */}
-          <div className="flex flex-col gap-5 mb-6">
-            <SectionHeader
-              eyebrow="Identification & Traceability"
-              title="Product Identification & Marking"
-              supportingText="Every HV insulating mat carries moulded product name marking on every metre, including class designation and voltage ratings."
-            />
-            <p className="text-body text-be-charcoal-800 max-w-3xl">
-              The marking identifies the standard (IEC 61111/2009), the class, the
-              maximum use voltage, the proof voltage and the withstand voltage —
-              so the correct class is always verifiable on site.
-            </p>
-          </div>
-
-          {/* Both image areas in one row — top edges aligned */}
           <div className="flex flex-col lg:flex-row gap-8 lg:gap-10 items-start">
-            {/* LEFT — Image 1 (Class 2) */}
-            <div className="lg:w-[45%]">
+            {/* LEFT — heading + text + Image 1 (Class 2, large) */}
+            <div className="lg:w-[45%] flex flex-col gap-5">
+              <SectionHeader
+                eyebrow="Identification & Traceability"
+                title="Product Identification & Marking"
+                supportingText="Every HV insulating mat carries moulded product name marking on every metre, including class designation and voltage ratings."
+              />
+              <p className="text-body text-be-charcoal-800">
+                The marking identifies the standard (IEC 61111/2009), the class, the
+                maximum use voltage, the proof voltage and the withstand voltage —
+                so the correct class is always verifiable on site.
+              </p>
+              {/* Position 1 — Image 1 (Class 2) in the left large area below the text */}
               <ImageFrame
                 src="/media/products/international-iec/client-approved/iec-marking-class-2-yellow.webp"
                 alt="Bharat Electrosafe IEC 61111/2009 Class 2 mat marking — max use voltage 17000 V, proof voltage 20000 V, withstand voltage 30000 V"
@@ -903,7 +899,7 @@ export default function GlobalHVClient() {
               />
             </div>
 
-            {/* RIGHT — Image 2 (Class 0-3 marking examples).
+            {/* RIGHT — Image 2 (Class 0-3 marking examples) as the primary gallery image.
                 flush removes the outer border/frame line so the image sits cleanly
                 in the section without an enclosing outline. */}
             <div className="lg:w-[55%]">
