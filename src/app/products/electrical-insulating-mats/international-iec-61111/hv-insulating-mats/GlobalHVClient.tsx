@@ -320,8 +320,8 @@ export default function GlobalHVClient() {
             {/* Media side — real IEC product imagery (screen only) */}
             <div className="print-hide min-w-0 lg:col-span-6 xl:col-span-7 flex flex-col gap-3">
               <ImageFrame
-                src="/media/products/international-iec/client-approved/iec-marking-range.webp"
-                alt="Bharat Electrosafe HV insulating mat with moulded IEC 61111/2009 marking showing class, max use voltage, proof voltage and withstand voltage"
+                src="/media/products/international-iec/client-approved/iec-marking-class-2-yellow.webp"
+                alt="Bharat Electrosafe HV insulating mat with moulded IEC 61111/2009 Class 2 marking — max use voltage 17000 V, proof voltage 20000 V, withstand voltage 30000 V"
                 aspectRatio="landscape"
                 fit="cover"
                 priority
@@ -893,14 +893,14 @@ export default function GlobalHVClient() {
 
             <div className="lg:w-[55%] grid grid-cols-1 sm:grid-cols-2 gap-3">
               <ImageFrame
-                src="/media/products/international-iec/client-approved/iec-marking-range.webp"
-                alt="IEC 61111/2009 moulded mat marking showing class, max use voltage, proof voltage and withstand voltage"
+                src="/media/products/international-iec/client-approved/iec-marking-class-2-yellow.webp"
+                alt="Bharat Electrosafe IEC 61111/2009 Class 2 mat marking — max use voltage 17000 V, proof voltage 20000 V, withstand voltage 30000 V"
                 aspectRatio="landscape"
                 fit="cover"
               />
               <ImageFrame
-                src="/media/products/international-iec/client-approved/iec-marking-class-2.webp"
-                alt="Close-up of Bharat Electrosafe IEC 61111:2009 moulded marking on an HV insulating mat"
+                src="/media/products/international-iec/client-approved/iec-marking-class-0-red.webp"
+                alt="Bharat Electrosafe IEC 61111/2009 Class 0 mat marking — max use voltage 1000 V, proof voltage 5000 V, withstand voltage 10000 V"
                 aspectRatio="landscape"
                 fit="cover"
               />

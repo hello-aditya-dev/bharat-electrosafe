@@ -52,7 +52,6 @@ import { ImageFrame } from '@/components/ui/ImageFrame';
 import { cn } from '@/lib/utils';
 import { FeatureList } from '@/components/ui/FeatureList';
 import { company } from '@/data/company';
-import { iecVisuals } from '@/data/product-visuals';
 import {
   iecClasses,
   iecApplications,
@@ -152,10 +151,10 @@ export default function IECClient() {
               <div className="grid grid-cols-2 gap-3">
                 <div className="relative">
                   <ImageFrame
-                    src={iecVisuals.hero.src}
-                    alt={iecVisuals.hero.alt}
+                    src="/media/products/international-iec/client-approved/iec-marking-class-2-yellow.webp"
+                    alt="Bharat Electrosafe IEC 61111/2009 Class 2 HV insulating mat marking"
                     aspectRatio="landscape"
-                    fit={iecVisuals.hero.fit}
+                    fit="cover"
                     priority
                   />
                   <span className="absolute bottom-1.5 left-1.5 bg-be-charcoal-950/80 text-be-white text-[10px] font-semibold px-1.5 py-0.5 rounded">
@@ -165,10 +164,10 @@ export default function IECClient() {
 
                 <div className="relative">
                   <ImageFrame
-                    src={iecVisuals.gallery[0].src}
-                    alt={iecVisuals.gallery[0].alt}
+                    src="/media/products/bi-color-insulating-mats/client-uploads/bi-color-black-yellow-roll.webp"
+                    alt="Bharat Electrosafe Bi-Color insulating mat — black surface with yellow wear-indicator layer"
                     aspectRatio="landscape"
-                    fit={iecVisuals.gallery[0].fit}
+                    fit="cover"
                     priority
                   />
                   <span className="absolute bottom-1.5 left-1.5 bg-be-charcoal-950/80 text-be-white text-[10px] font-semibold px-1.5 py-0.5 rounded">
@@ -237,10 +236,10 @@ export default function IECClient() {
             <div id="hv-insulating-mats" className="scroll-mt-24 group flex flex-col rounded-xl border border-be-grey-250 bg-be-white overflow-hidden hover:shadow-lg transition-shadow">
               <div className="relative aspect-[4/3] overflow-hidden bg-be-cream">
                 <Image
-                  src={iecVisuals.hero.src}
-                  alt={iecVisuals.hero.alt}
+                  src="/media/products/international-iec/client-approved/iec-marking-class-2-yellow.webp"
+                  alt="Bharat Electrosafe IEC 61111/2009 Class 2 HV insulating mat marking"
                   fill
-                  className={`${iecVisuals.hero.fit === 'contain' ? 'object-contain p-4' : 'object-cover'} group-hover:scale-105 transition-transform duration-300`}
+                  className="object-cover group-hover:scale-105 transition-transform duration-300"
                   sizes="(max-width: 768px) 100vw, 33vw"
                 />
               </div>
@@ -270,10 +269,10 @@ export default function IECClient() {
             <div id="bi-colour" className="scroll-mt-24 group flex flex-col rounded-xl border border-be-grey-250 bg-be-white overflow-hidden hover:shadow-lg transition-shadow">
               <div className="relative aspect-[4/3] overflow-hidden bg-be-cream">
                 <Image
-                  src={iecVisuals.gallery[0].src}
-                  alt={iecVisuals.gallery[0].alt}
+                  src="/media/products/bi-color-insulating-mats/client-uploads/bi-color-black-yellow-roll.webp"
+                  alt="Bharat Electrosafe Bi-Color insulating mat — black surface with yellow wear-indicator layer"
                   fill
-                  className={`${iecVisuals.gallery[0].fit === 'contain' ? 'object-contain p-4' : 'object-cover'} group-hover:scale-105 transition-transform duration-300`}
+                  className="object-cover group-hover:scale-105 transition-transform duration-300"
                   sizes="(max-width: 768px) 100vw, 33vw"
                 />
               </div>
