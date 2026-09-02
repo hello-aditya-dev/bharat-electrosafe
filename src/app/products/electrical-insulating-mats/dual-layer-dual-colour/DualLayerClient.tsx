@@ -112,10 +112,10 @@ export default function DualLayerClient() {
               </div>
             </div>
 
-            {/* Media — Global Bi-Color hero image */}
+            {/* Media — Global Bi-Color hero image (Image 3: Black/Yellow rolled Bi-Color mat) */}
             <div className="min-w-0 lg:col-span-6 xl:col-span-7 flex flex-col gap-3">
               <ImageFrame
-                src={biColourVisuals.hero.src}
+                src="/media/products/bi-color-insulating-mats/client-uploads/bi-color-black-yellow-roll.webp"
                 alt={biColourVisuals.hero.alt}
                 aspectRatio="landscape"
                 fit={biColourVisuals.hero.fit}
