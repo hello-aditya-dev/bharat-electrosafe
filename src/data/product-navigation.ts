@@ -119,7 +119,7 @@ export const productNavGroups: ProductNavGroup[] = [
           },
           {
             name: 'Bi-Color',
-            href: '/products/electrical-insulating-mats/dual-layer-dual-colour',
+            href: '/products/electrical-insulating-mats/international-iec-61111/bi-color',
             description: 'IEC 61111 dual layer bi-color insulating mats with visible wear indication',
           },
         ],

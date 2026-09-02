@@ -259,7 +259,7 @@ export const biColourVisuals: ProductVisuals = {
 };
 
 /* The Global Bi-Color page (/products/electrical-insulating-mats/
-   dual-layer-dual-colour) reuses `biColourVisuals` for its imagery,
+   international-iec-61111/bi-color) reuses `biColourVisuals` for its imagery,
    exactly as it did before the recent image swap. The domestic
    Bi-Color page and the Global Bi-Color page therefore share the
    same previously-approved visual set. No separate Global visual

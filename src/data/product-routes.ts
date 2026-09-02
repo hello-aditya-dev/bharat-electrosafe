@@ -116,12 +116,17 @@ export const productRoutes: ProductRoute[] = [
   // SEPARATE page from the domestic Bi-Color page (IS 15652:2006).
   // All Bi-Color (dual-layer) technical data on this page comes from
   // src/data/iec-61111.ts → iecBiColourClasses + iecBiColourProductSpec.
+  //
+  // The old route /products/electrical-insulating-mats/dual-layer-dual-colour
+  // is now a permanent redirect to this canonical route.
   {
     key: 'dual-layer-dual-colour',
     displayName: 'Bi-Color',
-    canonicalPath: '/products/electrical-insulating-mats/dual-layer-dual-colour',
-    legacyPaths: [],
-    parentKey: 'electrical-insulating-mats',
+    canonicalPath: '/products/electrical-insulating-mats/international-iec-61111/bi-color',
+    legacyPaths: [
+      '/products/electrical-insulating-mats/dual-layer-dual-colour',
+    ],
+    parentKey: 'international-iec-61111',
   },
 
   // ── Waterproofing Solutions ──
@@ -283,7 +288,7 @@ export const PRODUCT_ROUTES = {
   colouredStrip: '/products/electrical-insulating-mats/coloured-strip-insulating-mats' as const,
   international: '/products/electrical-insulating-mats/international-iec-61111' as const,
   internationalHv: '/products/electrical-insulating-mats/international-iec-61111/hv-insulating-mats' as const,
-  dualLayerDualColour: '/products/electrical-insulating-mats/dual-layer-dual-colour' as const,
+  internationalBiColor: '/products/electrical-insulating-mats/international-iec-61111/bi-color' as const,
   waterproofingSolutions: '/products/waterproofing-solutions' as const,
   geoMembrane: '/products/geo-membrane-lining' as const,
   hydroSeal: '/products/water-stop-seal' as const,

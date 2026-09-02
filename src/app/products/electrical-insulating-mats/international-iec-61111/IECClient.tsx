@@ -52,6 +52,7 @@ import { ImageFrame } from '@/components/ui/ImageFrame';
 import { cn } from '@/lib/utils';
 import { FeatureList } from '@/components/ui/FeatureList';
 import { company } from '@/data/company';
+import { PRODUCT_ROUTES } from '@/data/product-routes';
 import {
   iecClasses,
   iecApplications,
@@ -298,7 +299,7 @@ export default function IECClient() {
                     Get Quote
                     <ArrowRight className="size-4 ml-1.5" />
                   </PrimaryButton>
-                  <SecondaryButton href="/products/electrical-insulating-mats/dual-layer-dual-colour" className="self-start">
+                  <SecondaryButton href={PRODUCT_ROUTES.internationalBiColor} className="self-start">
                     Learn More
                   </SecondaryButton>
                 </div>

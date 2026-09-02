@@ -952,7 +952,7 @@ export default function GlobalHVClient() {
               <p className="text-body text-be-charcoal-800 mt-2">
                 Bi-colour: {iecDimensions.biColour} — see the{' '}
                 <a
-                  href={PRODUCT_ROUTES.dualLayerDualColour}
+                  href={PRODUCT_ROUTES.internationalBiColor}
                   className="font-medium underline underline-offset-2 hover:text-be-charcoal-950"
                 >
                   Bi-Color

@@ -56,6 +56,7 @@ const breadcrumbItems = [
   { label: 'Home', href: '/' },
   { label: 'Products', href: PRODUCT_ROUTES.products },
   { label: 'Electrical Insulating Mats', href: PRODUCT_ROUTES.electricalInsulatingMats },
+  { label: 'International / Global (IEC 61111:2009)', href: PRODUCT_ROUTES.international },
   { label: 'Bi-Color' },
 ];
 
@@ -385,10 +386,10 @@ export default function DualLayerClient() {
             </div>
             <div className="lg:w-[45%]">
               <ImageFrame
-                src={biColourVisuals.card.src}
-                alt={biColourVisuals.card.alt}
+                src="/media/products/bi-color-insulating-mats/client-uploads/bi-color-black-yellow-roll.webp"
+                alt="Bharat Electrosafe Bi-Color insulating mat — black surface with yellow wear-indicator layer"
                 aspectRatio="landscape"
-                fit={biColourVisuals.card.fit}
+                fit="cover"
               />
             </div>
           </div>

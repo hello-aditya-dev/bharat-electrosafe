@@ -1,50 +1,16 @@
-import type { Metadata } from 'next';
-import { buildUrl, allowIndexing } from '@/lib/site-url';
-import { breadcrumbSchema, serializeJsonLd, type BreadcrumbItem } from '@/lib/structured-data';
-import { PRODUCT_ROUTES } from '@/data/product-routes';
-import DualLayerClient from './DualLayerClient';
+import { permanentRedirect } from 'next/navigation';
 
-const PAGE_TITLE = 'Bi-Color HV Electrical Insulating Mats';
-const PAGE_DESCRIPTION =
-  'Bharat Electrosafe Bi-Color HV Electrical Insulating Mats — an innovative safety solution designed in line with IEC 61111:2009, with a visible wear indication through contrasting dual-layer construction. From India to the World.';
-const CANONICAL_PATH = PRODUCT_ROUTES.dualLayerDualColour;
-const canonicalUrl = buildUrl(CANONICAL_PATH);
+/* ────────────────────────────────────────────
+   LEGACY ROUTE REDIRECT.
 
-export const metadata: Metadata = {
-  title: PAGE_TITLE,
-  description: PAGE_DESCRIPTION,
-  alternates: { canonical: canonicalUrl },
-  openGraph: {
-    title: `${PAGE_TITLE} | Bharat Electrosafe`,
-    description: PAGE_DESCRIPTION,
-    url: canonicalUrl,
-    type: 'website',
-  },
-  twitter: {
-    card: 'summary_large_image',
-    title: `${PAGE_TITLE} | Bharat Electrosafe`,
-    description: PAGE_DESCRIPTION,
-  },
-  robots: allowIndexing ? { index: true, follow: true } : { index: false, follow: false },
-};
+   The canonical Global / International Bi-Color page has moved to:
+   /products/electrical-insulating-mats/international-iec-61111/bi-color
 
-const breadcrumbItems: BreadcrumbItem[] = [
-  { name: 'Home', href: '/' },
-  { name: 'Products', href: '/products' },
-  { name: 'Electrical Insulating Mats', href: PRODUCT_ROUTES.electricalInsulatingMats },
-  { name: 'Bi-Color', href: CANONICAL_PATH },
-];
+   This old route (/products/electrical-insulating-mats/dual-layer-dual-colour)
+   now permanently redirects to the canonical route so existing links,
+   bookmarks and search-engine indexes are preserved.
+   ──────────────────────────────────────────── */
 
-export default function DualLayerDualColourPage() {
-  return (
-    <>
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{
-          __html: serializeJsonLd(breadcrumbSchema(breadcrumbItems, CANONICAL_PATH)),
-        }}
-      />
-      <DualLayerClient />
-    </>
-  );
+export default function LegacyDualLayerRedirect() {
+  permanentRedirect('/products/electrical-insulating-mats/international-iec-61111/bi-color');
 }
