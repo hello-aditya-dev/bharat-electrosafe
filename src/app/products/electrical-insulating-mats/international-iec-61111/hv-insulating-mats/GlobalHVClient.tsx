@@ -877,7 +877,7 @@ export default function GlobalHVClient() {
             6. MARKING / TRACEABILITY
             ══════════════════════════════════════ */}
         <SectionShell variant="compact" bg="bg-be-white" topRule ariaLabel="IEC marking and traceability">
-          <div className="flex flex-col lg:flex-row gap-8 lg:gap-10 items-start">
+          <div className="flex flex-col lg:flex-row gap-8 lg:gap-10 items-end">
             {/* LEFT — heading + text + Image 1 (Class 2, large) */}
             <div className="lg:w-[45%] flex flex-col gap-5">
               <SectionHeader
