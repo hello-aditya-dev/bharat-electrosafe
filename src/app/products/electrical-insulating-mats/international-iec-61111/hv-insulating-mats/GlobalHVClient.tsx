@@ -321,7 +321,7 @@ export default function GlobalHVClient() {
             <div className="print-hide min-w-0 lg:col-span-6 xl:col-span-7 flex flex-col gap-3">
               <ImageFrame
                 src="/media/products/international-iec/client-approved/iec-marking-range.webp"
-                alt="Bharat Electrosafe HV insulating mat with moulded marking reading IEC 61111/2009, Class 2, max use voltage 17000 V, proof voltage 20000 V, withstand voltage 30000 V"
+                alt="Bharat Electrosafe HV insulating mat with moulded IEC 61111/2009 marking showing class, max use voltage, proof voltage and withstand voltage"
                 aspectRatio="landscape"
                 fit="cover"
                 priority
@@ -894,13 +894,13 @@ export default function GlobalHVClient() {
             <div className="lg:w-[55%] grid grid-cols-1 sm:grid-cols-2 gap-3">
               <ImageFrame
                 src="/media/products/international-iec/client-approved/iec-marking-range.webp"
-                alt="IEC 61111/2009 Class 2 mat marking — max use voltage 17000 V, proof voltage 20000 V, withstand voltage 30000 V"
+                alt="IEC 61111/2009 moulded mat marking showing class, max use voltage, proof voltage and withstand voltage"
                 aspectRatio="landscape"
                 fit="cover"
               />
               <ImageFrame
                 src="/media/products/international-iec/client-approved/iec-marking-class-2.webp"
-                alt="Close-up of IEC 61111:2009 Class 2 moulded marking on an HV insulating mat"
+                alt="Close-up of Bharat Electrosafe IEC 61111:2009 moulded marking on an HV insulating mat"
                 aspectRatio="landscape"
                 fit="cover"
               />

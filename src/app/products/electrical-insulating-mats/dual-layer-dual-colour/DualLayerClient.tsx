@@ -112,13 +112,13 @@ export default function DualLayerClient() {
               </div>
             </div>
 
-            {/* Media — primary Global Bi-Color product image (product-demo-bi-color.webp) */}
+            {/* Media — Global Bi-Color hero image */}
             <div className="min-w-0 lg:col-span-6 xl:col-span-7 flex flex-col gap-3">
               <ImageFrame
-                src={biColourVisuals.technicalDetail?.src ?? biColourVisuals.hero.src}
-                alt={biColourVisuals.technicalDetail?.alt ?? biColourVisuals.hero.alt}
+                src={biColourVisuals.hero.src}
+                alt={biColourVisuals.hero.alt}
                 aspectRatio="landscape"
-                fit={biColourVisuals.technicalDetail?.fit ?? biColourVisuals.hero.fit}
+                fit={biColourVisuals.hero.fit}
                 priority
               />
             </div>
@@ -145,11 +145,11 @@ export default function DualLayerClient() {
         {/* ═══ 3. CORE INNOVATION — VISIBLE WEAR INDICATION ═══ */}
         <SectionShell variant="standard" bg="bg-be-white" topRule id="innovation" ariaLabel="The Innovation: A Visible Wear Indication">
           <div className="flex flex-col lg:flex-row gap-8 lg:gap-10 items-start">
-            {/* Left — genuine Black/Yellow dual-layer product photograph */}
+            {/* Left — Bi-Colour dual-layer construction technical illustration */}
             <div className="lg:w-[45%]">
               <ImageFrame
-                src="/media/products/bi-color-insulating-mats/client-uploads/bi-color-black-yellow-roll.jpeg"
-                alt="Bi-Color insulating mat — black surface with contrasting yellow wear-indicator layer"
+                src="/media/products/bi-color-insulating-mats/client-uploads/bi-color-construction-diagram.png"
+                alt="Bi-Color insulating mat — IEC 61111:2009 dual-layer construction with black top layer and yellow wear-indicator bottom layer"
                 aspectRatio="landscape"
                 fit="contain"
               />
