@@ -180,13 +180,17 @@ export default function DualLayerClient() {
         {/* ═══ 3. CORE INNOVATION — VISIBLE WEAR INDICATION ═══ */}
         <SectionShell variant="standard" bg="bg-be-white" topRule id="innovation" ariaLabel="The Innovation: A Visible Wear Indication">
           <div className="flex flex-col lg:flex-row gap-8 lg:gap-10 items-start">
-            {/* Left — Bi-Colour dual-layer construction technical illustration */}
+            {/* Left — Bi-Colour dual-layer construction technical illustration.
+                flush + larger aspect ratio so the image fills the left column
+                without an outer frame/border/padding, and occupies more
+                vertical space for visual balance with the right-side text. */}
             <div className="lg:w-[45%]">
               <ImageFrame
                 src="/media/products/bi-color-insulating-mats/client-uploads/bi-color-construction-diagram.png"
                 alt="Bi-Color insulating mat — IEC 61111:2009 dual-layer construction with black top layer and yellow wear-indicator bottom layer"
-                aspectRatio="landscape"
+                aspectRatio="square"
                 fit="contain"
+                flush
               />
             </div>
 
