@@ -899,13 +899,16 @@ export default function GlobalHVClient() {
               />
             </div>
 
-            {/* RIGHT — Image 2 (Class 0-3 marking examples) as the primary gallery image */}
+            {/* RIGHT — Image 2 (Class 0-3 marking examples) as the primary gallery image.
+                flush removes the outer border/frame line so the image sits cleanly
+                in the section without an enclosing outline. */}
             <div className="lg:w-[55%]">
               <ImageFrame
                 src="/media/products/international-iec/client-approved/iec-marking-class-0-red.webp"
                 alt="Bharat Electrosafe IEC 61111:2009 insulating mat marking examples — Class 0, Class 1 and Class 2 markings with thickness"
                 aspectRatio="square"
                 fit="contain"
+                flush
               />
             </div>
           </div>
