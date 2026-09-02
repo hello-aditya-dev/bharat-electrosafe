@@ -16,6 +16,17 @@ import {
   Ruler,
   Award,
   Check,
+  Shield,
+  Activity,
+  GripHorizontal,
+  FlaskConical,
+  Stamp,
+  FileSearch,
+  MoveHorizontal,
+  PersonStanding,
+  Thermometer,
+  Repeat,
+  Leaf,
 } from 'lucide-react';
 import type { LucideIcon } from 'lucide-react';
 import { Header } from '@/components/layout/Header';
@@ -68,6 +79,29 @@ const QUICK_SPECS: { icon: LucideIcon; label: string; value: string }[] = [
   { icon: Layers, label: 'Thickness', value: iecBiColourProductSpec.thicknessRange },
   { icon: Palette, label: 'Colourway', value: iecBiColourProductSpec.colourway },
   { icon: Ruler, label: 'Finish', value: iecBiColourProductSpec.finish },
+];
+
+/* ── Key Features (client-approved, source-verified against the IEC 61111:2009
+   Bi-Colour catalogue page 19). The source-listed colourway is Black / Orange;
+   the client's current approved product direction is Black / Yellow, so the
+   Bi-Colour (Life Indicator) Technology feature reflects Black / Yellow. ── */
+const KEY_FEATURES: { icon: LucideIcon; label: string }[] = [
+  { icon: Shield, label: 'Fully tested to specification IEC 61111:2009' },
+  { icon: Palette, label: 'Bi-Colour (Life Indicator) Technology — Black on top and Yellow on bottom' },
+  { icon: Zap, label: 'High electrical resistance from 50 volts to 50,000 volts' },
+  { icon: Activity, label: 'Suitable for both AC and DC applications' },
+  { icon: ShieldCheck, label: 'Provides safety for operators against electrical shock' },
+  { icon: GripHorizontal, label: 'Anti-slip surface finish. Conforming to slip-resistant test' },
+  { icon: FlaskConical, label: 'Resistant to acid, oil and low temperatures' },
+  { icon: Stamp, label: 'Permanent marking — durable and un-erasable' },
+  { icon: FileSearch, label: 'Fully traceable supply' },
+  { icon: Wrench, label: 'Low maintenance' },
+  { icon: Layers, label: 'Highly durable & quality rubber compound' },
+  { icon: MoveHorizontal, label: 'Highly flexible mats with a self-gripping design' },
+  { icon: PersonStanding, label: 'Anti-fatigue type, comfortable while standing for long periods' },
+  { icon: Thermometer, label: 'Operating temperature: −40°C to +55°C' },
+  { icon: Repeat, label: 'Repetitive marking (3 markings every 1 meter)' },
+  { icon: Leaf, label: 'Halogen-free, RoHS2 and REACH compliant' },
 ];
 
 export default function DualLayerClient() {
@@ -347,7 +381,30 @@ export default function DualLayerClient() {
           </div>
         </SectionShell>
 
-        {/* ═══ 7. INNOVATION STORY ═══ */}
+        {/* ═══ 7. KEY FEATURES ═══ */}
+        <SectionShell variant="standard" bg="bg-be-cream" topRule ariaLabel="Key Features">
+          <SectionHeader
+            eyebrow="Key Features"
+            title="Key Features"
+            supportingText="Source-verified against the client-supplied IEC 61111:2009 Bi-Colour catalogue. Current product colourway: Black / Yellow."
+            align="center"
+          />
+          <ul className="mt-8 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+            {KEY_FEATURES.map(({ icon: Icon, label }) => (
+              <li
+                key={label}
+                className="flex items-start gap-3 rounded-xl border border-be-grey-250 bg-be-white p-4"
+              >
+                <span className="shrink-0 flex items-center justify-center size-9 rounded-md bg-be-yellow-50" aria-hidden="true">
+                  <Icon className="size-4 text-be-yellow-text" />
+                </span>
+                <span className="text-body font-medium text-be-charcoal-950">{label}</span>
+              </li>
+            ))}
+          </ul>
+        </SectionShell>
+
+        {/* ═══ 8. INNOVATION STORY ═══ */}
         <SectionShell variant="compact" bg="bg-be-white" topRule ariaLabel="Innovation Driven by Safety">
           <div className="flex flex-col items-center text-center gap-5 max-w-3xl mx-auto">
             <SectionHeader
