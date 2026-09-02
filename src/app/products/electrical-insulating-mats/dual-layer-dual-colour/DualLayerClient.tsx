@@ -112,13 +112,13 @@ export default function DualLayerClient() {
               </div>
             </div>
 
-            {/* Media — previously approved Bi-Color image */}
+            {/* Media — primary Global Bi-Color product image (product-demo-bi-color.webp) */}
             <div className="min-w-0 lg:col-span-6 xl:col-span-7 flex flex-col gap-3">
               <ImageFrame
-                src={biColourVisuals.hero.src}
-                alt={biColourVisuals.hero.alt}
+                src={biColourVisuals.technicalDetail?.src ?? biColourVisuals.hero.src}
+                alt={biColourVisuals.technicalDetail?.alt ?? biColourVisuals.hero.alt}
                 aspectRatio="landscape"
-                fit={biColourVisuals.hero.fit}
+                fit={biColourVisuals.technicalDetail?.fit ?? biColourVisuals.hero.fit}
                 priority
               />
             </div>
@@ -145,11 +145,11 @@ export default function DualLayerClient() {
         {/* ═══ 3. CORE INNOVATION — VISIBLE WEAR INDICATION ═══ */}
         <SectionShell variant="standard" bg="bg-be-white" topRule id="innovation" ariaLabel="The Innovation: A Visible Wear Indication">
           <div className="flex flex-col lg:flex-row gap-8 lg:gap-10 items-start">
-            {/* Left — dual-layer cross-section visual */}
+            {/* Left — genuine Black/Yellow dual-layer product photograph */}
             <div className="lg:w-[45%]">
               <ImageFrame
-                src={biColourVisuals.technicalDetail?.src ?? biColourVisuals.card.src}
-                alt={biColourVisuals.technicalDetail?.alt ?? 'Bi-Color insulating mat cross-section'}
+                src="/media/products/bi-color-insulating-mats/client-uploads/bi-color-black-yellow-roll.jpeg"
+                alt="Bi-Color insulating mat — black surface with contrasting yellow wear-indicator layer"
                 aspectRatio="landscape"
                 fit="contain"
               />
