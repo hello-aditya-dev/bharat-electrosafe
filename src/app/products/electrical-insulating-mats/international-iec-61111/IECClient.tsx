@@ -420,9 +420,9 @@ export default function IECClient() {
             7. MARKING / TRACEABILITY
             ══════════════════════════════════════ */}
         <SectionShell variant="compact" bg="bg-be-white" topRule ariaLabel="IEC Marking and Traceability">
-          <div className="flex flex-col lg:flex-row gap-8 lg:gap-10 items-start">
-            {/* Text */}
-            <div className="lg:w-[55%] flex flex-col gap-5">
+          <div className="flex flex-col lg:flex-row gap-8 lg:gap-10 items-end">
+            {/* LEFT — heading + text + Image 1 (Class 2, large) */}
+            <div className="lg:w-[45%] flex flex-col gap-5">
               <SectionHeader
                 eyebrow="Identification & Traceability"
                 title="Product Identification & Marking"
@@ -431,28 +431,25 @@ export default function IECClient() {
               <p className="text-body text-be-charcoal-800">
                 Product name marking provided on every metre.
               </p>
+              {/* Position 1 — Image 1 (Class 2) in the left large area below the text */}
+              <ImageFrame
+                src="/media/products/international-iec/client-approved/iec-marking-class-2-yellow.webp"
+                alt="Bharat Electrosafe IEC 61111/2009 Class 2 mat marking — max use voltage 17000 V, proof voltage 20000 V, withstand voltage 30000 V"
+                aspectRatio="landscape"
+                fit="cover"
+              />
             </div>
 
-            {/* Marking image gallery — small, contained */}
-            <div className="lg:w-[45%] grid grid-cols-2 gap-3">
+            {/* RIGHT — Image 2 (Class 0-3 marking examples) as the primary gallery image.
+                flush removes the outer border/frame line so the image sits cleanly
+                in the section without an enclosing outline. */}
+            <div className="lg:w-[55%]">
               <ImageFrame
-                src="/media/products/international-iec/iec-61111.webp"
-                alt="IEC 61111:2009 insulating mat marking — Class designation and voltage"
-                aspectRatio="landscape"
+                src="/media/products/international-iec/client-approved/iec-marking-class-0-red.webp"
+                alt="Bharat Electrosafe IEC 61111:2009 insulating mat marking examples — Class 0, Class 1 and Class 2 markings with thickness"
+                aspectRatio="square"
                 fit="contain"
-              />
-              <ImageFrame
-                src="/media/products/international-iec/iec-61111-class-0-2-2mm.webp"
-                alt="IEC 61111 Class 0 and Class 2 insulating mats — 2 mm with moulded marking"
-                aspectRatio="landscape"
-                fit="contain"
-              />
-              <ImageFrame
-                src="/media/products/international-iec/iec-61111-class-2.webp"
-                alt="Close-up of IEC 61111:2009 Class 2 moulded marking detail"
-                aspectRatio="landscape"
-                fit="contain"
-                className="col-span-2"
+                flush
               />
             </div>
           </div>
