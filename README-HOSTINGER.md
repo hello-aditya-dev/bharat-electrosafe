@@ -30,7 +30,7 @@ README-HOSTINGER.md
 
 1. Log in to your Hostinger hPanel
 2. Go to **Advanced → Node.js**
-3. Create a new Node.js application (Node.js version 18.x or 20.x)
+3. Create a new Node.js application (**Node.js version 20.9.0 or later** — Next.js 16 requires Node.js >=20.9.0)
 4. Upload the contents of this ZIP to the application root directory
 
 ### Step 2: Install Dependencies

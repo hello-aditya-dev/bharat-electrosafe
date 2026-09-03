@@ -42,7 +42,7 @@ The canonical origin is hardcoded as `https://bharatelectrosafe.com` in `src/lib
 | Animation | Framer Motion | 12.x |
 | Form validation | React Hook Form + Zod | 7.x / 4.x |
 | UI primitives | Radix UI | — |
-| Email delivery | Resend | 6.x |
+| Email delivery | Nodemailer (SMTP) | 9.x |
 | Image processing | Sharp | 0.34.x |
 | E2E testing | Playwright | 1.62.x |
 | Accessibility | axe-core (Playwright) | 4.12.x |
@@ -283,9 +283,14 @@ Copy `.env.example` to `.env.local` and fill in the values. Production values be
 |---|---|---|
 | `ALLOW_INDEXING` | Yes | Set `true` only in the Vercel Production environment after the domain is verified. Server-only (not exposed to browser). Falls back to `NEXT_PUBLIC_ALLOW_INDEXING` if unset (backwards compatibility). |
 | `NEXT_PUBLIC_ALLOW_INDEXING` | Deprecated | Legacy indexing flag. Prefer `ALLOW_INDEXING` (server-only). Ignored when `ALLOW_INDEXING` is set. |
-| `RESEND_API_KEY` | Yes | API key for Resend email delivery. Format: `re_xxxxxxxxxxxx`. |
-| `CONTACT_FROM_EMAIL` | Yes | Sender email address for contact-form enquiries. Must be a domain verified with Resend. |
-| `CONTACT_TO_EMAIL` | No | Recipient email address. Defaults to the company email if not set. |
+| `SMTP_HOST` | Yes | SMTP server hostname (e.g. `smtp.hostinger.com`). |
+| `SMTP_PORT` | Yes | SMTP port (`587` for STARTTLS, `465` for SSL). |
+| `SMTP_USER` | Yes | Authenticated SMTP business email account. |
+| `SMTP_PASSWORD` | Yes | SMTP account password (set in Hostinger env vars, never in code). |
+| `SMTP_SECURE` | Yes | `true` for port 465 (SSL), `false` for port 587 (STARTTLS). |
+| `MAIL_FROM` | Yes | Sender address (should match `SMTP_USER` for deliverability). |
+| `MAIL_TO` | Yes | Recipient address for enquiry emails. |
+| `MAIL_CC` | No | Optional CC recipient. |
 | `UPSTASH_REDIS_REST_URL` | No | Upstash Redis REST API URL for distributed rate limiting across serverless instances. Without this, rate limiting falls back to per-instance in-memory tracking. |
 | `UPSTASH_REDIS_REST_TOKEN` | No | Upstash Redis REST API token. Must be set if `UPSTASH_REDIS_REST_URL` is set. |
 | `TURNSTILE_SECRET_KEY` | No | Cloudflare Turnstile secret key for server-side token verification. If not set, Turnstile verification is skipped gracefully (other protections remain active). |
@@ -334,7 +339,7 @@ The contact form is a full-stack feature with strict security controls:
 7. **Timing check** — form must be open for at least 3 seconds and no more than 1 hour.
 8. **Cloudflare Turnstile verification** — server-side token validation against Cloudflare's Siteverify API. Gracefully skipped when `TURNSTILE_SECRET_KEY` is not configured.
 9. **HTML escaping** — all user content is HTML-escaped before insertion into the email body.
-10. **Resend delivery** — emails are sent server-side via the Resend API. The sender address (`CONTACT_FROM_EMAIL`) must be a Resend-verified domain.
+10. **SMTP delivery** — emails are sent server-side via Nodemailer using the client's Hostinger SMTP configuration. The sender address (`MAIL_FROM`) must match the authenticated `SMTP_USER` for deliverability.
 11. **Redacted logging** — logs contain no PII (only name length, enquiry type, and boolean flags).
 12. **Cache-Control: no-store + X-Robots-Tag: noindex** — API responses are never cached and never indexed.
 13. **Honest delivery messages** — if email delivery fails, the response includes direct-contact fallback details (phone, WhatsApp, email, address).
@@ -633,7 +638,7 @@ The origin validation requires the `Origin` or `Referer` header to match the all
 
 ### Contact form returns 503
 
-The Resend API key (`RESEND_API_KEY`) or sender email (`CONTACT_FROM_EMAIL`) is not configured. Set these in `.env.local` for development or in the Vercel dashboard for production.
+SMTP is not configured. Set `SMTP_HOST`, `SMTP_PORT`, `SMTP_USER`, `SMTP_PASSWORD`, `SMTP_SECURE`, `MAIL_FROM`, and `MAIL_TO` in `.env.local` for development or in the Hostinger environment variables panel for production.
 
 ### Preview deployments are not indexed
 
@@ -655,7 +660,7 @@ The site uses Manrope (variable weight) loaded via `next/font/google`. Ensure th
 
 - **Vercel dashboard** — the client should be invited as a team member with access to the Bharat Electrosafe project.
 - **GitHub repository** — the client should be added as a collaborator on the `witejackel-eng/bharat-electrosafe` repository.
-- **Resend dashboard** — the client should have access to the Resend account for email delivery monitoring.
+- **Hostinger email panel** — the client should have access to the Hostinger hPanel for email account management and SMTP configuration.
 - **Domain registrar** — the client controls the `bharatelectrosafe.com` domain DNS settings.
 
 ### Ongoing Responsibilities
@@ -666,7 +671,7 @@ The site uses Manrope (variable weight) loaded via `next/font/google`. Ensure th
 | Environment variable changes (Vercel dashboard) | Client or developer |
 | Dependency updates and security patches | Developer |
 | Domain DNS management | Client |
-| Resend email delivery monitoring | Client |
+| SMTP email delivery monitoring | Client |
 | Google Search Console verification | Client or developer |
 
 ### Content Verification Checklist
