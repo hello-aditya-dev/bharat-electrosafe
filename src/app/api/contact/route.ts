@@ -1,5 +1,5 @@
 import { NextResponse } from 'next/server';
-import { Resend } from 'resend';
+import { sendMail } from '@/lib/smtp';
 import { company } from '@/data/company';
 import { isAllowedOrigin, parseOrigin } from '@/lib/origin';
 import { checkRateLimit } from '@/lib/rate-limit';
@@ -18,8 +18,9 @@ import {
  * size limits, honeypot + timing anti-spam, distributed rate limiting
  * (Upstash Redis with in-memory fallback), Cloudflare Turnstile bot
  * protection (graceful degradation when unconfigured), server-side
- * Resend delivery, redacted logging, honest delivery messages with
- * direct-contact fallback, Cache-Control: no-store, X-Robots-Tag: noindex.
+ * SMTP delivery via the client's Hostinger email configuration,
+ * redacted logging, honest delivery messages with direct-contact
+ * fallback, Cache-Control: no-store, X-Robots-Tag: noindex.
  */
 
 export const runtime = 'nodejs';
@@ -306,9 +307,13 @@ export async function POST(req: Request) {
     );
   }
 
-  // --- Resend configuration ---
-  const apiKey = process.env.RESEND_API_KEY;
-  if (!apiKey) {
+  // --- SMTP configuration check ---
+  const mailFrom = process.env.MAIL_FROM;
+  const mailTo = process.env.MAIL_TO || company.email;
+  const mailCc = process.env.MAIL_CC || undefined;
+
+  if (!mailFrom) {
+    console.error('[contact] MAIL_FROM is not configured');
     return NextResponse.json(
       {
         ok: false,
@@ -327,8 +332,6 @@ export async function POST(req: Request) {
     );
   }
 
-  const resend = new Resend(apiKey);
-
   // Extract only the pathname from the referer for privacy
   const referer = req.headers.get('referer') || '';
   let sourcePage = '(unknown)';
@@ -344,38 +347,24 @@ export async function POST(req: Request) {
   const plainText = buildPlainTextEmail(input, meta);
   const html = buildHtmlEmail(input, meta);
 
-  const fromEmail = process.env.CONTACT_FROM_EMAIL;
-  const toEmail = process.env.CONTACT_TO_EMAIL || company.email;
-
-  if (!fromEmail) {
-    console.error('[contact] CONTACT_FROM_EMAIL is not configured');
-    return NextResponse.json(
-      {
-        ok: false,
-        message:
-          'We could not deliver your message right now. Please reach us directly using the contact details below.',
-      },
-      { status: 500, headers: apiHeaders() },
-    );
-  }
-
   // Prevent subject-header injection — strip CR/LF
   const safeEnquiryType = input.enquiryType.replace(/[\r\n]/g, '');
 
   try {
-    const { error } = await resend.emails.send({
-      from: fromEmail,
-      to: [toEmail],
+    const result = await sendMail({
+      from: mailFrom,
+      to: mailTo,
+      cc: mailCc,
       replyTo: input.email,
       subject: `New enquiry — ${safeEnquiryType} — ${company.name}`,
       text: plainText,
       html,
     });
 
-    if (error) {
-      // Redacted logging — no PII
-      console.error('[contact] Resend delivery error', {
-        message: error.message,
+    if (!result.ok) {
+      // Redacted logging — no PII, no credentials
+      console.error('[contact] SMTP delivery error', {
+        error: result.error,
         nameLength: input.name.length,
         enquiryType: input.enquiryType,
       });
