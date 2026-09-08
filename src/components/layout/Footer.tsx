@@ -362,16 +362,6 @@ export function Footer() {
             IS 15652:2006 · BIS Licence CM/L:8800129617 · India
           </p>
         </div>
-        <div className="container-site page-horizontal-padding pb-2.5 pt-0.5 text-center">
-          <a
-            href="https://dev-aditya.com"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="text-[0.75rem] text-be-grey-400 hover:text-be-grey-600 transition-colors leading-relaxed"
-          >
-            Website by Aditya ↗
-          </a>
-        </div>
       </div>
     </footer>
   );
