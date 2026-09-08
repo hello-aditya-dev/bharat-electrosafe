@@ -2,10 +2,12 @@
   "name": "bharat-electrosafe",
   "version": "1.0.0",
   "private": true,
-  "packageManager": "bun@1.3.14",
+  "engines": {
+    "node": ">=20.9.0"
+  },
   "scripts": {
     "dev": "next dev -p 3000 --webpack",
-    "build": "next build",
+    "build": "next build --webpack",
     "start": "next start",
     "lint": "eslint .",
     "typecheck": "tsc --noEmit",

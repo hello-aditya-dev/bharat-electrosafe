@@ -1,5 +1,8 @@
 // Redeploy: 2026-08-16-restructure
-import type { NextConfig } from 'next';
+// Converted from next.config.ts to next.config.mjs for Hostinger deployment
+// compatibility (avoids the GLIBC_2.29 / SWC transpilation issue that
+// occurs when Hostinger's Node.js tries to JIT-compile the TypeScript
+// config file).
 
 const isProduction = process.env.NODE_ENV === 'production';
 const siteUrl =
@@ -10,8 +13,7 @@ const siteUrl =
  * Content-Security-Policy.
  *
  * Uses `script-src 'self' 'unsafe-inline'` so Next.js inline bootstrap
- * scripts are not blocked. `unsafe-eval` is never added. Resend is
- * server-side only and is not listed in browser connect-src.
+ * scripts are not blocked. `unsafe-eval` is never added.
  *
  * The `unsafe-inline` limitation is a known moderate residual risk for
  * this static marketing site. A nonce-based CSP would require dynamic
@@ -22,9 +24,6 @@ const siteUrl =
  *   - JSON-LD uses safe serialisation (< → \u003c)
  *   - SRI is not practical for Next.js inline chunks
  *   - The site has no authentication / sensitive client-side state
- *
- * If a nonce-based approach becomes practical in a future Next.js
- * version, upgrade to nonce-based script-src.
  */
 const cspHeader = [
   "default-src 'self'",
@@ -91,15 +90,14 @@ const securityHeaders = [
   },
 ];
 
-const nextConfig: NextConfig = {
+/** @type {import('next').NextConfig} */
+const nextConfig = {
   reactStrictMode: true,
   poweredByHeader: false,
   allowedDevOrigins: ['http://127.0.0.1', 'http://localhost'],
   /* Separate build output for dev vs production so `next dev` and
      `next build`/`next start` can run side by side without corrupting
-     each other's chunk manifests (root cause of the intermittent
-     ChunkLoadError / failed-hydration symptoms seen in local QA).
-     On Vercel, builds run with NODE_ENV=production → '.next' (standard). */
+     each other's chunk manifests. */
   distDir: isProduction ? '.next' : '.next-dev',
   images: {
     remotePatterns: [
@@ -134,7 +132,7 @@ const nextConfig: NextConfig = {
   },
   async redirects() {
     // Permanent PHP → new-route redirects
-    const phpRedirects: Array<{ source: string; destination: string }> = [
+    const phpRedirects = [
       { source: '/index.php', destination: '/' },
       { source: '/about-us.php', destination: '/about-us' },
       { source: '/contact-us.php', destination: '/contact-us' },
@@ -167,12 +165,12 @@ const nextConfig: NextConfig = {
       { source: '/products/bharat-hydro-seal', destination: '/products/water-stop-seal' },
     ];
 
-    // www → non-www redirect (supplements middleware, works at Vercel edge)
+    // www → non-www redirect
     const wwwRedirect = {
       source: '/:path*',
       has: [
         {
-          type: 'host' as const,
+          type: 'host',
           value: 'www.bharatelectrosafe.com',
         },
       ],
@@ -181,14 +179,6 @@ const nextConfig: NextConfig = {
     };
 
     // International Auto Glow was retired from the Global/IEC offering.
-    // The obsolete international URL is 301-redirected to the canonical
-    // Global IEC page so no indexed public URL becomes dead.
-    //
-    // IMPORTANT: the DOMESTIC Auto Glow product
-    // (/products/electrical-insulating-mats/auto-glow-reflective-band-insulating-mats)
-    // is an active domestic product and must NOT be redirected — it is
-    // served by its own page. Its legacy top-level path is handled by
-    // legacyProductRedirects below.
     const internationalAutoGlowRedirects = [
       { source: '/products/electrical-insulating-mats/auto-glow-hv', destination: '/products/electrical-insulating-mats/international-iec-61111', permanent: true },
     ];
@@ -200,7 +190,6 @@ const nextConfig: NextConfig = {
         permanent: true,
       })),
       ...internationalAutoGlowRedirects,
-
       domesticRedirect,
       ...legacyProductRedirects.map((r) => ({
         source: r.source,

@@ -45,6 +45,8 @@ npm ci
 npm run build
 ```
 
+This runs `next build --webpack` (uses Webpack, not Turbopack, for Hostinger compatibility).
+
 ### Step 4: Start
 
 Set the start command to:
