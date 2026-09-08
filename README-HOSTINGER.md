@@ -75,6 +75,7 @@ Set these in **Hostinger → Node.js → Environment Variables**:
 | `MAIL_FROM` | Sender address (should match SMTP_USER, e.g. `swf@bharatelectrosafe.com`) |
 | `MAIL_TO` | Recipient inbox for enquiries (e.g. `rakesh@bharatelectrosafe.com`) |
 | `MAIL_CC` | Optional CC recipient (e.g. `vishnu@bharatelectrosafe.com`) — leave empty if not needed |
+| `MAIL_BCC` | Optional BCC recipient — sends a hidden copy of every enquiry. Leave empty if not needed |
 
 ### Example (placeholder values only):
 
@@ -87,7 +88,7 @@ SMTP_SECURE=false
 MAIL_FROM=swf@bharatelectrosafe.com
 MAIL_TO=rakesh@bharatelectrosafe.com
 MAIL_CC=vishnu@bharatelectrosafe.com
-```
+MAIL_BCC=
 
 ### How It Works
 

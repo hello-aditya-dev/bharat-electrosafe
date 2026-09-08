@@ -59,6 +59,12 @@ export default function EnquiryQuoteLayout() {
     phoneTel: string;
     email: string;
   } | null>(null);
+  const [acknowledgement, setAcknowledgement] = useState<{
+    name: string;
+    submittedAt: string;
+    enquiryType: string;
+    product: string | null;
+  } | null>(null);
   const formOpenAtRef = useRef<string>(String(Date.now()));
   /* True briefly after the Operating Voltage field is auto-prefilled from a
      ?class= link (IEC class selector / domestic class selector), giving the
@@ -191,6 +197,9 @@ export default function EnquiryQuoteLayout() {
 
       if (res.ok) {
         setSubmitted(true);
+        if (json.acknowledgement) {
+          setAcknowledgement(json.acknowledgement);
+        }
       } else if (res.status === 503 && json.fallback) {
         // Honest fallback — email delivery not configured or failed
         setSubmitError(true);
@@ -234,17 +243,35 @@ export default function EnquiryQuoteLayout() {
             <CheckCircle2 className="size-7 text-green-600" />
           </div>
           <h3 className="text-card-title text-be-charcoal-950">
-            Thank you!
+            Thank you{acknowledgement?.name ? `, ${acknowledgement.name}` : ''}!
           </h3>
+          {acknowledgement?.submittedAt && (
+            <p className="text-body text-be-grey-650">
+              Your enquiry was successfully submitted on{' '}
+              <span className="font-medium text-be-charcoal-800">{acknowledgement.submittedAt}</span> IST.
+            </p>
+          )}
           <p className="text-body-large text-be-grey-650">
-            Your enquiry has been submitted successfully.
+            We appreciate your interest in {company.name}.
           </p>
+          {acknowledgement?.product ? (
+            <p className="text-body text-be-grey-650">
+              Our team has received your enquiry regarding{' '}
+              <span className="font-medium text-be-charcoal-800">{acknowledgement.product}</span>{' '}
+              and will review it shortly.
+            </p>
+          ) : (
+            <p className="text-body text-be-grey-650">
+              Our team has received your enquiry and will review it shortly.
+            </p>
+          )}
           <p className="text-body text-be-grey-650">
-            Our team will review your enquiry and respond with the next steps. If urgent, feel free to call us directly.
+            We&rsquo;ll get back to you soon. If urgent, feel free to call us directly.
           </p>
           <div className="flex flex-wrap gap-3 justify-center pt-2">
             <PrimaryButton onClick={() => {
               setSubmitted(false);
+              setAcknowledgement(null);
               setEnquiryTypeState(undefined);
               setProductState('');
               reset();

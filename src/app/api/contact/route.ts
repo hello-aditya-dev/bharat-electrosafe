@@ -311,6 +311,7 @@ export async function POST(req: Request) {
   const mailFrom = process.env.MAIL_FROM;
   const mailTo = process.env.MAIL_TO || company.email;
   const mailCc = process.env.MAIL_CC || undefined;
+  const mailBcc = process.env.MAIL_BCC || undefined;
 
   if (!mailFrom) {
     console.error('[contact] MAIL_FROM is not configured');
@@ -355,6 +356,7 @@ export async function POST(req: Request) {
       from: mailFrom,
       to: mailTo,
       cc: mailCc,
+      bcc: mailBcc,
       replyTo: input.email,
       subject: `New enquiry — ${safeEnquiryType} — ${company.name}`,
       text: plainText,
@@ -394,11 +396,28 @@ export async function POST(req: Request) {
       hasCompany: Boolean(input.companyName),
     });
 
+    // Authoritative server-side submission timestamp in IST (Asia/Kolkata)
+    const submittedAt = new Date().toLocaleString('en-GB', {
+      timeZone: 'Asia/Kolkata',
+      day: '2-digit',
+      month: 'short',
+      year: 'numeric',
+      hour: '2-digit',
+      minute: '2-digit',
+      hour12: true,
+    });
+
     return NextResponse.json(
       {
         ok: true,
         message:
           'Thank you for your enquiry. Your message has been delivered to Bharat Electrosafe.',
+        acknowledgement: {
+          name: input.name,
+          submittedAt,
+          enquiryType: input.enquiryType,
+          product: input.product ? productLabelFromValue(input.product) : null,
+        },
       },
       { status: 200, headers: apiHeaders() },
     );

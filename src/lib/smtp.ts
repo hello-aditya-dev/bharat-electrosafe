@@ -29,6 +29,7 @@ export interface SmtpConfig {
 export interface MailOptions {
   to: string;
   cc?: string;
+  bcc?: string;
   from: string;
   replyTo: string;
   subject: string;
@@ -105,6 +106,7 @@ export async function sendMail(options: MailOptions): Promise<{ ok: true } | { o
       from: options.from,
       to: options.to,
       cc: options.cc || undefined,
+      bcc: options.bcc || undefined,
       replyTo: options.replyTo,
       subject: options.subject,
       text: options.text,
