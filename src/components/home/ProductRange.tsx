@@ -114,7 +114,7 @@ function ProductGroupCard({ group, index }: { group: ProductGroupCardData; index
         {/* Label row */}
         <div className="flex items-center gap-2">
           <span className="text-metadata text-be-grey-650 font-medium">Product Group</span>
-          <span className="text-[0.55rem] text-be-grey-400 font-mono" aria-hidden="true">
+          <span className="text-[0.55rem] text-be-grey-500 font-mono" aria-hidden="true">
             {String(index + 1).padStart(2, '0')}
           </span>
         </div>

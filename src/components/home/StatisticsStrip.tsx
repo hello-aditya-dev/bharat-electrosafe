@@ -82,7 +82,7 @@ export default function StatisticsStrip() {
           })}
         </div>
         {/* Subtle footnote for company-stated figures */}
-        <p className="mt-2 text-center text-[0.625rem] sm:text-[0.6875rem] text-be-grey-400 leading-none">
+        <p className="mt-2 text-center text-[0.625rem] sm:text-[0.6875rem] text-be-grey-500 leading-none">
           Figures are company-stated.
         </p>
       </div>

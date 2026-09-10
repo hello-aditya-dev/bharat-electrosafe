@@ -292,10 +292,11 @@ function deepDisableInteractive(node: React.ReactElement): React.ReactElement {
     tabIndex: -1,
     'aria-hidden': true,
   };
-  // Defensively strip href from cloned anchors so they cannot be
-  // activated even by stray pointer events on the duplicated group.
+  // Defensively strip href from cloned anchors and replace with span
+  // so they cannot be activated and do not appear as links to crawlers.
   if (type === 'a') {
     newProps.href = undefined;
+    newProps.role = 'presentation';
   }
   // Recurse into children.
   if (props.children !== undefined && props.children !== null) {

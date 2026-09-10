@@ -264,6 +264,7 @@ export default function BrandShowcase() {
                   key={slide.id}
                   className="relative w-full shrink-0 h-full"
                   aria-hidden={activeSlide.id !== slide.id}
+                  data-inert={activeSlide.id !== slide.id ? '' : undefined}
                 >
                   <SlideContent slide={slide} onOpenPreview={openPreview} />
                 </div>
@@ -282,7 +283,7 @@ export default function BrandShowcase() {
                 onClick={() => goTo(i)}
                 aria-label={`Go to brand slide ${i + 1}: ${s.title}`}
                 aria-current={active === i}
-                className="focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-be-yellow-400 focus-visible:ring-offset-2 rounded-full p-1"
+                className="focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-be-yellow-400 focus-visible:ring-offset-2 rounded-full p-2"
               >
                 <span
                   className={`block h-2 w-2 rounded-full transition-all duration-300 ${

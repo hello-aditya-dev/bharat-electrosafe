@@ -443,8 +443,10 @@ export default function HomeHero() {
               <ArrowLeft className="size-4" aria-hidden="true" />
             </button>
 
-            {/* Dot indicators — between the arrows */}
-            <div className="flex items-center gap-2" role="tablist">
+            {/* Dot indicators — between the arrows.
+                Each dot has a larger invisible touch target (p-2 = 16px
+                padding) while the visible dot remains small (8px). */}
+            <div className="flex items-center gap-1" role="tablist">
               {scrollSnaps.map((_, idx) => (
                 <button
                   key={idx}
@@ -452,18 +454,22 @@ export default function HomeHero() {
                   role="tab"
                   aria-selected={idx === selectedIndex}
                   aria-label={`Go to slide ${idx + 1}`}
-                  className={`size-2 rounded-full transition-all duration-300 ${
-                    idx === selectedIndex
-                      ? 'bg-be-charcoal-800 scale-125'
-                      : 'bg-be-charcoal-800/20 hover:bg-be-charcoal-800/40'
-                  }`}
+                  className="p-2 rounded-full focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-be-charcoal-800/30 focus-visible:ring-offset-2"
                   onClick={() => {
                     if (emblaApi) {
                       emblaApi.scrollTo(idx);
                       scheduleAutoplayResume(1500);
                     }
                   }}
-                />
+                >
+                  <span
+                    className={`block size-2 rounded-full transition-all duration-300 ${
+                      idx === selectedIndex
+                        ? 'bg-be-charcoal-800 scale-125'
+                        : 'bg-be-charcoal-800/20 hover:bg-be-charcoal-800/40'
+                    }`}
+                  />
+                </button>
               ))}
             </div>
 
