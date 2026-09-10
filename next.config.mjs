@@ -95,10 +95,12 @@ const nextConfig = {
   reactStrictMode: true,
   poweredByHeader: false,
   allowedDevOrigins: ['http://127.0.0.1', 'http://localhost'],
-  /* Separate build output for dev vs production so `next dev` and
-     `next build`/`next start` can run side by side without corrupting
-     each other's chunk manifests. */
-  distDir: isProduction ? '.next' : '.next-dev',
+  /* Always use '.next' as the build output directory. The previous
+     conditional (isProduction ? '.next' : '.next-dev') was removed to
+     eliminate any ambiguity on hosting platforms where NODE_ENV might
+     not be set as expected during the build/start cycle. Dev and prod
+     can still run side by side by using a different port or terminal. */
+  distDir: '.next',
   images: {
     remotePatterns: [
       {
@@ -113,6 +115,74 @@ const nextConfig = {
       {
         source: '/:path*',
         headers: securityHeaders,
+      },
+      // Next.js static chunks and CSS — ensure correct MIME type handling
+      // and immutable caching. Chrome strictly refuses to apply stylesheets
+      // or execute scripts served with an incorrect MIME type (e.g.
+      // text/html from a 404 fallback page). Brave may be more lenient,
+      // which is why Chrome can appear broken on hosting platforms that
+      // don't proxy /_next/static/* correctly. These headers ensure the
+      // Node.js server always serves them with the right Content-Type.
+      {
+        source: '/_next/static/:path*',
+        headers: [
+          {
+            key: 'Cache-Control',
+            value: 'public, max-age=31536000, immutable',
+          },
+          {
+            key: 'X-Content-Type-Options',
+            value: 'nosniff',
+          },
+        ],
+      },
+      // Static public assets — previously configured only in vercel.json
+      // (Vercel-only). Moved here so Hostinger and other non-Vercel hosts
+      // also apply correct cache headers.
+      {
+        source: '/media/:path*',
+        headers: [
+          {
+            key: 'Cache-Control',
+            value: 'public, max-age=31536000, immutable',
+          },
+        ],
+      },
+      {
+        source: '/brand/:path*',
+        headers: [
+          {
+            key: 'Cache-Control',
+            value: 'public, max-age=0, must-revalidate',
+          },
+        ],
+      },
+      {
+        source: '/icons/:path*',
+        headers: [
+          {
+            key: 'Cache-Control',
+            value: 'public, max-age=31536000, immutable',
+          },
+        ],
+      },
+      {
+        source: '/images/:path*',
+        headers: [
+          {
+            key: 'Cache-Control',
+            value: 'public, max-age=31536000, immutable',
+          },
+        ],
+      },
+      {
+        source: '/og/:path*',
+        headers: [
+          {
+            key: 'Cache-Control',
+            value: 'public, max-age=86400, stale-while-revalidate=604800',
+          },
+        ],
       },
       // API routes: no-store, noindex
       {
