@@ -140,7 +140,11 @@ function resolveIndexingFlag(): boolean {
     return process.env.ALLOW_INDEXING === 'true';
   }
   // Backwards compatibility: fall back to public variable
-  return process.env.NEXT_PUBLIC_ALLOW_INDEXING === 'true';
+  if (process.env.NEXT_PUBLIC_ALLOW_INDEXING !== undefined) {
+    return process.env.NEXT_PUBLIC_ALLOW_INDEXING === 'true';
+  }
+  // Default: allow indexing in production (Hostinger/Node.js where VERCEL_ENV is unset)
+  return true;
 }
 
 /**
