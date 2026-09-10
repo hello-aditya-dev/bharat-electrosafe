@@ -148,6 +148,64 @@ function SlideContent({
   );
 }
 
+/**
+ * Static version of SlideContent for non-active carousel slides.
+ * Renders the same visual layout but replaces interactive <button>
+ * elements with non-interactive <div> elements so there are NO
+ * focusable descendants inside the aria-hidden container.
+ * This fixes the Lighthouse audit:
+ * "ARIA hidden element must not contain focusable elements."
+ */
+function SlideContentStatic({
+  slide,
+}: {
+  slide: typeof brandShowcaseSlides[number];
+}) {
+  const count = slide.brands.length;
+  const gridCols =
+    count === 4
+      ? 'grid-cols-2 lg:grid-cols-4'
+      : 'grid-cols-2';
+
+  return (
+    <div className="flex items-center justify-center h-full w-full">
+      <div
+        className={`grid ${gridCols} gap-x-6 gap-y-3 sm:gap-x-8 lg:gap-x-10 items-center justify-items-center`}
+      >
+        {slide.brands.map((brand) => {
+          const scale = brand.scale ?? 1;
+          const tileBg = brand.tileBackground ?? '#ffffff';
+          const isLight = !brand.tileBackground;
+          return (
+            <div
+              key={brand.name}
+              className="group relative transition-transform hover:-translate-y-0.5"
+            >
+              <div
+                className={`relative w-[150px] h-[92px] sm:w-[175px] sm:h-[105px] lg:w-[195px] lg:h-[115px] rounded-2xl overflow-hidden ${isLight ? 'bg-be-white border border-be-grey-200 shadow-sm' : ''}`}
+                style={isLight ? undefined : { backgroundColor: tileBg }}
+              >
+                <div
+                  className="relative w-full h-full flex items-center justify-center"
+                  style={{ transform: `scale(${scale})` }}
+                >
+                  <Image
+                    src={brand.logo}
+                    alt=""
+                    fill
+                    className="object-contain p-2"
+                    sizes="(max-width: 768px) 150px, (max-width: 1280px) 175px, 195px"
+                  />
+                </div>
+              </div>
+            </div>
+          );
+        })}
+      </div>
+    </div>
+  );
+}
+
 export default function BrandShowcase() {
   const total = brandShowcaseSlides.length;
   const [active, setActive] = useState(0);
@@ -259,16 +317,22 @@ export default function BrandShowcase() {
                 transitionDuration: reducedMotion ? '0ms' : `${TRANSITION_MS}ms`,
               }}
             >
-              {brandShowcaseSlides.map((slide) => (
-                <div
-                  key={slide.id}
-                  className="relative w-full shrink-0 h-full"
-                  aria-hidden={activeSlide.id !== slide.id}
-                  data-inert={activeSlide.id !== slide.id ? '' : undefined}
-                >
-                  <SlideContent slide={slide} onOpenPreview={openPreview} />
-                </div>
-              ))}
+              {brandShowcaseSlides.map((slide) => {
+                const isHidden = activeSlide.id !== slide.id;
+                return (
+                  <div
+                    key={slide.id}
+                    className="relative w-full shrink-0 h-full"
+                    aria-hidden={isHidden}
+                  >
+                    {isHidden ? (
+                      <SlideContentStatic slide={slide} />
+                    ) : (
+                      <SlideContent slide={slide} onOpenPreview={openPreview} />
+                    )}
+                  </div>
+                );
+              })}
             </div>
           </div>
 

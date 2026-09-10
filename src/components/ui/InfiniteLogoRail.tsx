@@ -287,18 +287,48 @@ function deepDisableInteractive(node: React.ReactElement): React.ReactElement {
     props.role === 'link' ||
     props.role === 'button';
 
+  // For cloned interactive elements, replace with a non-interactive
+  // <span> so there are NO focusable descendants inside the
+  // aria-hidden container. This is the correct fix for the Lighthouse
+  // audit: "ARIA hidden element must not contain focusable elements."
+  // Using tabIndex=-1 is insufficient because the element is still
+  // technically focusable. Converting to <span> removes it from the
+  // tab order entirely and eliminates the audit violation.
+  if (isInteractive) {
+    const spanProps: Record<string, unknown> = {
+      ...props,
+      role: undefined,
+      tabIndex: undefined,
+      href: undefined,
+      onClick: undefined,
+      onFocus: undefined,
+      onBlur: undefined,
+      onKeyDown: undefined,
+      onPointerDown: undefined,
+      'aria-hidden': true,
+      'aria-label': undefined,
+      'aria-labelledby': undefined,
+      className: cn(
+        typeof props.className === 'string' ? props.className : undefined,
+        'focus-visible:outline-none focus-visible:ring-0',
+      ),
+    };
+    if (props.children !== undefined && props.children !== null) {
+      spanProps.children = React.Children.map(props.children, (c) => {
+        if (React.isValidElement(c)) {
+          return deepDisableInteractive(c);
+        }
+        return c;
+      });
+    }
+    return React.createElement('span', spanProps);
+  }
+
+  // Non-interactive elements: just add aria-hidden and recurse.
   const newProps: Record<string, unknown> = {
     ...props,
-    tabIndex: -1,
     'aria-hidden': true,
   };
-  // Defensively strip href from cloned anchors and replace with span
-  // so they cannot be activated and do not appear as links to crawlers.
-  if (type === 'a') {
-    newProps.href = undefined;
-    newProps.role = 'presentation';
-  }
-  // Recurse into children.
   if (props.children !== undefined && props.children !== null) {
     newProps.children = React.Children.map(props.children, (c) => {
       if (React.isValidElement(c)) {
@@ -306,13 +336,6 @@ function deepDisableInteractive(node: React.ReactElement): React.ReactElement {
       }
       return c;
     });
-  }
-  // Keep the focus-visible ring off the clones too.
-  if (isInteractive) {
-    newProps.className = cn(
-      typeof props.className === 'string' ? props.className : undefined,
-      'focus-visible:outline-none focus-visible:ring-0',
-    );
   }
   return React.cloneElement(node, newProps);
 }
