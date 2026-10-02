@@ -10,6 +10,32 @@ const siteUrl =
   'https://bharatelectrosafe.com';
 
 /**
+ * GitHub Pages static-export mode.
+ *
+ * Enabled ONLY when DEPLOY_TARGET=pages is set at build time (used by the
+ * GitHub Actions workflow that deploys to GitHub Pages). When this flag is
+ * absent (the Hostinger production build, local dev, the existing CI),
+ * every option below resolves to its current value and the config is
+ * byte-for-byte identical to the pre-Pages configuration — so the
+ * existing Hostinger Node.js deployment is completely unaffected.
+ *
+ * What static export changes vs. the server build:
+ *   - output: 'export'        → emits static HTML/CSS/JS to ./out
+ *   - basePath: '/bharat-electrosafe' → GitHub project Pages serve path
+ *   - trailingSlash: true     → folder-style URLs for static hosting
+ *   - images.unoptimized      → Pages cannot run the Next.js image optimizer
+ *   - headers() / redirects() → return [] (not supported by static export)
+ *
+ * Known limitations of the Pages preview:
+ *   - The /api/contact route is a server API (SMTP) and is excluded from
+ *     static export, so the contact form cannot submit on Pages.
+ *   - Security headers and PHP→new-route redirects do not run on Pages.
+ *   These limitations only affect the Pages preview; production on Hostinger
+ *   remains fully functional.
+ */
+const isPagesExport = process.env.DEPLOY_TARGET === 'pages';
+
+/**
  * Content-Security-Policy.
  *
  * Uses `script-src 'self' 'unsafe-inline'` so Next.js inline bootstrap
@@ -101,7 +127,17 @@ const nextConfig = {
      not be set as expected during the build/start cycle. Dev and prod
      can still run side by side by using a different port or terminal. */
   distDir: '.next',
+  /* GitHub Pages static-export overrides (no-op when DEPLOY_TARGET != 'pages'). */
+  ...(isPagesExport
+    ? {
+        output: 'export',
+        basePath: '/bharat-electrosafe',
+        trailingSlash: true,
+      }
+    : {}),
   images: {
+    /* Pages cannot run the Next.js image optimizer — serve images as-is. */
+    unoptimized: isPagesExport,
     remotePatterns: [
       {
         protocol: 'https',
@@ -110,6 +146,8 @@ const nextConfig = {
     ],
   },
   async headers() {
+    /* headers() is not supported by `output: 'export'`. */
+    if (isPagesExport) return [];
     return [
       // Security headers for all page routes
       {
@@ -201,6 +239,8 @@ const nextConfig = {
     ];
   },
   async redirects() {
+    /* redirects() is not supported by `output: 'export'`. */
+    if (isPagesExport) return [];
     // Permanent PHP → new-route redirects
     const phpRedirects = [
       { source: '/index.php', destination: '/' },
