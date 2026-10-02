@@ -1,6 +1,6 @@
 import Link from 'next/link';
 import Image from 'next/image';
-import { Mail, Phone, MessageCircle, MapPin, ArrowRight } from 'lucide-react';
+import { Mail, Phone, MessageCircle, MapPin, ArrowRight, Facebook, Instagram } from 'lucide-react';
 import {
   Accordion,
   AccordionItem,
@@ -42,6 +42,26 @@ const footerProductFamilies = [
 const shortAddressLines = [
   company.address.line1,
   `Sector 62, ${company.address.city} — ${company.address.pincode}`,
+];
+
+/**
+ * Official social media profiles — Facebook and Instagram.
+ * Rendered near the contact information in the footer. Links open in a
+ * new tab with `rel="noopener noreferrer"` and accessible aria-labels.
+ */
+const socialLinks = [
+  {
+    name: 'Facebook',
+    href: 'https://www.facebook.com/BharatElectrosafe',
+    ariaLabel: 'Bharat Electrosafe on Facebook',
+    Icon: Facebook,
+  },
+  {
+    name: 'Instagram',
+    href: 'https://www.instagram.com/bharatelectrosafe',
+    ariaLabel: 'Bharat Electrosafe on Instagram',
+    Icon: Instagram,
+  },
 ];
 
 /* ────────────────────────────────────────────
@@ -140,6 +160,23 @@ export function Footer() {
                   </span>
                 </a>
               </li>
+            </ul>
+            {/* Social media */}
+            <ul className="flex items-center gap-4 mt-2" aria-label="Social media">
+              {socialLinks.map(({ name, href, ariaLabel, Icon }) => (
+                <li key={name}>
+                  <a
+                    href={href}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    aria-label={ariaLabel}
+                    className={cn('inline-flex items-center gap-1.5 text-sm text-be-charcoal-800', footerLinkBase)}
+                  >
+                    <Icon className="size-3.5 shrink-0 text-be-yellow-text" aria-hidden="true" focusable="false" />
+                    <span>{name}</span>
+                  </a>
+                </li>
+              ))}
             </ul>
             {/* CTA */}
             <Link
@@ -329,6 +366,23 @@ export function Footer() {
                       </span>
                     </a>
                   </li>
+                </ul>
+                {/* Social media */}
+                <ul className="flex items-center gap-6 pb-1" aria-label="Social media">
+                  {socialLinks.map(({ name, href, ariaLabel, Icon }) => (
+                    <li key={name}>
+                      <a
+                        href={href}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        aria-label={ariaLabel}
+                        className={cn('inline-flex items-center gap-2 text-sm text-be-charcoal-800 min-h-[44px] py-2', footerLinkBase)}
+                      >
+                        <Icon className="size-4 shrink-0 text-be-yellow-text" aria-hidden="true" focusable="false" />
+                        <span>{name}</span>
+                      </a>
+                    </li>
+                  ))}
                 </ul>
               </AccordionContent>
             </AccordionItem>
