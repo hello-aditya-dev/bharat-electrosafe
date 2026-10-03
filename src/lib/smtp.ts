@@ -1,4 +1,5 @@
 import nodemailer from 'nodemailer';
+import type { Transporter, SendMailOptions } from 'nodemailer';
 
 /**
  * SMTP mailer — production server-side email delivery via the client's
@@ -37,7 +38,7 @@ export interface MailOptions {
   html: string;
 }
 
-let cachedTransporter: nodemailer.Transporter | null = null;
+let cachedTransporter: Transporter | null = null;
 
 /**
  * Read SMTP configuration from environment variables.
@@ -69,7 +70,7 @@ export function getSmtpConfig(): SmtpConfig | null {
  * Get a cached nodemailer transporter. Creates one on first use.
  * Returns null if SMTP configuration is missing.
  */
-function getTransporter(): nodemailer.Transporter | null {
+function getTransporter(): Transporter | null {
   if (cachedTransporter) return cachedTransporter;
 
   const config = getSmtpConfig();
@@ -102,7 +103,7 @@ export async function sendMail(options: MailOptions): Promise<{ ok: true } | { o
   }
 
   try {
-    const mailData: nodemailer.SendMailOptions = {
+    const mailData: SendMailOptions = {
       from: options.from,
       to: options.to,
       cc: options.cc || undefined,
